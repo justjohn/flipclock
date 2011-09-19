@@ -1,9 +1,7 @@
 CACHE MANIFEST
-/vendor/dxjs/dx.js
+# v3
+CACHE:
 /vendor/jquery/jquery.1.6.4.min.js
-/css/style.css
-/js/flipclock.js
-/index.html
 /images/0_top.png
 /images/1_top.png
 /images/2_top.png
@@ -28,3 +26,6 @@ CACHE MANIFEST
 /images/9_bottom.png
 /images/am_bottom.png
 /images/pm_bottom.png
+/css/style.css
+/js/flipclock.js
+/index.html

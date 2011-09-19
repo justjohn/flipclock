@@ -13,15 +13,9 @@ body {
     position:absolute;
     width:94%;
     height:100%;
-    max-height:300px;
-    max-width:950px;
-    margin:auto;
-}
-
-/** Mobile Sizes */
-.dx-mobile .time_box {
     max-height:150px;
     max-width:480px;
+    margin:auto;
 }
 
 .hour_1 {
@@ -43,23 +37,32 @@ body {
     height:100%;
     top:0;
     width:18%;
-    max-width:210px;
-    bottom:0;
-}
-.dx-mobile .tile.time {
     max-width:80px;
+    bottom:0;
 }
 
 .tile.ampm {
     bottom:20px;
     right:0;
     width:14%;
-    max-width:200px;
-    height:100px;
-}
-.dx-mobile .tile.ampm {
     max-width:60px;
     height:50px;
+}
+
+@media screen and (min-width: 600px) {
+    .time_box {
+        max-height:300px;
+        max-width:950px;
+    }
+
+    .tile.time {
+        max-width:210px;
+    }
+
+    .tile.ampm {
+        max-width:200px;
+        height:100px;
+    }
 }
 .tile {
     position:absolute;
