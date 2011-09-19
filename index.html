@@ -1,24 +1,24 @@
 <!doctype html>
 <html>
     <head>
-        <title>FlipClock.us</title>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="viewport" content = "width=device-width,initial-scale=1.0,user-scalable=no" />
+        <title>FlipClock</title>
+        <script type="text/javascript" src="http://rc.foundryjs.com/dxjs/dx.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="js/flipclock.js"></script>
     </head>
     <body>
-        <div class="flip">
-            <button id="flip">Flip!</button>
-        </div>
+        <div class="time_box">
+            <div class="tile time hour_1"></div>
+            <div class="tile time hour_2"></div>
 
-        <div class="tile">
-            <div class="top">
-                <div class="card static"></div>
-                <div class="card flip animated"></div>
-            </div>
-            <div class="bottom">
-                 <div class="card static"></div>
-                <div class="card flip animated active"></div>
-            </div>
+            <div class="tile time minute_1"></div>
+            <div class="tile time minute_2"></div>
+
+            <div class="tile ampm"></div>
         </div>
     </body>
 </html>

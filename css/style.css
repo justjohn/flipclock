@@ -1,67 +1,143 @@
+html {
+    background:black;
+}
 body {
-    background:#EEE;
+    left:10px;
+    right:10px;
+    top:10px;
+    bottom:10px;
 }
 .flip { position:absolute; left:300px; }
 
-/** Display styles for the "cards" displayed for each number. **/
-.top .card:before, .top .card, .top .card:after {
-    background-color: #222;
-    
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#333));
-    background-image: -webkit-linear-gradient(top, #222, #333);
-    background-image:    -moz-linear-gradient(top, #222, #333);
-    background-image:     -ms-linear-gradient(top, #222, #333);
-    background-image:      -o-linear-gradient(top, #222, #333);
-    background-image:         linear-gradient(top, #222, #333);
-    
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius:  10px;
-       -moz-border-radius-topright:  10px;
-       -moz-border-radius-topleft:   10px;
-           border-top-right-radius:  10px;
-           border-top-left-radius:   10px;
-          
-    /* prevent bg color from leaking outside the border: */        
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-}
-.bottom .card:before, .bottom .card, .bottom .card:after {
-    background: #111;
-    
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
-    background-image: -webkit-linear-gradient(top, #222, #111);
-    background-image:    -moz-linear-gradient(top, #222, #111);
-    background-image:     -ms-linear-gradient(top, #222, #111);
-    background-image:      -o-linear-gradient(top, #222, #111);
-    background-image:         linear-gradient(top, #222, #111);
-    
-    -webkit-border-bottom-right-radius: 10px;
-    -webkit-border-bottom-left-radius:  10px;
-       -moz-border-radius-bottomright:  10px;
-       -moz-border-radius-bottomleft:   10px;
-           border-bottom-right-radius:  10px;
-           border-bottom-left-radius:   10px;
+.time_box {
+    position:absolute;
+    width:94%;
+    height:100%;
+    max-height:300px;
+    max-width:950px;
+    margin:auto;
 }
 
+/** Mobile Sizes */
+.dx-mobile .time_box {
+    max-height:150px;
+    max-width:480px;
+}
+
+.hour_1 {
+    left:0;
+}
+.hour_2 {
+    left:21%;
+}
+
+.minute_1 {
+    left:44%;
+}
+.minute_2 {
+    left:65%;
+}
+/** 18 + 2 + 18 + 7 + 18 + 2 + 18 + 3 + 14 **/
+
+.tile.time {
+    height:100%;
+    top:0;
+    width:18%;
+    max-width:210px;
+    bottom:0;
+}
+.dx-mobile .tile.time {
+    max-width:80px;
+}
+
+.tile.ampm {
+    bottom:20px;
+    right:0;
+    width:14%;
+    max-width:200px;
+    height:100px;
+}
+.dx-mobile .tile.ampm {
+    max-width:60px;
+    height:50px;
+}
 .tile {
     position:absolute;
-    top:20px;
-    left:50px;
-    width:200px;
-    height:400px;
     display:block;
 }
+
 .tile .top, .tile .bottom {
     position:absolute;
     top:0;
     left:0;
     height:50%;
     width:100%;
-    border:1px solid silver;
 }
 .tile .bottom {
     top:50%;
+}
+
+.card, .card:before, .card:after {
+    z-index: 9;
+}
+.card .inner {
+    position:absolute;
+    height:100%;
+    width:100%;
+
+    background-position: 2px;
+    background-repeat: no-repeat;
+
+       -moz-background-size: 100% 100%;           /* Gecko 1.9.2 (Firefox 3.6) */
+         -o-background-size: 100% 100%;           /* Opera 9.5 */
+    -webkit-background-size: 100% 100%;           /* Safari 3.0 */
+            background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) and other CSS3-compliant browsers */
+
+    z-index: 10;
+}
+.flip .inner {
+    z-index: 12;
+}
+
+/** Display styles for the "cards" displayed for each number. **/
+.top .card:before, .top .card, .top .card:after {
+    background-color: #222;
+
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#333));
+    background-image: -webkit-linear-gradient(top, #222, #333);
+    background-image:    -moz-linear-gradient(top, #222, #333);
+    background-image:     -ms-linear-gradient(top, #222, #333);
+    background-image:      -o-linear-gradient(top, #222, #333);
+    background-image:         linear-gradient(top, #222, #333);
+
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius:  10px;
+       -moz-border-radius-topright:  10px;
+       -moz-border-radius-topleft:   10px;
+           border-top-right-radius:  10px;
+           border-top-left-radius:   10px;
+
+    /* prevent bg color from leaking outside the border: */
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+.bottom .card:before, .bottom .card, .bottom .card:after {
+    background: #111;
+
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
+    background-image: -webkit-linear-gradient(top, #222, #111);
+    background-image:    -moz-linear-gradient(top, #222, #111);
+    background-image:     -ms-linear-gradient(top, #222, #111);
+    background-image:      -o-linear-gradient(top, #222, #111);
+    background-image:         linear-gradient(top, #222, #111);
+
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius:  10px;
+       -moz-border-radius-bottomright:  10px;
+       -moz-border-radius-bottomleft:   10px;
+           border-bottom-right-radius:  10px;
+           border-bottom-left-radius:   10px;
 }
 
 .card:before, .card, .card:after {
@@ -76,13 +152,21 @@ body {
 
 .animated:before, .animated, .animated:after {
     -moz-transition-property: bottom,top,left,right,-moz-transform;
-    -moz-transition-duration: 0.5s;
+    -moz-transition-duration: 0.25s;
+    -webkit-transition-property: bottom,top,left,right,-moz-transform;
+    -webkit-transition-duration: 0.25s;
+    -o-transition-property: bottom,top,left,right,-moz-transform;
+    -o-transition-duration: 0.25s;
 }
 .top .animated:before, .top .animated, .top .animated:after {
-    -moz-transition-timing-function: ease-in;    
+    -moz-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
 }
 .bottom .animated:before, .bottom .animated, .bottom .animated:after {
-    -moz-transition-timing-function: ease-out;    
+    -moz-transition-timing-function: ease-out;
+    -webkit-transition-timing-function: ease-out;
+    -o-transition-timing-function: ease-out;
 }
 .card {
     left:0;
@@ -103,8 +187,8 @@ body {
 /** Before Animation */
 .top .card:before, .bottom .card:before,
 .top .card:after, .bottom .card:after {
-    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
     -moz-transform:    matrix(1, 0, 0, 1, 0, 0);
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
     -ms-transform:     matrix(1, 0, 0, 1, 0, 0);
     -o-transform:      matrix(1, 0, 0, 1, 0, 0);
     transform:         matrix(1, 0, 0, 1, 0, 0);
@@ -119,16 +203,65 @@ body {
 
 /** After Animation **/
 .top .flip.active:before, .bottom .flip.active:before {
-    left:-30px;
-    -moz-transform: matrix(1, 0, 1, 1, 0, 0);
+    left:-20px;
+    -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
+    -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
+    -ms-transform:     matrix(1, 0, 0.5, 1, 0, 0);
+    -o-transform:      matrix(1, 0, 0.5, 1, 0, 0);
+    transform:         matrix(1, 0, 0.5, 1, 0, 0);
 }
 .bottom .flip.active:before {
-    -moz-transform: matrix(1, 0, -1, 1, 0, 0);
+    -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
+    -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
+    -ms-transform:     matrix(1, 0, -0.5, 1, 0, 0);
+    -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
+    transform:         matrix(1, 0, -0.5, 1, 0, 0);
 }
 .top .flip.active:after, .bottom .flip.active:after {
-    right:-30px;
-    -moz-transform: matrix(1, 0, -1, 1, 0, 0);
+    right:-20px;
+    -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
+    -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
+    -ms-transform:     matrix(1, 0, -0.5, 1, 0, 0);
+    -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
+    transform:         matrix(1, 0, -0.5, 1, 0, 0);
 }
 .bottom .flip.active:after {
-    -moz-transform: matrix(1, 0, 1, 1, 0, 0);
+    -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
+    -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
+    -ms-transform:     matrix(1, 0, 0.5, 1, 0, 0);
+    -o-transform:      matrix(1, 0, 0.5, 1, 0, 0);
+    transform:         matrix(1, 0, 0.5, 1, 0, 0);
 }
+
+
+
+
+
+
+.top .digit_0 .inner { background-image: url(../images/0_top.png); }
+.top .digit_1 .inner { background-image: url(../images/1_top.png); }
+.top .digit_2 .inner { background-image: url(../images/2_top.png); }
+.top .digit_3 .inner { background-image: url(../images/3_top.png); }
+.top .digit_4 .inner { background-image: url(../images/4_top.png); }
+.top .digit_5 .inner { background-image: url(../images/5_top.png); }
+.top .digit_6 .inner { background-image: url(../images/6_top.png); }
+.top .digit_7 .inner { background-image: url(../images/7_top.png); }
+.top .digit_8 .inner { background-image: url(../images/8_top.png); }
+.top .digit_9 .inner { background-image: url(../images/9_top.png); }
+
+.top .digit_am .inner { background-image: url(../images/am_top.png); }
+.top .digit_pm .inner { background-image: url(../images/pm_top.png); }
+
+.bottom .digit_0 .inner { background-image: url(../images/0_bottom.png); }
+.bottom .digit_1 .inner { background-image: url(../images/1_bottom.png); }
+.bottom .digit_2 .inner { background-image: url(../images/2_bottom.png); }
+.bottom .digit_3 .inner { background-image: url(../images/3_bottom.png); }
+.bottom .digit_4 .inner { background-image: url(../images/4_bottom.png); }
+.bottom .digit_5 .inner { background-image: url(../images/5_bottom.png); }
+.bottom .digit_6 .inner { background-image: url(../images/6_bottom.png); }
+.bottom .digit_7 .inner { background-image: url(../images/7_bottom.png); }
+.bottom .digit_8 .inner { background-image: url(../images/8_bottom.png); }
+.bottom .digit_9 .inner { background-image: url(../images/9_bottom.png); }
+
+.bottom .digit_am .inner { background-image: url(../images/am_bottom.png); }
+.bottom .digit_pm .inner { background-image: url(../images/pm_bottom.png); }
