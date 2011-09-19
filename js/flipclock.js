@@ -82,6 +82,7 @@ function inc() {
 
     var hours = d.getHours();
     if (hours > 12) hours -= 12;
+    if (hours == 0) hours = 12;
     var h_tens = Math.floor(hours / 10);
     var h_ones = hours % 10;
 
