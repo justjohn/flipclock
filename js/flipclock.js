@@ -92,7 +92,7 @@ function inc() {
     flipTo(".hour_2", h_ones);
 
     var ampm = "am";
-    if (d.getHours() > 12) ampm = "pm";
+    if (d.getHours() >= 12) ampm = "pm";
 
     flipTo(".ampm", ampm);
 
