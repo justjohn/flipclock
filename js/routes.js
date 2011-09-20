@@ -1,5 +1,8 @@
 // Bind the event.
 $(window).hashchange( function(){
+    // Clear any existing clock/timer
+    $("body").empty();
+
     // Alerts every time the hash changes!
     var hash = location.hash;
     if (hash.indexOf("#!") >= 0) {
@@ -11,7 +14,9 @@ $(window).hashchange( function(){
         switch (section) {
             // Handle countdown clocks
             case "countdown":
+                var params = parseTimeOutOfParams(data)
 
+                initCountdown(params);
                 break;
 
             // Default to clock mode
@@ -23,6 +28,7 @@ $(window).hashchange( function(){
         //  the hash (or it's empty)
         initClock();
     }
+    resize();
 });
 
 $(document).ready(function() {
@@ -31,3 +37,38 @@ $(document).ready(function() {
     $(window).hashchange();
 
 });
+
+function parseTimeOutOfParams(data) {
+    var tmp = '',
+        params = {},
+        // Is this a parsable date?
+        isDate = true;
+
+    for (var i=0, l=data.length; i < l; i++) {
+        var chr = data.charAt(i);
+        switch (chr) {
+            case 'h':
+                params.hours = parseInt(tmp);
+                tmp = '';
+                isDate = false;
+                break;
+            case 'm':
+                params.minutes = parseInt(tmp);
+                tmp = '';
+                break;
+                isDate = false;
+            case 's':
+                params.seconds = parseInt(tmp);
+                tmp = '';
+                isDate = false;
+                break;
+            default:
+                tmp += chr;
+        }
+    }
+    if (isDate) {
+        params.time = data;
+    }
+
+    return params;
+}

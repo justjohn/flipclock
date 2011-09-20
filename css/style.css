@@ -9,13 +9,25 @@ body {
 }
 .flip { position:absolute; left:300px; }
 
-.time_box {
+.time_box, .countdown_box {
     position:absolute;
     width:94%;
     height:100%;
     max-height:150px;
     max-width:480px;
     margin:auto;
+}
+.left_1 {
+    left:9%;
+}
+.left_2 {
+    left:29%;
+}
+.right_1 {
+    left: 51%;
+}
+.right_2 {
+    left: 71%;
 }
 
 .hour_1 {
@@ -50,7 +62,7 @@ body {
 }
 
 @media screen and (min-width: 600px) {
-    .time_box {
+    .time_box, .countdown_box {
         max-height:300px;
         max-width:950px;
     }
