@@ -1,12 +1,40 @@
-// Prevent scrolling on iOS devices
+// Prevent scrolling on Android / iOS devices
 document.ontouchmove = function(e){e.preventDefault();}
 document.ontouchstart = function(e){e.preventDefault();}
 
 // Should match the duration defined in the CSS
 var transition_duration = 250;
 
-function flipTo(context_selector, number) {
-    var context = $(context_selector),
+// Container
+var FlipClock = {};
+
+FlipClock.Digit = function(params) {
+    this._params = params ? params : {};
+    this.init();
+};
+
+FlipClock.Digit.init = function() {
+    var top = $('<div class="top" />')
+        .append('<div class="card static" />')
+        .append('<div class="card flip animated" />');
+
+    var bottom = $('<div class="bottom" />')
+        .append('<div class="card static" />')
+        .append('<div class="card flip animated active" />');
+
+    var tile = $('<div class="tile" />')
+        .append(top)
+        .append(bottom);
+
+    if (this._params.cls) tile.addClass(this._params.cls);
+
+    $(".card", tile).append('<div class="inner" />');
+
+    this.tile = tile;
+};
+
+FlipClock.Digit.flip = function(number) {
+    var context = this.tile,
         from = context.attr("number");
 
     // Check to see if the new number is already set
@@ -29,91 +57,131 @@ function flipTo(context_selector, number) {
     $(".top .flip", context).toggleClass('active');
 
     // Start flipping the bottom digit when the top one is almost complete.
-    setTimeout('finishFlip("' + context_selector + '")', transition_duration-20);
-}
+    setTimeout(function() {
+        $(".bottom .flip", context).toggleClass("active");
 
-function finishFlip(context_selector) {
-    var context = $(context_selector);
-    $(".bottom .flip", context).toggleClass("active");
+        // Wait for the bottom tile to finish flipping then reset the tiles
+        setTimeout(function() {
+            var old_class = "digit_" + context.attr("from");
+            var new_class = "digit_" + context.attr("number");
 
-    // Wait for the bottom tile to finish flipping then reset the tiles
-    setTimeout('resetFlip("'+context_selector+'")', transition_duration);
-}
-function resetFlip(context_selector) {
-    var context = $(context_selector);
-    var old_class = "digit_" + context.attr("from");
-    var new_class = "digit_" + context.attr("number");
+            $(".bottom .flip, .top .flip", context)
+                .css('display', 'none')
+                .toggleClass("active");
 
-    $(".bottom .flip, .top .flip", context)
-        .css('display', 'none')
-        .toggleClass("active");
+            // Reset the flip tiles to the new number in prep for next flip
+            $(".bottom .static, .top .flip", context)
+                .removeClass(old_class)
+                .addClass(new_class);
 
-    // Reset the flip tiles to the new number in prep for next flip
-    $(".bottom .static, .top .flip", context)
-        .removeClass(old_class)
-        .addClass(new_class);
+            // Until I find a way to remove the animation...
+            setTimeout(function() {
+                $(".bottom .flip, .top .flip", context).css("display", "block");
 
-    // Until I find a way to remove the animation...
-    setTimeout('unhide("'+context_selector+'")', transition_duration);
-}
-function unhide(context_selector) {
-    var context = $(context_selector);
-    $(".bottom .flip, .top .flip", context).css("display", "block");
+                $("#flip").removeAttr("disabled");
+            }, transition_duration);
+        }, transition_duration);
+    }, transition_duration - 20);
+};
 
-    $("#flip").removeAttr("disabled");
-}
+FlipClock.Digit.prototype = FlipClock.Digit;
 
-function inc() {
-    var d = new Date();
+FlipClock.Layout = function(layout) {
+    layout.init.apply(this);
 
-    var seconds = d.getSeconds();
-    var s_tens = Math.floor(seconds / 10);
-    var s_ones = seconds % 10;
+    var container = $('<div />').addClass(layout.cls);
+    var l = this.items.length;
+    for (var i=0; i < l; i++) {
+        var tile = this.items[i].tile;
+        container.append(tile);
+    }
 
-    // flipTo(".second_1", s_tens);
-    // flipTo(".second_2", s_ones);
+    this.container = container;
 
-    var minutes = d.getMinutes();
-    var m_tens = Math.floor(minutes / 10);
-    var m_ones = minutes % 10;
+    this.start = function() {
+        this.update();
+    };
+    this.update = function() {
+        layout.update.apply(this);
 
-    flipTo(".minute_1", m_tens);
-    flipTo(".minute_2", m_ones);
+        var that = this;
+        setTimeout(function() {
+            that.update();
+        }, layout.refreshTime)
+    }
+};
 
-    var hours = d.getHours();
-    if (hours > 12) hours -= 12;
+FlipClock.Layouts = {};
 
-    if (hours == 0) hours = 12;
-    
-    var h_tens = Math.floor(hours / 10);
-    var h_ones = hours % 10;
+FlipClock.Layouts.TimeAMPM = {
+    cls: 'time_box',
+    refreshTime: 1000,
+    init: function() {
+        this.hour1 = new FlipClock.Digit({
+            cls: 'time hour_1'
+        });
+        this.hour2 = new FlipClock.Digit({
+            cls: 'time hour_2'
+        });
+        this.minute1 = new FlipClock.Digit({
+            cls: 'time minute_1'
+        });
+        this.minute2 = new FlipClock.Digit({
+            cls: 'time minute_2'
+        });
+        this.ampm = new FlipClock.Digit({
+            cls: 'ampm'
+        });
 
-    flipTo(".hour_1", h_tens == 0 ? "" : h_tens);
-    flipTo(".hour_2", h_ones);
+        this.items = [
+            this.hour1, this.hour2,
+            this.minute1, this.minute2,
+            this.ampm
+        ];
+    },
+    update: function() {
+        var d = new Date();
 
-    var ampm = "am";
-    if (d.getHours() >= 12) ampm = "pm";
+        var seconds = d.getSeconds();
+        var s_tens = Math.floor(seconds / 10);
+        var s_ones = seconds % 10;
 
-    flipTo(".ampm", ampm);
+        // flipTo(".second_1", s_tens);
+        // flipTo(".second_2", s_ones);
 
-    setTimeout("inc()", 1000);
-}
-$(document).ready(function() {
-    var top = $('<div class="top" />')
-        .append('<div class="card static" />')
-        .append('<div class="card flip animated" />');
+        var minutes = d.getMinutes();
+        var m_tens = Math.floor(minutes / 10);
+        var m_ones = minutes % 10;
 
-    var bottom = $('<div class="bottom" />')
-        .append('<div class="card static" />')
-        .append('<div class="card flip animated active" />');
+        this.minute1.flip(m_tens);
+        this.minute2.flip(m_ones);
 
-    $(".tile").append(top).append(bottom);
-    $(".card").append('<div class="inner" />');
+        var hours = d.getHours();
+        if (hours > 12) hours -= 12;
+
+        if (hours == 0) hours = 12;
+
+        var h_tens = Math.floor(hours / 10);
+        var h_ones = hours % 10;
+
+        this.hour1.flip(h_tens == 0 ? "" : h_tens);
+        this.hour2.flip(h_ones);
+
+        var ampm_val = "am";
+        if (d.getHours() >= 12) ampm_val = "pm";
+
+        this.ampm.flip(ampm_val);
+    }
+};
+
+
+function initClock() {
+    var layout = new FlipClock.Layout(FlipClock.Layouts.TimeAMPM);
+    $("body").append(layout.container);
+    layout.start();
 
     resize();
-
-    inc();
-});
+}
 
 var resize = function(e) {
     // Center Timebox
