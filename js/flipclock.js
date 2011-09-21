@@ -148,17 +148,28 @@ FlipClock.Layout = function(layout, params) {
     this.container = container;
 
     this.done = false;
+    this.stop = false;
 
     this.start = function() {
         this.update();
     };
+    this.stop = function(fireDoneEvent) {
+        this.stop = true;
+        if (fireDoneEvent === true) {
+            this.done = true;
+        }
+    };
+
     this.update = function() {
         layout.update.apply(this);
-        if (this.done !== true) {
+        if (this.done !== true && this.stop !== true) {
             var that = this;
             setTimeout(function() {
                 that.update();
             }, layout.refreshTime);
+        } else if (this.done === true) {
+            // done, execute complete function
+            if (params.done) params.done();
         }
     }
 };
@@ -274,73 +285,41 @@ FlipClock.Layouts.Countdown = {
             nowMs    = Date.now(),
             differenceMs = targetMs - nowMs;
 
-        if (differenceMs > 0) {
-            var hours = Math.floor(differenceMs / FlipClock.MS_TO_H);
-            differenceMs = differenceMs % FlipClock.MS_TO_H;
-
-            var minutes = Math.floor(differenceMs / FlipClock.MS_TO_M);
-            differenceMs = differenceMs % FlipClock.MS_TO_M;
-
-            var seconds = Math.floor(differenceMs / FlipClock.MS_TO_S);
-            differenceMs = differenceMs % FlipClock.MS_TO_S;
-
-            var h_tens = Math.floor(hours / 10);
-            var h_ones = hours % 10;
-
-            var m_tens = Math.floor(minutes / 10);
-            var m_ones = minutes % 10;
-
-            var s_tens = Math.floor(seconds / 10);
-            var s_ones = seconds % 10;
-
-            if (hours > 0) {
-                this.left1.flip(h_tens);
-                this.left2.flip(h_ones);
-                this.right1.flip(m_tens);
-                this.right2.flip(m_ones);
-
-            } else {
-
-                this.left1.flip(m_tens);
-                this.left2.flip(m_ones);
-                this.right1.flip(s_tens);
-                this.right2.flip(s_ones);
-            }
-        } else {
+        if (differenceMs <= 0) {
+            differenceMs = 0;
             this.done = true;
+        }
+
+        var hours = Math.floor(differenceMs / FlipClock.MS_TO_H);
+        differenceMs = differenceMs % FlipClock.MS_TO_H;
+
+        var minutes = Math.floor(differenceMs / FlipClock.MS_TO_M);
+        differenceMs = differenceMs % FlipClock.MS_TO_M;
+
+        var seconds = Math.floor(differenceMs / FlipClock.MS_TO_S);
+        differenceMs = differenceMs % FlipClock.MS_TO_S;
+
+        var h_tens = Math.floor(hours / 10);
+        var h_ones = hours % 10;
+
+        var m_tens = Math.floor(minutes / 10);
+        var m_ones = minutes % 10;
+
+        var s_tens = Math.floor(seconds / 10);
+        var s_ones = seconds % 10;
+
+        if (hours > 0) {
+            this.left1.flip(h_tens);
+            this.left2.flip(h_ones);
+            this.right1.flip(m_tens);
+            this.right2.flip(m_ones);
+
+        } else {
+
+            this.left1.flip(m_tens);
+            this.left2.flip(m_ones);
+            this.right1.flip(s_tens);
+            this.right2.flip(s_ones);
         }
     }
 };
-
-function initClock() {
-    var layout = new FlipClock.Layout(FlipClock.Layouts.TimeAMPM);
-    $("body").append(layout.container);
-    layout.start();
-}
-function initCountdown(params) {
-    var layout = new FlipClock.Layout(FlipClock.Layouts.Countdown, params);
-    $("body").append(layout.container);
-    layout.start();
-}
-
-function center(element) {
-    var element_width = element.outerWidth(),
-        element_height = element.outerHeight(),
-        window_width = $(document).width(),
-        window_height = $(document).height();
-
-    if (element_height < window_height) {
-        element.css("top", ((window_height-element_height)/2) + 'px');
-    }
-    if (element_width < window_width) {
-        element.css("left", ((window_width-element_width)/2) + 'px');
-    }
-}
-
-var resize = function(e) {
-    // Center Timebox
-    center($(".time_box"));
-    center($(".countdown_box"));
-};
-
-$(window).resize(resize);
