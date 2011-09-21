@@ -28,7 +28,12 @@ FlipClock.Digit.init = function() {
 
     if (this._params.cls) tile.addClass(this._params.cls);
 
-    $(".card", tile).append('<div class="inner" />');
+    // NOTE: The before and after classes are required as CSS
+    //       transitions don't work on pseudo elements.
+    $(".card", tile)
+        .append('<div class="before" />')
+        .append('<div class="inner" />')
+        .append('<div class="after" />');
 
     this.tile = tile;
 };

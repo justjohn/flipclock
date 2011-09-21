@@ -92,7 +92,7 @@ body {
     top:50%;
 }
 
-.card, .card:before, .card:after {
+.card, .card .before, .card .after {
     z-index: 9;
 }
 .card .inner {
@@ -115,7 +115,7 @@ body {
 }
 
 /** Display styles for the "cards" displayed for each number. **/
-.top .card:before, .top .card, .top .card:after {
+.top .card .before, .top .card, .top .card .after {
     background-color: #222;
 
     background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#333));
@@ -137,7 +137,7 @@ body {
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
 }
-.bottom .card:before, .bottom .card, .bottom .card:after {
+.bottom .card .before, .bottom .card, .bottom .card .after {
     background: #111;
 
     background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
@@ -155,7 +155,7 @@ body {
            border-bottom-left-radius:   10px;
 }
 
-.card:before, .card, .card:after {
+.card .before, .card, .card .after {
     top:0;
     position:absolute;
     display:block;
@@ -165,20 +165,28 @@ body {
     font-size:0;
 }
 
-.animated:before, .animated, .animated:after {
+.flip.card .before,
+.flip.card,
+.flip.card .after {
+    -webkit-transition-property: bottom, top, left, right, -webkit-transform;
+    -webkit-transition-duration: 0.25s;
+
     -moz-transition-property: bottom,top,left,right,-moz-transform;
     -moz-transition-duration: 0.25s;
-    -webkit-transition-property: bottom,top,left,right,-moz-transform;
-    -webkit-transition-duration: 0.25s;
-    -o-transition-property: bottom,top,left,right,-moz-transform;
+
+    -o-transition-property: bottom,top,left,right,-o-transform;
     -o-transition-duration: 0.25s;
 }
-.top .animated:before, .top .animated, .top .animated:after {
+.top .flip.card .before,
+.top .flip.card,
+.top .flip.card .after {
     -moz-transition-timing-function: ease-in;
     -webkit-transition-timing-function: ease-in;
     -o-transition-timing-function: ease-in;
 }
-.bottom .animated:before, .bottom .animated, .bottom .animated:after {
+.bottom .flip.card .before,
+.bottom .flip.card,
+.bottom .flip.card .after {
     -moz-transition-timing-function: ease-out;
     -webkit-transition-timing-function: ease-out;
     -o-transition-timing-function: ease-out;
@@ -194,14 +202,14 @@ body {
     bottom:200px;
 }
 
-.card:before, .card:before,
-.card:after, .card:after {
+.card .before, .card .before,
+.card .after, .card .after {
     content:'.';
     width:60px;
 }
 /** Before Animation */
-.top .card:before, .bottom .card:before,
-.top .card:after, .bottom .card:after {
+.top .card .before, .bottom .card .before,
+.top .card .after, .bottom .card .after {
     -moz-transform:    matrix(1, 0, 0, 1, 0, 0);
     -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
     -ms-transform:     matrix(1, 0, 0, 1, 0, 0);
@@ -209,15 +217,15 @@ body {
     transform:         matrix(1, 0, 0, 1, 0, 0);
 }
 
-.top .card:before, .bottom .card:before {
+.top .card .before, .bottom .card .before {
     left:-5px;
 }
-.top .card:after, .bottom .card:after {
+.top .card .after, .bottom .card .after {
     right:-5px;
 }
 
 /** After Animation **/
-.top .flip.active:before, .bottom .flip.active:before {
+.top .flip.active .before, .bottom .flip.active .before {
     left:-20px;
     -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
     -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
@@ -225,14 +233,14 @@ body {
     -o-transform:      matrix(1, 0, 0.5, 1, 0, 0);
     transform:         matrix(1, 0, 0.5, 1, 0, 0);
 }
-.bottom .flip.active:before {
+.bottom .flip.active .before {
     -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
     -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
     -ms-transform:     matrix(1, 0, -0.5, 1, 0, 0);
     -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
     transform:         matrix(1, 0, -0.5, 1, 0, 0);
 }
-.top .flip.active:after, .bottom .flip.active:after {
+.top .flip.active .after, .bottom .flip.active .after {
     right:-20px;
     -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
     -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
@@ -240,7 +248,7 @@ body {
     -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
     transform:         matrix(1, 0, -0.5, 1, 0, 0);
 }
-.bottom .flip.active:after {
+.bottom .flip.active .after {
     -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
     -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
     -ms-transform:     matrix(1, 0, 0.5, 1, 0, 0);
