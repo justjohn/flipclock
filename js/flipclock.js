@@ -3,7 +3,8 @@ document.ontouchmove = function(e){e.preventDefault();}
 document.ontouchstart = function(e){e.preventDefault();}
 
 // Should match the duration defined in the CSS
-var transition_duration = 250;
+var transition_duration = 200;
+var transition_overlap = 20;
 
 // Container
 var FlipClock = {};
@@ -63,30 +64,73 @@ FlipClock.Digit.flip = function(number) {
 
     // Start flipping the bottom digit when the top one is almost complete.
     setTimeout(function() {
+        var old_class = "digit_" + context.attr("from");
+        var new_class = "digit_" + context.attr("number");
+
         $(".bottom .flip", context).toggleClass("active");
 
-        // Wait for the bottom tile to finish flipping then reset the tiles
+        // Reset the top tile
         setTimeout(function() {
-            var old_class = "digit_" + context.attr("from");
-            var new_class = "digit_" + context.attr("number");
-
-            $(".bottom .flip, .top .flip", context)
+            // Hide and disable animation
+            $(".top .flip", context)
                 .css('display', 'none')
+                .removeClass('animated')
+                .addClass('not-animated');
+
+                // Reset active tile flag.
+                $(".top .flip", context)
+                    .toggleClass("active");
+
+                // Reset the flip tiles to the new number in prep for next flip
+                $(".top .flip", context)
+                    .removeClass(old_class)
+                    .addClass(new_class);
+
+                // It seems to take some time for the not-animated CSS styles
+                // to be reflected. So we wait for some time before adding the
+                // animation classes back.
+                setTimeout(function() {
+                    // Re-enable animation
+                    $(".top .flip", context)
+                        .addClass('animated')
+                        .removeClass('not-animated');
+
+                    // Show the tile again
+                    $(".top .flip", context)
+                        .css("display", "block");
+                }, transition_duration/2);
+
+        }, transition_overlap);
+
+        // Wait for the bottom tile to finish flipping then reset it
+        setTimeout(function() {
+            $(".bottom .flip", context)
+                .css('display', 'none')
+                .removeClass('animated')
+                .addClass('not-animated');
+
+            $(".bottom .flip", context)
                 .toggleClass("active");
 
             // Reset the flip tiles to the new number in prep for next flip
-            $(".bottom .static, .top .flip", context)
+            $(".bottom .static", context)
                 .removeClass(old_class)
                 .addClass(new_class);
 
-            // Until I find a way to remove the animation...
+            // It seems to take some time for the not-animated CSS styles
+            // to be reflected. So we wait for some time before adding the
+            // animation classes back.
             setTimeout(function() {
-                $(".bottom .flip, .top .flip", context).css("display", "block");
+                $(".bottom .flip", context)
+                    .addClass('animated')
+                    .removeClass('not-animated');
 
-                $("#flip").removeAttr("disabled");
-            }, transition_duration);
+                $(".bottom .flip", context)
+                    .css("display", "block");
+            }, transition_duration/2);
+
         }, transition_duration);
-    }, transition_duration - 20);
+    }, transition_duration - transition_overlap);
 };
 
 FlipClock.Digit.prototype = FlipClock.Digit;

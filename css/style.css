@@ -103,10 +103,10 @@ body {
     background-position: 2px;
     background-repeat: no-repeat;
 
-       -moz-background-size: 100% 100%;           /* Gecko 1.9.2 (Firefox 3.6) */
-         -o-background-size: 100% 100%;           /* Opera 9.5 */
-    -webkit-background-size: 100% 100%;           /* Safari 3.0 */
-            background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) and other CSS3-compliant browsers */
+       -moz-background-size: 100% 100%;
+         -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
 
     z-index: 10;
 }
@@ -156,7 +156,7 @@ body {
 }
 
 .card .before, .card, .card .after {
-    top:0;
+    top:1px;
     position:absolute;
     display:block;
     width:100%;
@@ -165,32 +165,46 @@ body {
     font-size:0;
 }
 
-.flip.card .before,
-.flip.card,
-.flip.card .after {
+.flip.animated .before,
+.flip.animated,
+.flip.animated .after {
     -webkit-transition-property: bottom, top, left, right, -webkit-transform;
-    -webkit-transition-duration: 0.25s;
+    -webkit-transition-duration: 0.20s;
 
     -moz-transition-property: bottom,top,left,right,-moz-transform;
-    -moz-transition-duration: 0.25s;
+    -moz-transition-duration: 0.20s;
+
+    -ms-transition-property: bottom,top,left,right,-o-transform;
+    -ms-transition-duration: 0.20s;
 
     -o-transition-property: bottom,top,left,right,-o-transform;
-    -o-transition-duration: 0.25s;
+    -o-transition-duration: 0.20s;
 }
-.top .flip.card .before,
-.top .flip.card,
-.top .flip.card .after {
+.top .flip.animated .before,
+.top .flip.animated,
+.top .flip.animated .after {
     -moz-transition-timing-function: ease-in;
     -webkit-transition-timing-function: ease-in;
+    -ms-transition-timing-function: ease-in;
     -o-transition-timing-function: ease-in;
 }
-.bottom .flip.card .before,
-.bottom .flip.card,
-.bottom .flip.card .after {
+.bottom .flip.animated .before,
+.bottom .flip.animated,
+.bottom .flip.animated .after {
     -moz-transition-timing-function: ease-out;
     -webkit-transition-timing-function: ease-out;
+    -ms-transition-timing-function: ease-out;
     -o-transition-timing-function: ease-out;
 }
+.not-animated,
+.not-animated * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
 .card {
     left:0;
     right:0;

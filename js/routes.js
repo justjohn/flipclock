@@ -13,6 +13,7 @@ $(window).hashchange( function(){
 
         switch (section) {
             // Handle countdown clocks
+            case "c":
             case "countdown":
                 var params = parseTimeOutOfParams(data)
 
@@ -36,6 +37,8 @@ $(document).ready(function() {
     // Trigger the event
     $(window).hashchange();
 
+    // Prevent dragging
+    $("div").bind('mousedown', function(e){e.preventDefault();});
 });
 
 function parseTimeOutOfParams(data) {
@@ -55,8 +58,8 @@ function parseTimeOutOfParams(data) {
             case 'm':
                 params.minutes = parseInt(tmp);
                 tmp = '';
-                break;
                 isDate = false;
+                break;
             case 's':
                 params.seconds = parseInt(tmp);
                 tmp = '';
