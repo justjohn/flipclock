@@ -17,6 +17,10 @@ html {
     -o-transition-property: background;
     -o-transition-duration: 0.50s;
     -o-transition-timing-function: ease-in;
+
+    transition-property: background;
+    transition-duration: 0.50s;
+    transition-timing-function: ease-in;
 }
 html.blink {
     background:white;
@@ -194,14 +198,17 @@ body {
     -webkit-transition-property: bottom, top, left, right, transform, -webkit-transform;
     -webkit-transition-duration: 0.20s;
 
-    -moz-transition-property: bottom,top,left,right,transform, -moz-transform;
+    -moz-transition-property: bottom, top, left, right, transform, -moz-transform;
     -moz-transition-duration: 0.20s;
 
-    -ms-transition-property: bottom,top,left,right,transform, -ms-transform;
+    -ms-transition-property: bottom, top, left, right, transform, -ms-transform;
     -ms-transition-duration: 0.20s;
 
-    -o-transition-property: bottom,top,left,right,transform, -o-transform;
+    -o-transition-property: bottom, top, left, right, transform, -o-transform;
     -o-transition-duration: 0.20s;
+
+    transition-property: bottom, top, left, right, transform;
+    transition-duration: 0.20s;
 }
 .top .flip.animated .before,
 .top .flip.animated,
@@ -210,6 +217,7 @@ body {
     -webkit-transition-timing-function: ease-in;
     -ms-transition-timing-function: ease-in;
     -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
 }
 .bottom .flip.animated .before,
 .bottom .flip.animated,
@@ -218,6 +226,7 @@ body {
     -webkit-transition-timing-function: ease-out;
     -ms-transition-timing-function: ease-out;
     -o-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
 }
 .not-animated,
 .not-animated * {
@@ -262,41 +271,36 @@ body {
 }
 
 /** After Animation **/
-.top .flip.active .before, .bottom .flip.active .before {
-    left:-20px;
-    -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
-    -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
-    -ms-transform:     matrix(1, 0, 0.5, 1, 0, 0);
-    -o-transform:      matrix(1, 0, 0.5, 1, 0, 0);
-    transform:         matrix(1, 0, 0.5, 1, 0, 0);
-}
+
+/** Left side. */
+.top    .flip.active .before,
 .bottom .flip.active .before {
-    -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
-    -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
-    -ms-transform:     matrix(1, 0, -0.5, 1, 0, 0);
-    -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
-    transform:         matrix(1, 0, -0.5, 1, 0, 0);
+    left:-20px;
 }
-.top .flip.active .after, .bottom .flip.active .after {
-    right:-20px;
-    -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
-    -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
-    -ms-transform:     matrix(1, 0, -0.5, 1, 0, 0);
-    -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
-    transform:         matrix(1, 0, -0.5, 1, 0, 0);
-}
+
+/** Right side. */
+.top    .flip.active .after,
 .bottom .flip.active .after {
-    -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
+    right:-20px;
+}
+
+.top    .flip.active .before,
+.bottom .flip.active .after {
     -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
+    -moz-transform:    matrix(1, 0, 0.5, 1, 0, 0);
     -ms-transform:     matrix(1, 0, 0.5, 1, 0, 0);
     -o-transform:      matrix(1, 0, 0.5, 1, 0, 0);
     transform:         matrix(1, 0, 0.5, 1, 0, 0);
 }
 
-
-
-
-
+.bottom .flip.active .before,
+.top    .flip.active .after {
+    -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
+    -moz-transform:    matrix(1, 0, -0.5, 1, 0, 0);
+    -ms-transform:     matrix(1, 0, -0.5, 1, 0, 0);
+    -o-transform:      matrix(1, 0, -0.5, 1, 0, 0);
+    transform:         matrix(1, 0, -0.5, 1, 0, 0);
+}
 
 .top .digit_0 .inner { background-image: url(../images/0_top.png); }
 .top .digit_1 .inner { background-image: url(../images/1_top.png); }
