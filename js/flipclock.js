@@ -98,7 +98,7 @@ FlipClock.Digit.flip = function(number) {
                     // Show the tile again
                     $(".top .flip", context)
                         .css("display", "block");
-                }, transition_duration/2);
+                }, transition_duration);
 
         }, transition_overlap);
 
@@ -127,7 +127,7 @@ FlipClock.Digit.flip = function(number) {
 
                 $(".bottom .flip", context)
                     .css("display", "block");
-            }, transition_duration/2);
+            }, transition_duration);
 
         }, transition_duration);
     }, transition_duration - transition_overlap);
