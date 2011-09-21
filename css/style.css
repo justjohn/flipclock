@@ -196,19 +196,19 @@ body {
 .flip.animated,
 .flip.animated .after {
     -webkit-transition-property: bottom, top, left, right, transform, -webkit-transform;
-    -webkit-transition-duration: 0.20s;
+    -webkit-transition-duration: 0.25s;
 
     -moz-transition-property: bottom, top, left, right, transform, -moz-transform;
-    -moz-transition-duration: 0.20s;
+    -moz-transition-duration: 0.25s;
 
     -ms-transition-property: bottom, top, left, right, transform, -ms-transform;
-    -ms-transition-duration: 0.20s;
+    -ms-transition-duration: 0.25s;
 
     -o-transition-property: bottom, top, left, right, transform, -o-transform;
-    -o-transition-duration: 0.20s;
+    -o-transition-duration: 0.25s;
 
     transition-property: bottom, top, left, right, transform;
-    transition-duration: 0.20s;
+    transition-duration: 0.25s;
 }
 .top .flip.animated .before,
 .top .flip.animated,

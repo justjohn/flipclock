@@ -3,13 +3,10 @@ document.ontouchmove = function(e){e.preventDefault();}
 document.ontouchstart = function(e){e.preventDefault();}
 
 // Should match the duration defined in the CSS
-var transition_duration = 200;
+var transition_duration = 250;
 
 // The amount of time before the end of the first flip the second flip starts
 var transition_overlap  = 20;
-
-// Extra time for the return flip to take.
-var transition_extra    = 50;
 
 // Container
 var FlipClock = {};
@@ -96,7 +93,7 @@ FlipClock.Digit.flip = function(number) {
                 // Show the tile again
                 $(".top .flip", context)
                     .css("display", "block");
-            }, transition_duration + transition_extra);
+            }, transition_duration);
 
         }, transition_overlap);
 
@@ -119,7 +116,7 @@ FlipClock.Digit.flip = function(number) {
             setTimeout(function() {
                 $(".bottom .flip", context)
                     .css("display", "block");
-            }, transition_duration + transition_extra);
+            }, transition_duration);
 
         }, transition_duration);
     }, transition_duration - transition_overlap);
