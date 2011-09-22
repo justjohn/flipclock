@@ -195,7 +195,7 @@ body {
 .flip.animated .before,
 .flip.animated,
 .flip.animated .after {
-    -webkit-transition-property: bottom, top, left, right, transform, -webkit-transform;
+    -webkit-transition-property: bottom, top, left, right, -webkit-transform;
     -webkit-transition-duration: 0.25s;
 
     -moz-transition-property: bottom, top, left, right, transform, -moz-transform;
@@ -250,7 +250,6 @@ body {
 
 .card .before, .card .before,
 .card .after, .card .after {
-    content:'.';
     width:60px;
 }
 /** Before Animation */
