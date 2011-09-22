@@ -93,7 +93,7 @@ FlipClock.Digit.flip = function(number) {
                 // Show the tile again
                 $(".top .flip", context)
                     .css("display", "block");
-            }, transition_duration);
+            }, transition_duration + transition_overlap);
 
         }, transition_overlap);
 
@@ -110,13 +110,11 @@ FlipClock.Digit.flip = function(number) {
                 .removeClass(old_class)
                 .addClass(new_class);
 
-            // It seems to take some time for the not-animated CSS styles
-            // to be reflected. So we wait for some time before adding the
-            // animation classes back.
+            // Reset the bottom tile
             setTimeout(function() {
                 $(".bottom .flip", context)
                     .css("display", "block");
-            }, transition_duration);
+            }, transition_duration + transition_overlap);
 
         }, transition_duration);
     }, transition_duration - transition_overlap);
