@@ -1,39 +1,4 @@
-html {
-    background:black;
-}
-.blink_transition {
-    -webkit-transition-property: background;
-    -webkit-transition-duration: 0.50s;
-    -webkit-transition-timing-function: ease-in;
 
-    -moz-transition-property: background;
-    -moz-transition-duration: 0.50s;
-    -moz-transition-timing-function: ease-in;
-
-    -ms-transition-property: background;
-    -ms-transition-duration: 0.50s;
-    -ms-transition-timing-function: ease-in;
-
-    -o-transition-property: background;
-    -o-transition-duration: 0.50s;
-    -o-transition-timing-function: ease-in;
-
-    transition-property: background;
-    transition-duration: 0.50s;
-    transition-timing-function: ease-in;
-}
-html.blink {
-    background:white;
-}
-html.passive_blink {
-    background:#666;
-}
-body {
-    left:10px;
-    right:10px;
-    top:10px;
-    bottom:10px;
-}
 .flip { position:absolute; left:300px; }
 
 .time_box, .countdown_box {
@@ -206,9 +171,6 @@ body {
 
     -o-transition-property: bottom, top, left, right, transform, -o-transform;
     -o-transition-duration: 0.25s;
-
-    transition-property: bottom, top, left, right, transform;
-    transition-duration: 0.25s;
 }
 .top .flip.animated .before,
 .top .flip.animated,

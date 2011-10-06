@@ -1,7 +1,7 @@
 // Bind the event.
 $(window).hashchange( function(){
     // Clear any existing clock/timer
-    $("body").empty();
+    $("#container").empty();
     if (layout) layout.stop(false);
     stopBlinker();
 
@@ -39,11 +39,68 @@ $(document).ready(function() {
     // Trigger the event
     $(window).hashchange();
 
+    $("#toolbar").bind('click', function(e){
+        // prevent click action from bubbling up to the container
+        e.preventDefault();
+        return false;
+    });
+
+    var toggle_toolbar = function(e) {
+        if (e.returnValue === false) return false;
+        // $("body").toggleClass("toolbar_active");
+        e.preventDefault();
+    };
+
     // Prevent dragging
-    $("div").bind('mousedown', function(e){e.preventDefault();});
+    $("#container, #toolbarContainer").bind('click', toggle_toolbar);
+
+    $("#container, #toolbarContainer").bind('touchstart', toggle_toolbar);
 
     // Prepare for BLINK
-    $("html").addClass("blink_transition");
+    $("#container").addClass("blink_transition");
+
+    var button_down = function(e) {
+        $(this).removeClass("active");
+        $(this).addClass("down");
+    };
+    var button_up = function(e) {
+        $(this).removeClass("down");
+    };
+    var button_over = function(e) {
+        $(this).addClass("active");
+    };
+    var button_out = function(e) {
+        $(this).removeClass("active");
+    };
+
+    $(".button").append($('<div class="button_inner" />'));
+    $(".button").bind("mousedown", button_down);
+    $(".button").bind("mouseup", button_up);
+    $(".button").bind("mouseover", button_over);
+    $(".button").bind("mouseout", button_out);
+
+    $(".button").bind("touchstart", button_down);
+    $(".button").bind("touchend", button_up);
+    $(".button").bind("touchcancel", button_up);
+    $(".button").bind("touchmove", function(event) {
+        // for (item in event) console.log(item + " = " + event[item]);
+        var x = event.originalEvent.targetTouches[0].pageX;
+        var y = event.originalEvent.targetTouches[0].pageY;
+        // alert(x + ", " + y);
+        var offset = $(this).offset();
+        var left = offset.left;
+        var top = offset.top;
+        var right = left + $(this).outerWidth();
+        var bottom = top + $(this).outerHeight();
+
+        // console.log("left: " + left + ", x: " + x + ", right: " + right + ", top: " + top +  ", y: " + y + ", bottom: " + bottom);
+        if (x < left || x > right || y < top || y > bottom) {
+            // Out of button
+            $(this).removeClass("down");
+            event.preventDefault();
+            return false;
+        }
+    });
 });
 
 function parseTimeOutOfParams(data) {
@@ -85,7 +142,7 @@ var layout;
 
 function initClock() {
     layout = new FlipClock.Layout(FlipClock.Layouts.TimeAMPM);
-    $("body").append(layout.container);
+    $("#container").append(layout.container);
     layout.start();
 }
 
@@ -96,7 +153,7 @@ var blinkClass = "blink";
 function stopBlinker() {
     blinkCount = 0;
     clearInterval(blinker);
-    $("html").removeClass("blink").removeClass("passive_blink");
+    $("#container").removeClass("blink").removeClass("passive_blink");
 }
 
 function initCountdown(params) {
@@ -107,7 +164,7 @@ function initCountdown(params) {
         blinkClass = "blink";
 
         blinker = setInterval(function() {
-            $("html").toggleClass(blinkClass);
+            $("#container").toggleClass(blinkClass);
             blinkCount++;
             if (blinkCount == 8) {
                 blinkClass = "passive_blink";
@@ -115,18 +172,18 @@ function initCountdown(params) {
             if (blinkCount == 244) {
                 stopBlinker();
             }
-        }, 500)
+        }, 750)
     };
     layout = new FlipClock.Layout(FlipClock.Layouts.Countdown, params);
-    $("body").append(layout.container);
+    $("#container").append(layout.container);
     layout.start();
 }
 
 function center(element) {
     var element_width = element.outerWidth(),
         element_height = element.outerHeight(),
-        window_width = $(document).width(),
-        window_height = $(document).height();
+        window_width = $("#container").width(),
+        window_height = $("#container").height();
 
     if (element_height < window_height) {
         element.css("top", ((window_height-element_height)/2) + 'px');

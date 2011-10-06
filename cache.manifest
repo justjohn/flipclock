@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v13
+# v16
 
 CACHE:
 /vendor/jquery/jquery.1.6.4.min.js
@@ -28,7 +28,9 @@ CACHE:
 /images/9_bottom.png
 /images/am_bottom.png
 /images/pm_bottom.png
-/css/style.css?13
-/js/flipclock.js?13
-/js/routes.js?13
+/images/icons/28-star.png
+/css/app.css?16
+/css/style.css?16
+/js/flipclock.js?16
+/js/routes.js?16
 /index.html
