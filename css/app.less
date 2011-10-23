@@ -123,6 +123,7 @@ body {
     width:90px;
     margin:4px 4px;
 
+    outline: 0;
     border: 1px solid #333;
     border-radius: 7px;
 
@@ -147,4 +148,84 @@ body {
     background: url(../images/icons/28-star.png) no-repeat center;
     background-size:100% 100%;
 
+}
+
+.dialog_container {
+    display:block;
+    opacity: 0;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+
+    -moz-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -webkit-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+
+    -webkit-transform: translate3D(0, -100%, 0);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translate3D(0, -100%, 0);
+    -o-transform: translate3D(0, -100%, 0);
+
+    .dialog {
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#CCC), to(#999));
+        background-image: -webkit-linear-gradient(top, #CCC, #999);
+        background-image:    -moz-linear-gradient(top, #CCC, #999);
+        background-image:     -ms-linear-gradient(top, #CCC, #999);
+        background-image:      -o-linear-gradient(top, #CCC, #999);
+        background-image:         linear-gradient(top, #CCC, #999);
+
+        border: 2px solid #333;
+        border-radius: 7px;
+
+        -moz-box-shadow: 0 0 3px 3px rgba(255,255,255,.3);
+        -webkit-box-shadow: 0 0 3px 3px rgba(255,255,255,.3);
+        box-shadow: 0 0 3px 3px rgba(255,255,255,.3);
+
+        position: absolute;
+        left:15%;
+        right:15%;
+        top: 25%;
+        bottom:25%;
+
+        padding: 1em;
+        vertical-align: middle;
+        text-align: center;
+
+        .close {
+            position:absolute;
+            right:0.1em;
+            top:0.1em;
+            width:60px;
+        }
+    }
+}
+
+.active_dialog {
+    display:block;
+    opacity: 1;
+
+    -webkit-transform: translate3D(0, 0, 0);
+    -moz-transform: translateY(0);
+    -ms-transform: translate3D(0, 0, 0);
+    -o-transform: translate3D(0, 0, 0);
+}
+
+.about {
+    .name {
+        font-size: 2em;
+    }
+    .version {
+        margin-top: 0.3em;
+        font-size: 1.3em;
+    }
+    .copyright {
+        margin-top: 0.5em;
+        font-size: 1em;
+    }
 }

@@ -1,40 +1,73 @@
+App = {
+    page: {
+        clock: "clock",
+        countdown: "countdown"
+    },
+    dialog: {
+        show: function(id) {
+            // Show about box
+            $('#' + id).addClass("active_dialog");
+        },
+        hide: function() {
+            // Hide dialog
+            $(".active_dialog").removeClass("active_dialog");
+        }
+    }
+}
+
+
 // Bind the event.
 $(window).hashchange( function(){
+    var active_page = '';
+
+    return function() {
+        // Alerts every time the hash changes!
+        var hash = location.hash;
+        if (hash.indexOf("#") >= 0) {
+            hash = hash.replace("#!", "");
+            hash = hash.replace("#", "");
+            var splitHash = hash.split("/"),
+                section = splitHash[1],
+                data = splitHash[2];
+
+            switch (section) {
+                // Handle countdown clocks
+                case "c":
+                case "countdown":
+                    stopClock();
+                    active_page = App.page.countdown;
+                    var params = parseTimeOutOfParams(data)
+
+                    initCountdown(params);
+                    break;
+
+                // Default to clock mode
+                default:
+                    if (active_page === App.page.clock) break;
+                    stopClock();
+                    active_page = App.page.clock;
+                    initClock();
+            }
+        } else {
+            // Start the clock if we don't understand
+            //  the hash (or it's empty)
+            initClock();
+        }
+        resize();
+    }
+}());
+
+function stopClock() {
     // Clear any existing clock/timer
     $("#container").empty();
     if (layout) layout.stop(false);
     stopBlinker();
-
-    // Alerts every time the hash changes!
-    var hash = location.hash;
-    if (hash.indexOf("#!") >= 0) {
-        hash = hash.replace("#!", "");
-        var splitHash = hash.split("/"),
-            section = splitHash[1],
-            data = splitHash[2];
-
-        switch (section) {
-            // Handle countdown clocks
-            case "c":
-            case "countdown":
-                var params = parseTimeOutOfParams(data)
-
-                initCountdown(params);
-                break;
-
-            // Default to clock mode
-            default:
-                initClock();
-        }
-    } else {
-        // Start the clock if we don't understand
-        //  the hash (or it's empty)
-        initClock();
-    }
-    resize();
-});
+}
 
 $(document).ready(function() {
+
+    // Setup dialogs
+    $(".dialog").append('<a href="#" hideDialog="true" class="close button">x</a>')
 
     // Trigger the event
     $(window).hashchange();
@@ -47,7 +80,7 @@ $(document).ready(function() {
 
     var toggle_toolbar = function(e) {
         if (e.returnValue === false) return false;
-        // $("body").toggleClass("toolbar_active");
+        $("body").toggleClass("toolbar_active");
         e.preventDefault();
     };
 
@@ -62,15 +95,22 @@ $(document).ready(function() {
     var button_down = function(e) {
         $(this).removeClass("active");
         $(this).addClass("down");
+        e.preventDefault();
     };
     var button_up = function(e) {
+        var pressed = $(this).hasClass("down");
         $(this).removeClass("down");
+        if (pressed) {
+            // Active Event
+            $(this).trigger("action");
+        }
     };
     var button_over = function(e) {
         $(this).addClass("active");
     };
     var button_out = function(e) {
         $(this).removeClass("active");
+        $(this).removeClass("down");
     };
 
     $(".button").append($('<div class="button_inner" />'));
@@ -99,6 +139,17 @@ $(document).ready(function() {
             $(this).removeClass("down");
             event.preventDefault();
             return false;
+        }
+    });
+
+    $(".button").bind("action", function(e) {
+        if ($(this).attr("dialog")) {
+            App.dialog.show($(this).attr("dialog"));
+            e.preventDefault();
+        }
+        if ($(this).attr("hideDialog")) {
+            App.dialog.hide();
+            e.preventDefault();
         }
     });
 });

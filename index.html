@@ -7,16 +7,26 @@
         <title>Flip Clock</title>
         <script type="text/javascript" src="vendor/jquery/jquery.1.6.4.min.js"></script>
         <script type="text/javascript" src="vendor/jquery/jquery.ba-hashchange.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/app.css?16" />
-        <link rel="stylesheet" type="text/css" href="css/style.css?16" />
-        <script type="text/javascript" src="js/flipclock.js?16"></script>
-        <script type="text/javascript" src="js/routes.js?16"></script>
+        <link rel="stylesheet/less" type="text/css" href="css/app.less" />
+        <link rel="stylesheet/less" type="text/css" href="css/style.less" />
+        <script type="text/javascript" src="vendor/less.js"></script>
+        <script type="text/javascript" src="js/flipclock.js"></script>
+        <script type="text/javascript" src="js/routes.js"></script>
+
+        <!-- <script src="http://debug.phonegap.com/target/target-script-min.js#flipclock"></script>-->
     </head>
     <body>
         <div id="toolbarContainer" class="bar_container"></div>
         <div id="container"></div>
         <div id="toolbar" class="bar">
-            <a href="#" class="button button_right icon_star">About</a>
+            <a dialog="about" class="button button_right icon_star">About</a>
+        </div>
+        <div id="about" class="dialog_container">
+            <div class="about dialog">
+                <div class="name">Flipclock.us</div>
+                <div class="version">Version 1.0</div>
+                <div class="copyright">Copyright 2011 John Roepke</div>
+            </div>
         </div>
     </body>
 </html>
