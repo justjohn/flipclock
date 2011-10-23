@@ -1,7 +1,7 @@
 require.paths.unshift('node_modules/');
 var express = require("express");
 
-// Mostly just a proxy for hosting the static offline files
+// Mostly just a proxy for hosting the static files
 
 var app = express.createServer();
 
@@ -12,4 +12,4 @@ app.configure(function(){
 });
 
 
-app.listen(process.env.C9_PORT);
+app.listen(process.env.C9_PORT || 9999);
