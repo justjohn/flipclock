@@ -19,13 +19,24 @@
         <div id="toolbarContainer" class="bar_container"></div>
         <div id="container"></div>
         <div id="toolbar" class="bar">
-            <a dialog="about" class="button button_right icon_star">About</a>
+            <a href="#/" class="clock button icon icon_clock">Clock</a>
+            <a href="javascript:;" dialog="countdown" class="countdown button icon icon_countdown">Countdown</a>
+            <a href="javascript:;" dialog="about" class="button button_right icon icon_star">About</a>
         </div>
         <div id="about" class="dialog_container">
             <div class="about dialog">
                 <div class="name">Flipclock.us</div>
                 <div class="version">Version 1.0</div>
-                <div class="copyright">Copyright 2011 John Roepke</div>
+                <div class="icon"></div>
+                <div class="copyright">Copyright 2011 <a href="http://johnroepke.com/">John Roepke</a></div>
+            </div>
+        </div>
+        <div id="countdown" class="dialog_container">
+            <div class="countdown dialog">
+                Select Countdown Time
+                Hours: ...
+                Minutes: ...
+                Seconds: ...
             </div>
         </div>
     </body>

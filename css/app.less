@@ -82,9 +82,6 @@ body {
     background-image:linear-gradient(#383838,#2a2a2a 50%,#222222 51%,#1b1b1b);
 }
 
-.button_right {
-    float:right;
-}
 .button.down {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#3C3C3C));
     background-image: -webkit-linear-gradient(top, #222, #3C3C3C);
@@ -121,7 +118,7 @@ body {
     line-height:40px;
     height:40px;
     width:90px;
-    margin:4px 4px;
+    margin:4px 0 4px 4px;
 
     outline: 0;
     border: 1px solid #333;
@@ -139,15 +136,34 @@ body {
     background-image:         linear-gradient(top, #3C3C3C, #000);
 
 }
-.icon_star .button_inner {
+.button_right {
+    float:right;
+    margin-right:4px;
+    margin-left:0;
+}
+
+.button.countdown {
+    width: 130px;
+}
+
+.icon .button_inner {
     display:block;
     margin:9px 0 0 10px;
     height:20px;
     width:20px;
     float:left;
-    background: url(../images/icons/28-star.png) no-repeat center;
-    background-size:100% 100%;
-
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon_star .button_inner {
+    background-image: url(../images/icons/28-star.png);
+}
+.icon_countdown .button_inner {
+    background-image: url(../images/icons/78-stopwatch.png);
+}
+.icon_clock .button_inner {
+    background-image: url(../images/icons/11-clock.png);
 }
 
 .dialog_container {
@@ -205,6 +221,14 @@ body {
         }
     }
 }
+@media screen and (max-width: 600px) {
+    .dialog_container .dialog {
+        left:10%;
+        right:10%;
+        top: 18%;
+        bottom:18%;
+    }
+}
 
 .active_dialog {
     display:block;
@@ -217,15 +241,32 @@ body {
 }
 
 .about {
+    div {
+        position:absolute;
+        text-align: center;
+        left:0;
+        right:0;
+    }
     .name {
-        font-size: 2em;
+        top:0.1em;
+        font-size: 1.8em;
     }
     .version {
-        margin-top: 0.3em;
-        font-size: 1.3em;
+        top:2.1em;
+        font-size: 1.2em;
+    }
+    .icon {
+        top:4.6em;
+        bottom:1.8em;
+        background:url(/apple-touch-icon-precomposed.png) center no-repeat;
+        background-size: contain;
     }
     .copyright {
-        margin-top: 0.5em;
-        font-size: 1em;
+        bottom:0.1em;
+        font-size: 0.8em;
+
+        a {
+            color:black;
+        }
     }
 }

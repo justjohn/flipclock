@@ -21,38 +21,39 @@ $(window).hashchange( function(){
     var active_page = '';
 
     return function() {
+        var splitHash = [],
+            section = '',
+            data = '';
+
         // Alerts every time the hash changes!
         var hash = location.hash;
         if (hash.indexOf("#") >= 0) {
             hash = hash.replace("#!", "");
             hash = hash.replace("#", "");
-            var splitHash = hash.split("/"),
-                section = splitHash[1],
-                data = splitHash[2];
-
-            switch (section) {
-                // Handle countdown clocks
-                case "c":
-                case "countdown":
-                    stopClock();
-                    active_page = App.page.countdown;
-                    var params = parseTimeOutOfParams(data)
-
-                    initCountdown(params);
-                    break;
-
-                // Default to clock mode
-                default:
-                    if (active_page === App.page.clock) break;
-                    stopClock();
-                    active_page = App.page.clock;
-                    initClock();
-            }
-        } else {
-            // Start the clock if we don't understand
-            //  the hash (or it's empty)
-            initClock();
+            splitHash = hash.split("/");
+            section = splitHash[1];
+            data = splitHash[2];
         }
+
+        switch (section) {
+            // Handle countdown clocks
+            case "c":
+            case "countdown":
+                stopClock();
+                active_page = App.page.countdown;
+                var params = parseTimeOutOfParams(data)
+
+                initCountdown(params);
+                break;
+
+            // Default to clock mode
+            default:
+                if (active_page === App.page.clock) break;
+                stopClock();
+                active_page = App.page.clock;
+                initClock();
+        }
+
         resize();
     }
 }());
@@ -67,7 +68,7 @@ function stopClock() {
 $(document).ready(function() {
 
     // Setup dialogs
-    $(".dialog").append('<a href="javascript:;" hideDialog="true" class="close button">x</a>')
+    $(".dialog").append('<a href="javascript:;" hideDialog="true" class="close button button_right">x</a>')
 
     // Trigger the event
     $(window).hashchange();
@@ -147,10 +148,13 @@ $(document).ready(function() {
         if ($(this).attr("dialog")) {
             App.dialog.show($(this).attr("dialog"));
             e.preventDefault();
-        }
-        if ($(this).attr("hideDialog")) {
+
+        } else if ($(this).attr("hideDialog")) {
             App.dialog.hide();
             e.preventDefault();
+
+        } else {
+            document.location = $(this).attr("href");
         }
     });
 });

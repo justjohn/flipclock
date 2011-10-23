@@ -2,6 +2,7 @@ CACHE MANIFEST
 # v16
 
 CACHE:
+/apple-touch-icon-precomposed.png
 /vendor/jquery/jquery.1.6.4.min.js
 /vendor/jquery/jquery.ba-hashchange.min.js
 /vendor/less.js
@@ -30,6 +31,8 @@ CACHE:
 /images/digits/large/am_bottom.png
 /images/digits/large/pm_bottom.png
 /images/icons/28-star.png
+/images/icons/78-stopwatch.png
+/images/icons/11-clock.png
 
 NETWORK:
 /css/app.less
