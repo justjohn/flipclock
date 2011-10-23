@@ -6,7 +6,7 @@ document.ontouchstart = function(e){e.preventDefault();}
 var transition_duration = 250;
 
 // The amount of time before the end of the first flip the second flip starts
-var transition_overlap  = 20;
+var transition_overlap  = 30;
 
 // Container
 var FlipClock = {};

@@ -67,7 +67,7 @@ function stopClock() {
 $(document).ready(function() {
 
     // Setup dialogs
-    $(".dialog").append('<a href="#" hideDialog="true" class="close button">x</a>')
+    $(".dialog").append('<a href="javascript:;" hideDialog="true" class="close button">x</a>')
 
     // Trigger the event
     $(window).hashchange();
@@ -104,6 +104,7 @@ $(document).ready(function() {
             // Active Event
             $(this).trigger("action");
         }
+        e.preventDefault();
     };
     var button_over = function(e) {
         $(this).addClass("active");
