@@ -1,22 +1,36 @@
 <h2>Select Countdown Time</h2>
 
 <div class="selector">
-    <div class="title">Hours</div>
-    <a href="javascript:;" class="up"></a>
-    <div class="value">0</div>
-    <a href="javascript:;" class="down"></a>
+    <div class="controls">
+        <a href="javascript:;" class="button icon_up" action="countdown_hour_up" interval="400"><span class="inner"></span></a>
+        <div class="value">
+            <span id="countdown_hour">0</span> hr
+        </div>
+        <a href="javascript:;" class="button icon_down" action="countdown_hour_down" interval="400"><span class="inner"></span></a>
+    </div>
 </div>
 
 <div class="selector">
-    <div class="title">Minutes</div>
-    <a href="javascript:;" class="up"></a>
-    <div class="value">0</div>
-    <a href="javascript:;" class="down"></a>
+    <div class="controls">
+        <a href="javascript:;" class="button icon_up" action="countdown_minute_up" interval="400"><span class="inner"></span></a>
+        <div class="value">
+            <span id="countdown_min">0</span> min
+        </div>
+        <a href="javascript:;" class="button icon_down" action="countdown_minute_down" interval="400"><span class="inner"></span></a>
+    </div>
 </div>
 
 <div class="selector">
-    <div class="title">Seconds</div>
-    <a href="javascript:;" class="up"></a>
-    <div class="value">0</div>
-    <a href="javascript:;" class="down"></a>
+    <div class="controls">
+        <a href="javascript:;" class="button icon_up" action="countdown_second_up" interval="400"><span class="inner"></span></a>
+        <div class="value">
+            <span id="countdown_sec">0</span> sec
+        </div>
+        <a href="javascript:;" class="button icon_down" action="countdown_second_down" interval="400"><span class="inner"></span></a>
+    </div>
+</div>
+
+<div class="action_bar">
+    <a href="javascript:;" class="button confirm" action="countdown_start">Start</a>
+    <a href="javascript:;" class="button cancel" action="hide_dialog">Cancel</a>
 </div>

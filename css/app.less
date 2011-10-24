@@ -124,6 +124,39 @@ body {
     width: 130px;
 }
 
+.button.confirm {
+    .background-image(#6C6C6C, #4C4C4C);
+}
+.button.confirm.active {
+    .background-image(#8C8C8C, #6C6C6C);
+}
+.button.confirm.down {
+    .background-image(#4C4C4C, #6C6C6C);
+}
+
+
+/*
+.button.cancel {
+    .background-image(#A10028, #4A0012);
+}
+.button.cancel.active {
+    .background-image(#B5002D, #690019);
+}
+.button.cancel.down {
+    .background-image(#4A0012, #A10028);
+}
+
+.button.confirm {
+    .background-image(#008000, #003801);
+}
+.button.confirm.active {
+    .background-image(#00A100, #006900);
+}
+.button.confirm.down {
+    .background-image(#003801, #008000);
+}
+*/
+
 .icon .button_inner {
     display:block;
     margin:9px 0 0 10px;
@@ -165,21 +198,24 @@ body {
         .border-radius(7px);
 
         position: absolute;
-        left:15%;
-        right:15%;
+        left: 15%;
+        right: 15%;
         top: 25%;
-        bottom:25%;
+        bottom: 25%;
 
         border: 1px solid #333;
-        padding: 1em;
+        padding: 10px;
         vertical-align: middle;
         text-align: center;
 
         .close {
-            position:absolute;
-            right:0.1em;
-            top:0.1em;
-            width:60px;
+            z-index: 11;
+            position: absolute;
+            right: 0.1em;
+            top: 0.1em;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
         }
     }
 }
@@ -188,8 +224,8 @@ body {
     .dialog_container .dialog {
         left:10%;
         right:10%;
-        top: 18%;
-        bottom:18%;
+        top: 13%;
+        bottom:13%;
     }
 }
 
@@ -230,4 +266,3 @@ body {
         }
     }
 }
- 
