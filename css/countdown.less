@@ -1,0 +1,36 @@
+.countdown {
+    h2 {
+        margin: 0 0 10px;
+    }
+
+    .selector {
+        .border-radius(7px);
+        display: inline-block;
+        width: 100px;
+        margin: 10px;
+        color: white;
+
+        .title, .up, .down, .value {
+            display:block;
+            margin:0;
+        }
+        .up {
+            .border-radius-top(7px);
+            .background-image(#333, #000);
+            height: 30px;
+        }
+        .title {
+            padding:3px;
+            color: black;
+        }
+        .value {
+            background: #333;
+        }
+        .down {
+            .border-radius-bottom(7px);
+            .background-image(#000, #333);
+            height: 30px;
+        }
+    }
+
+}

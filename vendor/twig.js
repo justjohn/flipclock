@@ -3,6 +3,8 @@
  * Copyright (c) 2011 John Roepke
  * Available under the BSD 2-Clause License
  */
+module.declare(function(require, exports, module) {
+
 var twig=function(b){var a=b.id;if(b.debug!==void 0)Twig.debug=b.debug;if(b.data!==void 0)return b=Twig.prepare(b.data),new Twig.Template(b,a);else if(b.ref!==void 0){if(b.id!==void 0)throw Error("Both ref and id cannot be set on a twig.js template.");return Twig.Templates.load(b.ref)}else if(b.href!==void 0)return Twig.Templates.loadRemote(b.href,a,b.load,b.async,b.precompiled)};twig.compile=function(b,a){var d=a.filename,c=Twig.prepare(b),e=Twig.Templates.load(d)||new Twig.Template(c,d);return function(a){return e.render(a)}};
 var Twig=function(b){b.trace=false;b.debug=false;b.Error=function(a){this.message=a;this.name="Twig.Exception"};b.Error.prototype.toString=function(){return this.name+": "+this.message};b.log={trace:function(){b.trace&&console.log(Array.prototype.slice.call(arguments))},debug:function(){b.debug&&console.log(Array.prototype.slice.call(arguments))}};b.token={};b.token.type={output:"output",logic:"logic",comment:"comment",raw:"raw"};b.token.definitions={output:{type:b.token.type.output,open:"{{",close:"}}"},
 logic:{type:b.token.type.logic,open:"{%",close:"%}"},comment:{type:b.token.type.comment,open:"{#",close:"#}"}};b.token.strings=['"',"'"];b.token.findStart=function(a){var d={position:null,def:null},c,e,f;for(c in b.token.definitions)if(b.token.definitions.hasOwnProperty(c)&&(e=b.token.definitions[c],f=a.indexOf(e.open),b.log.trace("Twig.token.findStart: ","Searching for ",e.open," found at ",f),f>=0&&(d.position===null||f<d.position)))d.position=f,d.def=e;return d};b.token.findEnd=function(a,d,c){for(var e=
@@ -54,4 +56,6 @@ b[0]&&(c=b[0]);a instanceof Array?e=a:(f=a._keys||Object.keys(a),f.forEach(funct
 Array))c._keys=[];a instanceof Array?a.forEach(function(a){c._keys&&c._keys.unshift(e);c[e]=a;e++}):(f=a._keys||Object.keys(a),f.forEach(function(b){c[b]=a[b];c._keys.push(b);b=parseInt(b,10);!isNaN(b)&&b>=e&&(e=b+1)}));d.forEach(function(a){a instanceof Array?a.forEach(function(a){c._keys&&c._keys.push(e);c[e]=a;e++}):(f=a._keys||Object.keys(a),f.forEach(function(b){c[b]||c._keys.unshift(b);c[b]=a[b];b=parseInt(b,10);!isNaN(b)&&b>=e&&(e=b+1)}))});if(d.length===0)throw new b.Error("Filter merge expects at least one parameter");
 return c}};b.filter=function(a,d,c){if(!b.filters[a])throw"Unable to find filter "+a;return b.filters[a](d,c)};return b}(Twig||{});
 Twig=function(b){b.tests={empty:function(a){if(a===null||a===void 0)return true;if(a.length&&a.length>0)return false;for(var b in a)if(a.hasOwnProperty(b))return false;return true},odd:function(a){return a%2===1},even:function(a){return a%2===0},divisibleby:function(a,b){return a%b[0]===0},defined:function(a){return a!==void 0},none:function(a){return a===null}};b.test=function(a,d,c){if(!b.tests[a])throw"Test "+a+" is not defined.";return b.tests[a](d,c)};return b}(Twig||{});
-typeof module!=="undefined"&&module.exports?module.exports=twig:window.twig=twig;
+typeof exports!=="undefined"&&exports?exports.twig=twig:window.twig=twig;
+
+});

@@ -1,12 +1,17 @@
+@import "methods.less";
+@import "countdown.less";
+@import "style.less";
+
 body {
     position:absolute;
     background:black;
+    overflow:hidden;
     height:100%;
     width:100%;
-    overflow:hidden;
     margin:0;
     padding:0;
 }
+
 #container {
     position:absolute;
     left:0px;
@@ -38,6 +43,7 @@ body {
     -o-transition-duration: 0.15s;
     -o-transition-timing-function: linear;
 }
+
 .bar_container {
     position:absolute;
     left:0;
@@ -45,30 +51,22 @@ body {
     bottom:0;
     height:100px;
 
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#000), to(rgba(0,0,0,0)));
-    background-image: -webkit-linear-gradient(top, #000, rgba(0,0,0,0));
-    background-image:    -moz-linear-gradient(top, #000, rgba(0,0,0,0));
-    background-image:     -ms-linear-gradient(top, #000, rgba(0,0,0,0));
-    background-image:      -o-linear-gradient(top, #000, rgba(0,0,0,0));
-    background-image:         linear-gradient(top, #000, rgba(0,0,0,0));
-
+    .background-image(#000, rgba(0,0,0,0));
     background-color:#000;
 }
-.toolbar_active .bar_container {
-    background-color:#444;
+
+.toolbar_active {
+    .bar_container {
+        background-color:#444;
+    }
+    #container {
+        .transform-y(-25px);
+    }
+    .bar {
+        .transform-y(-50px);
+    }
 }
-.toolbar_active #container {
-    -webkit-transform: translateY(-25px);
-    -moz-transform: translateY(-25px);
-    -ms-transform: translateY(-25px);
-    -o-transform: translateY(-25px);
-}
-.toolbar_active .bar {
-    -webkit-transform: translateY(-50px);
-    -moz-transform: translateY(-50px);
-    -ms-transform: translateY(-50px);
-    -o-transform: translateY(-50px);
-}
+
 .bar {
     position:absolute;
     left:0;
@@ -83,26 +81,14 @@ body {
 }
 
 .button.down {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#3C3C3C));
-    background-image: -webkit-linear-gradient(top, #222, #3C3C3C);
-    background-image:    -moz-linear-gradient(top, #222, #3C3C3C);
-    background-image:     -ms-linear-gradient(top, #222, #3C3C3C);
-    background-image:      -o-linear-gradient(top, #222, #3C3C3C);
-    background-image:         linear-gradient(top, #222, #3C3C3C);
+    .background-image(#222, #3C3C3C);
+    .transform-y(1px);
+}
 
-    -webkit-transform: translateY(1px);
-    -moz-transform: translateY(1px);
-    -ms-transform: translateY(1px);
-    -o-transform: translateY(1px);
-}
 .button.active {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#414141), to(#222));
-    background-image: -webkit-linear-gradient(top, #414141, #222);
-    background-image:    -moz-linear-gradient(top, #414141, #222);
-    background-image:     -ms-linear-gradient(top, #414141, #222);
-    background-image:      -o-linear-gradient(top, #414141, #222);
-    background-image:         linear-gradient(top, #414141, #222);
+    .background-image(#414141, #222);
 }
+
 .button {
     text-decoration: none;
 
@@ -122,20 +108,12 @@ body {
 
     outline: 0;
     border: 1px solid #333;
-    border-radius: 7px;
 
-    -moz-box-shadow: inset 0 0 3px 3px rgba(0,0,0,.3);
-    -webkit-box-shadow: inset 0 0 3px 3px rgba(0,0,0,.3);
-    box-shadow: inset 0 0 3px 3px rgba(0,0,0,.3);
-
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#3C3C3C), to(#000));
-    background-image: -webkit-linear-gradient(top, #3C3C3C, #000);
-    background-image:    -moz-linear-gradient(top, #3C3C3C, #000);
-    background-image:     -ms-linear-gradient(top, #3C3C3C, #000);
-    background-image:      -o-linear-gradient(top, #3C3C3C, #000);
-    background-image:         linear-gradient(top, #3C3C3C, #000);
-
+    .border-radius(7px);
+    .inset-box-shadow(0, 0, 3px, 3px, rgba(0,0,0,.3));
+    .background-image(#3C3C3C, #000);
 }
+
 .button_right {
     float:right;
     margin-right:4px;
@@ -152,6 +130,7 @@ body {
     height:20px;
     width:20px;
     float:left;
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -177,31 +156,13 @@ body {
     background: rgba(0, 0, 0, 0.7);
     z-index: 10;
 
-    -moz-transition: all 0.25s ease-out;
-    -o-transition: all 0.25s ease-out;
-    -ms-transition: all 0.25s ease-out;
-    -webkit-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
-
-    -webkit-transform: translate3D(0, -100%, 0);
-    -moz-transform: translateY(-100%);
-    -ms-transform: translate3D(0, -100%, 0);
-    -o-transform: translate3D(0, -100%, 0);
+    .transition(all, 0.25s, ease-out);
+    .transform-y(-100%);
 
     .dialog {
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#CCC), to(#999));
-        background-image: -webkit-linear-gradient(top, #CCC, #999);
-        background-image:    -moz-linear-gradient(top, #CCC, #999);
-        background-image:     -ms-linear-gradient(top, #CCC, #999);
-        background-image:      -o-linear-gradient(top, #CCC, #999);
-        background-image:         linear-gradient(top, #CCC, #999);
-
-        border: 2px solid #333;
-        border-radius: 7px;
-
-        -moz-box-shadow: 0 0 3px 3px rgba(255,255,255,.3);
-        -webkit-box-shadow: 0 0 3px 3px rgba(255,255,255,.3);
-        box-shadow: 0 0 3px 3px rgba(255,255,255,.3);
+        .background-image(#CCC, #999);
+        .box-shadow(0, 0, 3px, 3px, rgba(255,255,255,.3));
+        .border-radius(7px);
 
         position: absolute;
         left:15%;
@@ -209,6 +170,7 @@ body {
         top: 25%;
         bottom:25%;
 
+        border: 1px solid #333;
         padding: 1em;
         vertical-align: middle;
         text-align: center;
@@ -221,6 +183,7 @@ body {
         }
     }
 }
+
 @media screen and (max-width: 600px) {
     .dialog_container .dialog {
         left:10%;
@@ -234,10 +197,7 @@ body {
     display:block;
     opacity: 1;
 
-    -webkit-transform: translate3D(0, 0, 0);
-    -moz-transform: translateY(0);
-    -ms-transform: translate3D(0, 0, 0);
-    -o-transform: translate3D(0, 0, 0);
+    .transform-y(0);
 }
 
 .about {
@@ -270,3 +230,4 @@ body {
         }
     }
 }
+ 
