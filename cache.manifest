@@ -1,11 +1,26 @@
 CACHE MANIFEST
-# v16
+# v17
 
 CACHE:
+/index.html
+/templates/about.twig
+/templates/dialog.twig
+/templates/countdown.twig
+/css/style.less
+/css/methods.less
+/css/app.less
+/css/countdown.less
+/lib/app.js
+/lib/utils.js?1
+/lib/ui/dialog.js?1
+/lib/ui/blinker.js?1
+/lib/ui/flipclock.js?1
 /apple-touch-icon-precomposed.png
-/vendor/jquery/jquery.1.6.4.min.js
-/vendor/jquery/jquery.ba-hashchange.min.js
+/vendor/jquery.js?1
 /vendor/less.js
+/vendor/bravojs/bravo.js
+/vendor/bravojs/global-es5.js
+/vendor/twig.js?1
 /images/digits/large/0_top.png
 /images/digits/large/1_top.png
 /images/digits/large/2_top.png
@@ -33,10 +48,6 @@ CACHE:
 /images/icons/28-star.png
 /images/icons/78-stopwatch.png
 /images/icons/11-clock.png
+/images/icons/00-up.png
+/images/icons/00-down.png
 
-NETWORK:
-/css/app.less
-/css/style.less
-/js/flipclock.js
-/js/routes.js
-/index.html
