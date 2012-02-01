@@ -10,7 +10,7 @@
   box-shadow: inset @arguments;
 }
 
-.background-image (@start, @end) {
+.background-gradient (@start, @end) {
     background-image: -webkit-gradient(linear, left top, left bottom, from(@start), to(@end));
     background-image: -webkit-linear-gradient(top, @start, @end);
     background-image:    -moz-linear-gradient(top, @start, @end);
@@ -56,4 +56,11 @@
     -moz-transform: translateY(@distance);
     -ms-transform: translate3D(0, @distance, 0);
     -o-transform: translate3D(0, @distance, 0);
+}
+.transition-timing-function (@function) {
+    -moz-transition-timing-function: @function;
+    -webkit-transition-timing-function: @function;
+    -ms-transition-timing-function: @function;
+    -o-transition-timing-function: @function;
+    transition-timing-function: @function;
 }

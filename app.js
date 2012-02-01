@@ -1,4 +1,3 @@
-require.paths.unshift('node_modules/');
 var express = require("express");
 
 // Mostly just a proxy for hosting the static files
