@@ -1,6 +1,6 @@
 @import "methods.less";
 @import "countdown.less";
-@import "style.less";
+@import "flipclock.less";
 
 body {
     position:absolute;
@@ -198,10 +198,12 @@ body {
         .border-radius(7px);
 
         position: absolute;
-        left: 15%;
-        right: 15%;
-        top: 15%;
-        bottom: 15%;
+        left: 50%;
+        top: 50%;
+        width: 500px;
+        height: 250px;
+        margin-top: -130px;
+        margin-left: -255px;
 
         border: 1px solid #333;
         padding: 10px;
@@ -222,6 +224,9 @@ body {
 
 @media screen and (max-width: 600px) {
     .dialog_container .dialog {
+        width: inherit;
+        height: inherit;
+        margin:0;
         left:10%;
         right:10%;
         top: 13%;
@@ -255,14 +260,21 @@ body {
         top:4.6em;
         bottom:1.8em;
         background:url(/apple-touch-icon-precomposed.png) center no-repeat;
-        background-size: contain;
+        margin: auto;
+        max-width:114px;
     }
     .copyright {
-        bottom:0.1em;
+        bottom:0.3em;
         font-size: 0.8em;
 
         a {
             color:black;
         }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .about .icon {
+        background-size: contain;
     }
 }

@@ -1,12 +1,12 @@
 CACHE MANIFEST
-# v17
+# v18
 
 CACHE:
 /index.html
 /templates/about.twig
 /templates/dialog.twig
 /templates/countdown.twig
-/css/style.less
+/css/flipclock.less
 /css/methods.less
 /css/app.less
 /css/countdown.less
