@@ -14,6 +14,7 @@ mkdir $TARGET
 cp index.html $TARGET/
 cp favicon.ico $TARGET/
 cp manifest.json $TARGET/
+cp apple-touch-icon-precomposed.png $TARGET/
 cp -r lib $TARGET/
 cp -r css $TARGET/
 cp -r templates $TARGET/
