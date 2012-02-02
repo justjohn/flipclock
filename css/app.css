@@ -1,0 +1,779 @@
+.countdown h2 {
+  margin: 0 0 10px;
+}
+.countdown .selector {
+  display: inline-block;
+  width: 100px;
+  margin: 0 5px;
+}
+.countdown .selector .title {
+  display: block;
+  margin: 0;
+  padding: 3px;
+  color: black;
+}
+.countdown .selector .controls {
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  background: black;
+  color: white;
+}
+.countdown .selector .controls .icon_up, .countdown .selector .controls .icon_down, .countdown .selector .controls .inner {
+  height: 40px;
+}
+.countdown .selector .controls .icon_up {
+  -webkit-border-top-right-radius: 7px;
+  -webkit-border-top-left-radius: 7px;
+  -moz-border-radius-topright: 7px;
+  -moz-border-radius-topleft: 7px;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.countdown .selector .controls .icon_up .inner {
+  background: url(../images/icons/00-up.png) no-repeat center;
+}
+.countdown .selector .controls .value {
+  padding: 5px 0;
+  margin-top: 1px;
+  display: block;
+  line-height: 20px;
+  font-size: 20px;
+  background: #333;
+  border: 1px solid black;
+}
+.countdown .selector .controls .button {
+  margin: 0;
+  width: 100px;
+  border: 0;
+}
+.countdown .selector .controls .button .inner {
+  display: block;
+  width: 25px;
+  margin: auto;
+}
+.countdown .selector .controls .icon_down {
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-border-bottom-right-radius: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+  -moz-border-radius-bottomright: 7px;
+  -moz-border-radius-bottomleft: 7px;
+  border-bottom-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+.countdown .selector .controls .icon_down .inner {
+  background: url(../images/icons/00-down.png) no-repeat center;
+}
+.flip {
+  position: absolute;
+  left: 300px;
+}
+.time_box, .countdown_box {
+  position: absolute;
+  width: 94%;
+  height: 100%;
+  max-height: 300px;
+  max-width: 950px;
+  margin: auto;
+}
+.left_1 {
+  left: 7%;
+}
+.left_2 {
+  left: 28%;
+}
+.right_1 {
+  left: 52%;
+}
+.right_2 {
+  left: 73%;
+}
+.hour_1 {
+  left: 0;
+}
+.hour_2 {
+  left: 21%;
+}
+.minute_1 {
+  left: 44%;
+}
+.minute_2 {
+  left: 65%;
+}
+.second_1 {
+  right: 8%;
+}
+.second_2 {
+  right: 0;
+}
+/** 18 + 2 + 18 + 7 + 18 + 2 + 18 + 3 + 14 **/
+.tile.time {
+  height: 100%;
+  top: 0;
+  width: 18%;
+  max-width: 210px;
+  bottom: 0;
+}
+.tile.time_right {
+  bottom: 20px;
+  width: 6%;
+  max-width: 100px;
+  height: 100px;
+}
+.tile.ampm {
+  top: 20px;
+  right: 0;
+  width: 14%;
+  max-width: 200px;
+  height: 100px;
+}
+@media screen and (max-width: 600px) {
+  .time_box, .countdown_box {
+    max-height: 150px;
+    max-width: 480px;
+  }
+  .tile.time {
+    max-width: 80px;
+  }
+  .tile.ampm {
+    max-width: 60px;
+    height: 50px;
+  }
+  .tile.time_right {
+    max-width: 25px;
+    height: 50px;
+  }
+}
+.tile {
+  position: absolute;
+  display: block;
+}
+.tile .top, .tile .bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  width: 100%;
+}
+.tile .bottom {
+  top: 50%;
+}
+.card, .card .before, .card .after {
+  z-index: 9;
+}
+.card .inner {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-position: 2px;
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  z-index: 10;
+}
+.flip .inner {
+  z-index: 12;
+}
+/** Display styles for the "cards" displayed for each number. **/
+.top .card .before, .top .card, .top .card .after {
+  background-color: #222;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#333333));
+  background-image: -webkit-linear-gradient(top, #222222, #333333);
+  background-image: -moz-linear-gradient(top, #222222, #333333);
+  background-image: -ms-linear-gradient(top, #222222, #333333);
+  background-image: -o-linear-gradient(top, #222222, #333333);
+  background-image: linear-gradient(top, #222222, #333333);
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  /* prevent bg color from leaking outside the border: */
+
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.bottom .card .before, .bottom .card, .bottom .card .after {
+  background: #111;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#111111));
+  background-image: -webkit-linear-gradient(top, #222222, #111111);
+  background-image: -moz-linear-gradient(top, #222222, #111111);
+  background-image: -ms-linear-gradient(top, #222222, #111111);
+  background-image: -o-linear-gradient(top, #222222, #111111);
+  background-image: linear-gradient(top, #222222, #111111);
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.card .before, .card, .card .after {
+  top: 0;
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0;
+  line-height: 0;
+  font-size: 0;
+}
+.flip.animated .before, .flip.animated, .flip.animated .after {
+  -webkit-transition-property: bottom, top, left, right, -webkit-transform;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-property: bottom, top, left, right, transform, -moz-transform;
+  -moz-transition-duration: 0.25s;
+  -ms-transition-property: bottom, top, left, right, transform, -ms-transform;
+  -ms-transition-duration: 0.25s;
+  -o-transition-property: bottom, top, left, right, transform, -o-transform;
+  -o-transition-duration: 0.25s;
+}
+.top .flip.animated .before, .top .flip.animated, .top .flip.animated .after {
+  -moz-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  -ms-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+.bottom .flip.animated .before, .bottom .flip.animated, .bottom .flip.animated .after {
+  -moz-transition-timing-function: ease-out;
+  -webkit-transition-timing-function: ease-out;
+  -ms-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.not-animated, .not-animated * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+.card {
+  left: 0;
+  right: 0;
+}
+.top .card.active {
+  top: 200px;
+}
+.bottom .card.active {
+  bottom: 200px;
+}
+.small .top .card.active {
+  top: 100px;
+}
+.small .bottom .card.active {
+  bottom: 100px;
+}
+.card .before, .card .after {
+  width: 60px;
+}
+.small .card .before, .small .card .after {
+  width: 30px;
+}
+/** Before Animation */
+.top .card .before,
+.bottom .card .before,
+.top .card .after,
+.bottom .card .after {
+  -moz-transform: matrix(1, 0, 0, 1, 0, 0);
+  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+  -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+  -o-transform: matrix(1, 0, 0, 1, 0, 0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+.top .card .before, .bottom .card .before {
+  left: -5px;
+}
+.top .card .after, .bottom .card .after {
+  right: -5px;
+}
+/** After Animation **/
+/** Left side. */
+.top .flip.active .before, .bottom .flip.active .before {
+  left: -20px;
+}
+/** Right side. */
+.top .flip.active .after, .bottom .flip.active .after {
+  right: -20px;
+}
+.top .flip.active .before, .bottom .flip.active .after {
+  -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
+  -moz-transform: matrix(1, 0, 0.5, 1, 0, 0);
+  -ms-transform: matrix(1, 0, 0.5, 1, 0, 0);
+  -o-transform: matrix(1, 0, 0.5, 1, 0, 0);
+  transform: matrix(1, 0, 0.5, 1, 0, 0);
+}
+.bottom .flip.active .before, .top .flip.active .after {
+  -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
+  -moz-transform: matrix(1, 0, -0.5, 1, 0, 0);
+  -ms-transform: matrix(1, 0, -0.5, 1, 0, 0);
+  -o-transform: matrix(1, 0, -0.5, 1, 0, 0);
+  transform: matrix(1, 0, -0.5, 1, 0, 0);
+}
+.top .digit_0 .inner {
+  background-image: url(../images/digits/large/0_top.png);
+}
+.top .digit_1 .inner {
+  background-image: url(../images/digits/large/1_top.png);
+}
+.top .digit_2 .inner {
+  background-image: url(../images/digits/large/2_top.png);
+}
+.top .digit_3 .inner {
+  background-image: url(../images/digits/large/3_top.png);
+}
+.top .digit_4 .inner {
+  background-image: url(../images/digits/large/4_top.png);
+}
+.top .digit_5 .inner {
+  background-image: url(../images/digits/large/5_top.png);
+}
+.top .digit_6 .inner {
+  background-image: url(../images/digits/large/6_top.png);
+}
+.top .digit_7 .inner {
+  background-image: url(../images/digits/large/7_top.png);
+}
+.top .digit_8 .inner {
+  background-image: url(../images/digits/large/8_top.png);
+}
+.top .digit_9 .inner {
+  background-image: url(../images/digits/large/9_top.png);
+}
+.top .digit_am .inner {
+  background-image: url(../images/digits/large/am_top.png);
+}
+.top .digit_pm .inner {
+  background-image: url(../images/digits/large/pm_top.png);
+}
+.bottom .digit_0 .inner {
+  background-image: url(../images/digits/large/0_bottom.png);
+}
+.bottom .digit_1 .inner {
+  background-image: url(../images/digits/large/1_bottom.png);
+}
+.bottom .digit_2 .inner {
+  background-image: url(../images/digits/large/2_bottom.png);
+}
+.bottom .digit_3 .inner {
+  background-image: url(../images/digits/large/3_bottom.png);
+}
+.bottom .digit_4 .inner {
+  background-image: url(../images/digits/large/4_bottom.png);
+}
+.bottom .digit_5 .inner {
+  background-image: url(../images/digits/large/5_bottom.png);
+}
+.bottom .digit_6 .inner {
+  background-image: url(../images/digits/large/6_bottom.png);
+}
+.bottom .digit_7 .inner {
+  background-image: url(../images/digits/large/7_bottom.png);
+}
+.bottom .digit_8 .inner {
+  background-image: url(../images/digits/large/8_bottom.png);
+}
+.bottom .digit_9 .inner {
+  background-image: url(../images/digits/large/9_bottom.png);
+}
+.bottom .digit_am .inner {
+  background-image: url(../images/digits/large/am_bottom.png);
+}
+.bottom .digit_pm .inner {
+  background-image: url(../images/digits/large/pm_bottom.png);
+}
+.small .top .digit_0 .inner {
+  background-image: url(../images/digits/small/0_top.png);
+}
+.small .top .digit_1 .inner {
+  background-image: url(../images/digits/small/1_top.png);
+}
+.small .top .digit_2 .inner {
+  background-image: url(../images/digits/small/2_top.png);
+}
+.small .top .digit_3 .inner {
+  background-image: url(../images/digits/small/3_top.png);
+}
+.small .top .digit_4 .inner {
+  background-image: url(../images/digits/small/4_top.png);
+}
+.small .top .digit_5 .inner {
+  background-image: url(../images/digits/small/5_top.png);
+}
+.small .top .digit_6 .inner {
+  background-image: url(../images/digits/small/6_top.png);
+}
+.small .top .digit_7 .inner {
+  background-image: url(../images/digits/small/7_top.png);
+}
+.small .top .digit_8 .inner {
+  background-image: url(../images/digits/small/8_top.png);
+}
+.small .top .digit_9 .inner {
+  background-image: url(../images/digits/small/9_top.png);
+}
+.small .top .digit_am .inner {
+  background-image: url(../images/digits/small/am_top.png);
+}
+.small .top .digit_pm .inner {
+  background-image: url(../images/digits/small/pm_top.png);
+}
+.small .bottom .digit_0 .inner {
+  background-image: url(../images/digits/small/0_bottom.png);
+}
+.small .bottom .digit_1 .inner {
+  background-image: url(../images/digits/small/1_bottom.png);
+}
+.small .bottom .digit_2 .inner {
+  background-image: url(../images/digits/small/2_bottom.png);
+}
+.small .bottom .digit_3 .inner {
+  background-image: url(../images/digits/small/3_bottom.png);
+}
+.small .bottom .digit_4 .inner {
+  background-image: url(../images/digits/small/4_bottom.png);
+}
+.small .bottom .digit_5 .inner {
+  background-image: url(../images/digits/small/5_bottom.png);
+}
+.small .bottom .digit_6 .inner {
+  background-image: url(../images/digits/small/6_bottom.png);
+}
+.small .bottom .digit_7 .inner {
+  background-image: url(../images/digits/small/7_bottom.png);
+}
+.small .bottom .digit_8 .inner {
+  background-image: url(../images/digits/small/8_bottom.png);
+}
+.small .bottom .digit_9 .inner {
+  background-image: url(../images/digits/small/9_bottom.png);
+}
+.small .bottom .digit_am .inner {
+  background-image: url(../images/digits/small/am_bottom.png);
+}
+.small .bottom .digit_pm .inner {
+  background-image: url(../images/digits/small/pm_bottom.png);
+}
+body {
+  position: absolute;
+  background: black;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+#container {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+#container.blink {
+  background: white;
+}
+#container.passive_blink {
+  background: #666;
+}
+.bar_container, .bar, #container {
+  -webkit-transition-property: background -webkit-transform;
+  -webkit-transition-duration: 0.15s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-property: background -moz-transform;
+  -moz-transition-duration: 0.15s;
+  -moz-transition-timing-function: linear;
+  -ms-transition-property: background, -ms-transform;
+  -ms-transition-duration: 0.15s;
+  -ms-transition-timing-function: linear;
+  -o-transition-property: background, -o-transform;
+  -o-transition-duration: 0.15s;
+  -o-transition-timing-function: linear;
+}
+.bar_container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#000000), to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  background-image: -o-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  background-image: linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  background-color: #000;
+}
+.toolbar_active .bar_container {
+  background-color: #444;
+}
+.toolbar_active #container {
+  -webkit-transform: translate3d(0, -25px, 0);
+  -moz-transform: translatey(-25px);
+  -ms-transform: translate3d(0, -25px, 0);
+  -o-transform: translate3d(0, -25px, 0);
+}
+.toolbar_active .bar {
+  -webkit-transform: translate3d(0, -50px, 0);
+  -moz-transform: translatey(-50px);
+  -ms-transform: translate3d(0, -50px, 0);
+  -o-transform: translate3d(0, -50px, 0);
+}
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -50px;
+  height: 50px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #383838), color-stop(50%, #2a2a2a), color-stop(51%, #222222), color-stop(100%, #1b1b1b));
+  background-image: -webkit-linear-gradient(#383838, #2a2a2a 50%, #222222 51%, #1b1b1b);
+  background-image: -moz-linear-gradient(#383838, #2a2a2a 50%, #222222 51%, #1b1b1b);
+  background-image: linear-gradient(#383838, #2a2a2a 50%, #222222 51%, #1b1b1b);
+}
+.button.down {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#3c3c3c));
+  background-image: -webkit-linear-gradient(top, #222222, #3c3c3c);
+  background-image: -moz-linear-gradient(top, #222222, #3c3c3c);
+  background-image: -ms-linear-gradient(top, #222222, #3c3c3c);
+  background-image: -o-linear-gradient(top, #222222, #3c3c3c);
+  background-image: linear-gradient(top, #222222, #3c3c3c);
+  -webkit-transform: translate3d(0, 1px, 0);
+  -moz-transform: translatey(1px);
+  -ms-transform: translate3d(0, 1px, 0);
+  -o-transform: translate3d(0, 1px, 0);
+}
+.button.active {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#414141), to(#222222));
+  background-image: -webkit-linear-gradient(top, #414141, #222222);
+  background-image: -moz-linear-gradient(top, #414141, #222222);
+  background-image: -ms-linear-gradient(top, #414141, #222222);
+  background-image: -o-linear-gradient(top, #414141, #222222);
+  background-image: linear-gradient(top, #414141, #222222);
+}
+.button {
+  text-decoration: none;
+  color: #ccc;
+  font-weight: bold;
+  font-size: 11pt;
+  font-family: Helvetica, Arial, sans-serif;
+  text-shadow: 0 1px 1px #333;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+  height: 40px;
+  width: 90px;
+  margin: 4px 0 4px 4px;
+  outline: 0;
+  border: 1px solid #333;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  -moz-box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, 0.3);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3c3c3c), to(#000000));
+  background-image: -webkit-linear-gradient(top, #3c3c3c, #000000);
+  background-image: -moz-linear-gradient(top, #3c3c3c, #000000);
+  background-image: -ms-linear-gradient(top, #3c3c3c, #000000);
+  background-image: -o-linear-gradient(top, #3c3c3c, #000000);
+  background-image: linear-gradient(top, #3c3c3c, #000000);
+}
+.button_right {
+  float: right;
+  margin-right: 4px;
+  margin-left: 0;
+}
+.button.countdown {
+  width: 130px;
+}
+.button.confirm {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#6c6c6c), to(#4c4c4c));
+  background-image: -webkit-linear-gradient(top, #6c6c6c, #4c4c4c);
+  background-image: -moz-linear-gradient(top, #6c6c6c, #4c4c4c);
+  background-image: -ms-linear-gradient(top, #6c6c6c, #4c4c4c);
+  background-image: -o-linear-gradient(top, #6c6c6c, #4c4c4c);
+  background-image: linear-gradient(top, #6c6c6c, #4c4c4c);
+}
+.button.confirm.active {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#8c8c8c), to(#6c6c6c));
+  background-image: -webkit-linear-gradient(top, #8c8c8c, #6c6c6c);
+  background-image: -moz-linear-gradient(top, #8c8c8c, #6c6c6c);
+  background-image: -ms-linear-gradient(top, #8c8c8c, #6c6c6c);
+  background-image: -o-linear-gradient(top, #8c8c8c, #6c6c6c);
+  background-image: linear-gradient(top, #8c8c8c, #6c6c6c);
+}
+.button.confirm.down {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#4c4c4c), to(#6c6c6c));
+  background-image: -webkit-linear-gradient(top, #4c4c4c, #6c6c6c);
+  background-image: -moz-linear-gradient(top, #4c4c4c, #6c6c6c);
+  background-image: -ms-linear-gradient(top, #4c4c4c, #6c6c6c);
+  background-image: -o-linear-gradient(top, #4c4c4c, #6c6c6c);
+  background-image: linear-gradient(top, #4c4c4c, #6c6c6c);
+}
+/*
+.button.cancel {
+    .background-gradient(#A10028, #4A0012);
+}
+.button.cancel.active {
+    .background-gradient(#B5002D, #690019);
+}
+.button.cancel.down {
+    .background-gradient(#4A0012, #A10028);
+}
+
+.button.confirm {
+    .background-gradient(#008000, #003801);
+}
+.button.confirm.active {
+    .background-gradient(#00A100, #006900);
+}
+.button.confirm.down {
+    .background-gradient(#003801, #008000);
+}
+*/
+.icon .button_inner {
+  display: block;
+  margin: 9px 0 0 10px;
+  height: 20px;
+  width: 20px;
+  float: left;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.icon_star .button_inner {
+  background-image: url(../images/icons/28-star.png);
+}
+.icon_countdown .button_inner {
+  background-image: url(../images/icons/78-stopwatch.png);
+}
+.icon_clock .button_inner {
+  background-image: url(../images/icons/11-clock.png);
+}
+.dialog_container {
+  display: block;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  -moz-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translatey(-100%);
+  -ms-transform: translate3d(0, -100%, 0);
+  -o-transform: translate3d(0, -100%, 0);
+}
+.dialog_container .dialog {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#999999));
+  background-image: -webkit-linear-gradient(top, #cccccc, #999999);
+  background-image: -moz-linear-gradient(top, #cccccc, #999999);
+  background-image: -ms-linear-gradient(top, #cccccc, #999999);
+  background-image: -o-linear-gradient(top, #cccccc, #999999);
+  background-image: linear-gradient(top, #cccccc, #999999);
+  -moz-box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  height: 250px;
+  margin-top: -130px;
+  margin-left: -255px;
+  border: 1px solid #333;
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+.dialog_container .dialog .close {
+  z-index: 11;
+  position: absolute;
+  right: 0.1em;
+  top: 0.1em;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+}
+@media screen and (max-width: 600px) {
+  .dialog_container .dialog {
+    width: inherit;
+    height: inherit;
+    margin: 0;
+    left: 10%;
+    right: 10%;
+    top: 13%;
+    bottom: 13%;
+  }
+}
+.active_dialog {
+  display: block;
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translatey(0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+}
+.about div {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+.about .name {
+  top: 0.1em;
+  font-size: 1.8em;
+}
+.about .version {
+  top: 2.1em;
+  font-size: 1.2em;
+}
+.about .icon {
+  top: 4.6em;
+  bottom: 1.8em;
+  background: url(/apple-touch-icon-precomposed.png) center no-repeat;
+  margin: auto;
+  max-width: 114px;
+  background-size: contain;
+}
+.about .copyright {
+  bottom: 0.3em;
+  font-size: 0.8em;
+}
+.about .copyright a {
+  color: black;
+}
+@media screen and (max-width: 600px) {
+  .about .icon {
+    background-size: contain;
+  }
+}

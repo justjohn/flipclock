@@ -1,0 +1,14 @@
+{
+  "name": "FlipClock",
+  "description": "It's a clock that flips away the time.",
+  "version": "1",
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "icons": {
+    "16": "images/logos/FlipClock_16.png",
+    "128": "images/logos/FlipClock_128.png"
+  }
+}

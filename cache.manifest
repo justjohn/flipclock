@@ -1,5 +1,8 @@
 CACHE MANIFEST
-# v18
+# v19
+
+NETWORK:
+https://ssl.google-analytics.com/ga.js
 
 CACHE:
 /index.html
@@ -7,6 +10,7 @@ CACHE:
 /templates/about.twig
 /templates/dialog.twig
 /templates/countdown.twig
+/css/app.css
 /css/flipclock.less
 /css/methods.less
 /css/app.less
@@ -18,7 +22,6 @@ CACHE:
 /lib/ui/flipclock.js?1
 /apple-touch-icon-precomposed.png
 /vendor/jquery.js?1
-/vendor/less.js
 /vendor/bravojs/bravo.js
 /vendor/bravojs/global-es5.js
 /vendor/twig.js?1
