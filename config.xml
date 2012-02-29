@@ -14,10 +14,16 @@
 		email="john@john.sh">
 		John Roepke
 	</author>
+    
+    <content src="index.html"/>
 
 	<icon src="apple-touch-icon-precomposed.png" gap:role="default" />
 
 	<feature name="http://api.phonegap.com/1.0/network"/>
-
+    
+    <preference name="permissions" value="none"/>
 	<preference name="orientation" value="landscape" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="prerendered-icon" value="true" />
 </widget>
