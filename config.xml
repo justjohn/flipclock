@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+	xmlns:gap = "http://phonegap.com/ns/1.0"
+	id = "us.flipclock.app"
+	version = "1.0.0">
+
+	<name>FlipClock</name>
+
+	<description>
+		Flip away the time with flipclock.
+	</description>
+
+	<author href="http://john.sh/"
+		email="john@john.sh">
+		John Roepke
+	</author>
+
+	<icon src="apple-touch-icon-precomposed.png" gap:role="default" />
+
+	<feature name="http://api.phonegap.com/1.0/network"/>
+
+	<preference name="orientation" value="landscape" />
+</widget>
