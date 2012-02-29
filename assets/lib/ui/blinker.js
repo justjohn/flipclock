@@ -1,4 +1,4 @@
-module.declare([ { jquery: "vendor/jquery" } ], function(require, exports, module) {
+module.declare([ { jquery: "assets/vendor/jquery" } ], function(require, exports, module) {
     var $ = require("jquery").jQuery;
 
     exports.blink = function(params) {
