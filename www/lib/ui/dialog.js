@@ -1,6 +1,6 @@
 module.declare([
-    {jquery: "assets/vendor/jquery"},
-    {twig: "assets/vendor/twig"},
+    {jquery: "www/vendor/jquery"},
+    {twig: "www/vendor/twig"},
 ],
 function(require, exports, module) {
     var $ = require("jquery").jQuery,
@@ -13,7 +13,7 @@ function(require, exports, module) {
 
     twig({
         id: 'dialog',
-        href: "/assets/templates/dialog.twig"
+        href: "/www/templates/dialog.twig"
     });
 
     exports.show = function(id) {

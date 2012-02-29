@@ -15,21 +15,8 @@ cp index.html $TARGET/
 cp favicon.ico $TARGET/
 cp manifest.json $TARGET/
 cp apple-touch-icon-precomposed.png $TARGET/
-cp -r lib $TARGET/
-cp -r css $TARGET/
-cp -r templates $TARGET/
-cp -r vendor $TARGET/
+cp -r www $TARGET/
 
-# Copy only the required images
-mkdir $TARGET/images
-cp -r images/digits $TARGET/images/
-cp -r images/logos $TARGET/images/
-mkdir $TARGET/images/icons
-cp images/icons/28-star.png $TARGET/images/icons
-cp images/icons/78-stopwatch.png $TARGET/images/icons
-cp images/icons/11-clock.png $TARGET/images/icons
-cp images/icons/00-up.png $TARGET/images/icons
-cp images/icons/00-down.png $TARGET/images/icons
 
 cd $TARGET
 echo "- Creating ZIP archive"

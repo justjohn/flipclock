@@ -1,9 +1,9 @@
 module.declare([
-    {jquery:    "assets/vendor/jquery"},
-    {flipclock: "assets/lib/ui/flipclock"},
-    {dialog:    "assets/lib/ui/dialog"},
-    {blinker:   "assets/lib/ui/blinker"},
-    {utils:     "assets/lib/utils"}
+    {jquery:    "www/vendor/jquery"},
+    {flipclock: "www/lib/ui/flipclock"},
+    {dialog:    "www/lib/ui/dialog"},
+    {blinker:   "www/lib/ui/blinker"},
+    {utils:     "www/lib/utils"}
 ], function(require, exports, module) {
 
     var $         = require("jquery").jQuery,
@@ -129,12 +129,12 @@ module.declare([
         // Setup dialogs
         dialog.create({
             id: "about",
-            template: "/assets/templates/about.twig",
+            template: "/www/templates/about.twig",
             container: $("#body")
 
         }).create({
             id: "countdown",
-            template: "/assets/templates/countdown.twig",
+            template: "/www/templates/countdown.twig",
             container: $("#body")
 
         }).complete(function() {
