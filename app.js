@@ -5,7 +5,7 @@ var express = require("express");
 var app = express.createServer();
 
 app.configure(function(){
-    app.use(express.static(__dirname));
+    app.use(express.static(__dirname + "/www"));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.use(express.bodyParser());
 });

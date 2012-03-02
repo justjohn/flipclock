@@ -1,5 +1,5 @@
-module.declare([ { jquery: "www/vendor/jquery" } ], function(require, exports, module) {
-    var $ = require("jquery").jQuery;
+module.declare([ "../../vendor/jquery" ], function(require, exports, module) {
+    var $ = require("../../vendor/jquery").jQuery;
 
     exports.blink = function(params) {
         // When the countdown is done, flash the background four times to white

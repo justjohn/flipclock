@@ -1,10 +1,10 @@
 module.declare([
-    {jquery: "www/vendor/jquery"},
-    {twig: "www/vendor/twig"},
+    "../../vendor/jquery",
+    "../../vendor/twig"
 ],
 function(require, exports, module) {
-    var $ = require("jquery").jQuery,
-        twig = require("twig").twig,
+    var $ = require("../../vendor/jquery").jQuery,
+        twig = require("../../vendor/twig").twig,
         count = 0,
         load_callback,
         config = {
@@ -13,7 +13,7 @@ function(require, exports, module) {
 
     twig({
         id: 'dialog',
-        href: "/www/templates/dialog.twig"
+        href: "templates/dialog.twig"
     });
 
     exports.show = function(id) {

@@ -24,7 +24,9 @@
   background: black;
   color: white;
 }
-.countdown .selector .controls .icon_up, .countdown .selector .controls .icon_down, .countdown .selector .controls .inner {
+.countdown .selector .controls .icon_up,
+.countdown .selector .controls .icon_down,
+.countdown .selector .controls .inner {
   height: 40px;
 }
 .countdown .selector .controls .icon_up {
@@ -84,7 +86,8 @@
   position: absolute;
   left: 300px;
 }
-.time_box, .countdown_box {
+.time_box,
+.countdown_box {
   position: absolute;
   width: 94%;
   height: 100%;
@@ -144,7 +147,8 @@
   height: 100px;
 }
 @media screen and (max-width: 600px) {
-  .time_box, .countdown_box {
+  .time_box,
+  .countdown_box {
     max-height: 150px;
     max-width: 480px;
   }
@@ -164,7 +168,8 @@
   position: absolute;
   display: block;
 }
-.tile .top, .tile .bottom {
+.tile .top,
+.tile .bottom {
   position: absolute;
   top: 0;
   left: 0;
@@ -174,7 +179,9 @@
 .tile .bottom {
   top: 50%;
 }
-.card, .card .before, .card .after {
+.card,
+.card .before,
+.card .after {
   z-index: 9;
 }
 .card .inner {
@@ -193,7 +200,9 @@
   z-index: 12;
 }
 /** Display styles for the "cards" displayed for each number. **/
-.top .card .before, .top .card, .top .card .after {
+.top .card .before,
+.top .card,
+.top .card .after {
   background-color: #222;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#333333));
   background-image: -webkit-linear-gradient(top, #222222, #333333);
@@ -213,7 +222,9 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.bottom .card .before, .bottom .card, .bottom .card .after {
+.bottom .card .before,
+.bottom .card,
+.bottom .card .after {
   background: #111;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#111111));
   background-image: -webkit-linear-gradient(top, #222222, #111111);
@@ -228,7 +239,9 @@
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.card .before, .card, .card .after {
+.card .before,
+.card,
+.card .after {
   top: 0;
   position: absolute;
   display: block;
@@ -237,7 +250,9 @@
   line-height: 0;
   font-size: 0;
 }
-.flip.animated .before, .flip.animated, .flip.animated .after {
+.flip.animated .before,
+.flip.animated,
+.flip.animated .after {
   -webkit-transition-property: bottom, top, left, right, -webkit-transform;
   -webkit-transition-duration: 0.25s;
   -moz-transition-property: bottom, top, left, right, transform, -moz-transform;
@@ -247,21 +262,26 @@
   -o-transition-property: bottom, top, left, right, transform, -o-transform;
   -o-transition-duration: 0.25s;
 }
-.top .flip.animated .before, .top .flip.animated, .top .flip.animated .after {
+.top .flip.animated .before,
+.top .flip.animated,
+.top .flip.animated .after {
   -moz-transition-timing-function: ease-in;
   -webkit-transition-timing-function: ease-in;
   -ms-transition-timing-function: ease-in;
   -o-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
-.bottom .flip.animated .before, .bottom .flip.animated, .bottom .flip.animated .after {
+.bottom .flip.animated .before,
+.bottom .flip.animated,
+.bottom .flip.animated .after {
   -moz-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   -ms-transition-timing-function: ease-out;
   -o-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.not-animated, .not-animated * {
+.not-animated,
+.not-animated * {
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -ms-transition: none !important;
@@ -284,10 +304,12 @@
 .small .bottom .card.active {
   bottom: 100px;
 }
-.card .before, .card .after {
+.card .before,
+.card .after {
   width: 60px;
 }
-.small .card .before, .small .card .after {
+.small .card .before,
+.small .card .after {
   width: 30px;
 }
 /** Before Animation */
@@ -301,29 +323,35 @@
   -o-transform: matrix(1, 0, 0, 1, 0, 0);
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-.top .card .before, .bottom .card .before {
+.top .card .before,
+.bottom .card .before {
   left: -5px;
 }
-.top .card .after, .bottom .card .after {
+.top .card .after,
+.bottom .card .after {
   right: -5px;
 }
 /** After Animation **/
 /** Left side. */
-.top .flip.active .before, .bottom .flip.active .before {
+.top .flip.active .before,
+.bottom .flip.active .before {
   left: -20px;
 }
 /** Right side. */
-.top .flip.active .after, .bottom .flip.active .after {
+.top .flip.active .after,
+.bottom .flip.active .after {
   right: -20px;
 }
-.top .flip.active .before, .bottom .flip.active .after {
+.top .flip.active .before,
+.bottom .flip.active .after {
   -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
   -moz-transform: matrix(1, 0, 0.5, 1, 0, 0);
   -ms-transform: matrix(1, 0, 0.5, 1, 0, 0);
   -o-transform: matrix(1, 0, 0.5, 1, 0, 0);
   transform: matrix(1, 0, 0.5, 1, 0, 0);
 }
-.bottom .flip.active .before, .top .flip.active .after {
+.bottom .flip.active .before,
+.top .flip.active .after {
   -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
   -moz-transform: matrix(1, 0, -0.5, 1, 0, 0);
   -ms-transform: matrix(1, 0, -0.5, 1, 0, 0);
@@ -484,6 +512,7 @@ body {
   padding: 0;
 }
 #container {
+  color: white;
   position: absolute;
   left: 0px;
   right: 0px;
@@ -496,7 +525,9 @@ body {
 #container.passive_blink {
   background: #666;
 }
-.bar_container, .bar, #container {
+.bar_container,
+.bar,
+#container {
   -webkit-transition-property: background -webkit-transform;
   -webkit-transition-duration: 0.15s;
   -webkit-transition-timing-function: linear;

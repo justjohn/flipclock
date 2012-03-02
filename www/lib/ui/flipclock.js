@@ -1,5 +1,8 @@
-module.declare([{ jquery: "www/vendor/jquery" }], function(require, exports, module) {
-    var $ = require("jquery").jQuery,
+module.declare([
+    "../../vendor/jquery"
+],
+function(require, exports, module) {
+    var $ = require("../../vendor/jquery").jQuery,
         // Should match the duration defined in the CSS
         transition_duration = 250;
 
