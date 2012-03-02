@@ -1,32 +1,34 @@
 <!doctype html>
-<html>
+<html> <!--  manifest="cache.manifest" -->
     <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <title>Flip Clock</title>
+        <script type="text/javascript" src="vendor/nobleModules.js"></script>
+        <script type="text/javascript" src="package.js"></script>
         <script type="text/javascript" charset="utf-8">
             // Prevent scrolling on Android / iOS devices
             document.ontouchmove = function(e){e.preventDefault();}
             document.ontouchstart = function(e){e.preventDefault();}
+
+            // Kick everything off
+            module.declare(["vendor/jquery", "app"], function() {
+                var $ = require("vendor/jquery").jQuery
+                    , app = require("app");
+                app.analytics.register(window);
+                $(function() {
+                    app.boot();
+                });
+            });
         </script>
-        <script type="text/javascript" src="vendor/nobleModules.js"></script>
-        <script type="text/javascript" src="build.js"></script>
-        <script type="text/javascript">
-			module.declare(["main"], function() {
-				// boot the app
-				var app = require("main");
-				app.analytics.register(window);
-				app.boot();
-			});
-		</script>
 
         <link rel="stylesheet" type="text/css" href="css/app.css" />
     </head>
     <body id="body">
         <div id="toolbarContainer" class="bar_container"></div>
-        <div id="container">Loading...</div>
+        <div id="container" style="background:red;"></div>
         <div id="toolbar" class="bar">
             <a href="#/" class="clock button icon icon_clock">Clock</a>
             <a href="javascript:;" dialog="countdown" class="countdown button icon icon_countdown">Countdown</a>

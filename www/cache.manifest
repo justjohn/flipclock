@@ -1,10 +1,6 @@
 CACHE MANIFEST
 # v20
 
-NETWORK:
-https://ssl.google-analytics.com/ga.js
-http:/.google-analytics.com/__utm.gif
-
 CACHE:
 /index.html
 /favicon.ico
@@ -12,20 +8,9 @@ CACHE:
 /templates/dialog.twig
 /templates/countdown.twig
 /css/app.css
-/css/flipclock.less
-/css/methods.less
-/css/app.less
-/css/countdown.less
-/main.js
-/lib/utils.js?1
-/lib/ui/dialog.js?1
-/lib/ui/blinker.js?1
-/lib/ui/flipclock.js?1
+/package.js
+/vendor/nobleModules.js
 /apple-touch-icon-precomposed.png
-/vendor/jquery.js?1
-/vendor/bravojs/bravo.js
-/vendor/bravojs/global-es5.js
-/vendor/twig.js?1
 /images/digits/large/0_top.png
 /images/digits/large/1_top.png
 /images/digits/large/2_top.png
@@ -80,3 +65,5 @@ CACHE:
 /images/icons/00-up.png
 /images/icons/00-down.png
 
+NETWORK:
+*

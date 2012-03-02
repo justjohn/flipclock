@@ -25,9 +25,8 @@ module.declare([
 
     // expose analytics
     exports.analytics = analytics;
-        
+    
     exports.boot = function() {
-
         $(document)
         .bind("countdown_minute_up", function() {
             var value = parseInt($("#countdown_min").html());
@@ -66,26 +65,6 @@ module.declare([
             document.location = url;
         });
 
-        function center(element) {
-            var element_width  = element.outerWidth(),
-                element_height = element.outerHeight(),
-                window_width   = $("#container").width(),
-                window_height  = $("#container").height();
-
-            if (element_height < window_height) {
-                element.css("top", ((window_height-element_height)/2) + 'px');
-            }
-            if (element_width < window_width) {
-                element.css("left", ((window_width-element_width)/2) + 'px');
-            }
-        }
-
-        var resize = function(e) {
-            // Center Timebox
-            center($(".time_box"));
-            center($(".countdown_box"));
-        };
-
         $(window).resize(resize);
 
         // Routing
@@ -98,7 +77,7 @@ module.declare([
                     data = '';
 
                 var hash = location.hash;
-    			_gaq && _gaq.push( ['_trackPageview', hash] );
+    			analytics._gaq && analytics._gaq.push( ['_trackPageview', hash] );
 			
                 if (hash.indexOf("#") >= 0) {
                     hash = hash.replace("#!", "");
@@ -149,9 +128,6 @@ module.declare([
                 $(".dialog_container").bind("mouseup", dialog.hide);
                 $(".dialog_container").bind("touchend", dialog.hide);
             });
-
-            // Trigger the event
-            $(window).hashchange();
 
             $("#toolbar").bind('click', function(e){
                 // prevent click action from bubbling up to the container
@@ -264,8 +240,33 @@ module.declare([
                     document.location = $(this).attr("href");
                 }
             });
+            
+            // Load the app
+            $(window).hashchange();
         });
     };
+    
+    function center(element) {
+        var element_width  = element.outerWidth(),
+            element_height = element.outerHeight(),
+            window_width   = $("body").width(),
+            window_height  = $("body").height();
+            
+            console.log(window_width, "x", window_height)
+
+        if (element_height < window_height) {
+            element.css("top", ((window_height-element_height)/2) + 'px');
+        }
+        if (element_width < window_width) {
+            element.css("left", ((window_width-element_width)/2) + 'px');
+        }
+    }
+
+    function resize(e) {
+        // Center Timebox
+        center($(".time_box"));
+        center($(".countdown_box"));
+    }
     
     function stopClock() {
         // Clear any existing clock/timer
