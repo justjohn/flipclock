@@ -241,8 +241,12 @@ module.declare([
                 }
             });
             
-            // Load the app
-            $(window).hashchange();
+            // Wait a small amount of time for the page to render.
+            //   This is almost certainly the wrong approach but it
+            //   works for now.
+            setTimeout(function() {
+                $(window).hashchange();
+            }, 10);
         });
     };
     
@@ -251,8 +255,6 @@ module.declare([
             element_height = element.outerHeight(),
             window_width   = $("body").width(),
             window_height  = $("body").height();
-            
-            console.log(window_width, "x", window_height)
 
         if (element_height < window_height) {
             element.css("top", ((window_height-element_height)/2) + 'px');
