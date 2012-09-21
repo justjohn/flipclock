@@ -166,13 +166,18 @@ module.declare([
                         links = $("a", this),
                         active_class = 'active';
 
-                    toggle.on('click', 'a', function(e) {
+                    var click_fn = function(e) {
                         var target = $(this);
 
                         // toggle styles
                         links.removeClass(active_class);
                         target.addClass(active_class);
-                    });
+                    };
+
+                    toggle.on({
+                        'click': click_fn,
+                        'touchstart': click_fn
+                    }, 'a');
 
                     toggle.on('confirm', function() {
                         var active = $('.'+active_class, toggle),
