@@ -2,7 +2,7 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 	xmlns:gap = "http://phonegap.com/ns/1.0"
 	id = "us.flipclock.app"
-	version = "1.0.0">
+	version = "1.1.0">
 
 	<name>FlipClock</name>
 
@@ -14,13 +14,13 @@
 		email="john@john.sh">
 		John Roepke
 	</author>
-    
+
     <content src="index.html"/>
 
 	<icon src="apple-touch-icon-precomposed.png" gap:role="default" />
 
 	<feature name="http://api.phonegap.com/1.0/network"/>
-    
+
     <preference name="permissions" value="none"/>
 	<preference name="orientation" value="landscape" />
     <preference name="fullscreen" value="true" />

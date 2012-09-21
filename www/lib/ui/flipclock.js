@@ -1,8 +1,10 @@
 module.declare([
-    "../../vendor/jquery"
+    "../../vendor/jquery",
+    "../config"
 ],
 function(require, exports, module) {
     var $ = require("../../vendor/jquery").jQuery,
+        config = require("../config"),
         // Should match the duration defined in the CSS
         transition_duration = 250;
 
@@ -49,7 +51,7 @@ function(require, exports, module) {
             from = context.attr("number"),
             transition_duration = this.params.transition_duration || 250,
             transition_overlap = this.params.transition_overlap || 20;
-            
+
         // Check to see if the new number is already set
         if (number == from) return;
 
@@ -128,9 +130,10 @@ function(require, exports, module) {
     FlipClock.Digit.prototype = FlipClock.Digit;
 
     FlipClock.Layout = function(layout, params) {
+        this.cls = layout.cls;
         layout.init.apply(this, [params]);
 
-        var container = $('<div />').addClass(layout.cls);
+        var container = $('<div />').addClass(this.cls);
         var l = this.items.length;
         for (var i=0; i < l; i++) {
             var tile = this.items[i].tile;
@@ -172,6 +175,8 @@ function(require, exports, module) {
         cls: 'time_box layout_time_ampm_sec',
         refreshTime: 1000,
         init: function() {
+            this.mode = config.getTimeMode();
+
             this.hour1 = new FlipClock.Digit({
                 cls: 'time hour_1',
                 transition_duration: 250
@@ -196,17 +201,22 @@ function(require, exports, module) {
                 cls: 'time_right small second_2',
                 transition_duration: 200
             });
-            this.ampm = new FlipClock.Digit({
-                cls: 'ampm',
-                transition_duration: 250
-            });
 
             this.items = [
                 this.hour1, this.hour2,
                 this.minute1, this.minute2,
-                this.second1, this.second2,
-                this.ampm
+                this.second1, this.second2
             ];
+
+            if (this.mode == config.modes.twelveHour) {
+                this.ampm = new FlipClock.Digit({
+                    cls: 'ampm',
+                    transition_duration: 250
+                });
+
+                this.items.push(this.ampm);
+            }
+
         },
         update: function() {
             var d = new Date();
@@ -226,27 +236,30 @@ function(require, exports, module) {
             this.minute2.flip(m_ones);
 
             var hours = d.getHours();
-            if (hours > 12) hours -= 12;
 
-            if (hours == 0) hours = 12;
+            if (this.mode == config.modes.twelveHour) {
+                if (hours > 12) hours -= 12;
+                if (hours == 0) hours = 12;
+
+                var ampm_val = "am";
+                if (d.getHours() >= 12) ampm_val = "pm";
+                this.ampm.flip(ampm_val);
+            }
 
             var h_tens = Math.floor(hours / 10);
             var h_ones = hours % 10;
 
             this.hour1.flip(h_tens == 0 ? "" : h_tens);
             this.hour2.flip(h_ones);
-
-            var ampm_val = "am";
-            if (d.getHours() >= 12) ampm_val = "pm";
-
-            this.ampm.flip(ampm_val);
         }
     };
-    
+
     exports.layouts.timeAMPM = {
         cls: 'time_box layout_time_ampm',
         refreshTime: 1000,
         init: function() {
+            this.mode = config.getTimeMode();
+
             this.hour1 = new FlipClock.Digit({
                 cls: 'time hour_1'
             });
@@ -259,15 +272,21 @@ function(require, exports, module) {
             this.minute2 = new FlipClock.Digit({
                 cls: 'time minute_2'
             });
-            this.ampm = new FlipClock.Digit({
-                cls: 'ampm'
-            });
 
             this.items = [
                 this.hour1, this.hour2,
-                this.minute1, this.minute2,
-                this.ampm
+                this.minute1, this.minute2
             ];
+
+            if (this.mode == config.modes.twelveHour) {
+                this.ampm = new FlipClock.Digit({
+                    cls: 'ampm'
+                });
+
+                this.items.push(this.ampm);
+            } else {
+                this.cls += " layout_no_seconds";
+            }
         },
         update: function() {
             var d = new Date();
@@ -287,20 +306,21 @@ function(require, exports, module) {
             this.minute2.flip(m_ones);
 
             var hours = d.getHours();
-            if (hours > 12) hours -= 12;
 
-            if (hours == 0) hours = 12;
+            if (this.mode == config.modes.twelveHour) {
+                if (hours > 12) hours -= 12;
+                if (hours == 0) hours = 12;
+
+                var ampm_val = "am";
+                if (d.getHours() >= 12) ampm_val = "pm";
+                this.ampm.flip(ampm_val);
+            }
 
             var h_tens = Math.floor(hours / 10);
             var h_ones = hours % 10;
 
             this.hour1.flip(h_tens == 0 ? "" : h_tens);
             this.hour2.flip(h_ones);
-
-            var ampm_val = "am";
-            if (d.getHours() >= 12) ampm_val = "pm";
-
-            this.ampm.flip(ampm_val);
         }
     };
 

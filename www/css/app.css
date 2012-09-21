@@ -125,6 +125,18 @@
 .second_2 {
   right: 0;
 }
+.layout_no_seconds .hour_1 {
+  left: 7%;
+}
+.layout_no_seconds .hour_2 {
+  left: 28%;
+}
+.layout_no_seconds .minute_1 {
+  left: 52%;
+}
+.layout_no_seconds .minute_2 {
+  left: 73%;
+}
 /** 18 + 2 + 18 + 7 + 18 + 2 + 18 + 3 + 14 **/
 .tile.time {
   height: 100%;
@@ -510,6 +522,7 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  font: 10pt sans-serif;
 }
 #container {
   color: white;
@@ -612,7 +625,7 @@ body {
   text-align: center;
   line-height: 40px;
   height: 40px;
-  width: 90px;
+  width: 100px;
   margin: 4px 0 4px 4px;
   outline: 0;
   border: 1px solid #333;
@@ -700,6 +713,9 @@ body {
 }
 .icon_clock .button_inner {
   background-image: url(../images/icons/11-clock.png);
+}
+.icon_options .button_inner {
+  background-image: url(../images/icons/19-gear.png);
 }
 .dialog_container {
   display: block;
@@ -807,4 +823,49 @@ body {
   .about .icon {
     background-size: contain;
   }
+}
+.toggle {
+  margin: 20px;
+}
+.toggle .label {
+  display: inline;
+}
+.toggle a {
+  border: 1px solid black;
+  padding: 3px;
+  color: black;
+  text-decoration: none;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#bbbbbb));
+  background-image: -webkit-linear-gradient(top, #999999, #bbbbbb);
+  background-image: -moz-linear-gradient(top, #999999, #bbbbbb);
+  background-image: -ms-linear-gradient(top, #999999, #bbbbbb);
+  background-image: -o-linear-gradient(top, #999999, #bbbbbb);
+  background-image: linear-gradient(top, #999999, #bbbbbb);
+}
+.toggle a.active {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#777777), to(#111111));
+  background-image: -webkit-linear-gradient(top, #777777, #111111);
+  background-image: -moz-linear-gradient(top, #777777, #111111);
+  background-image: -ms-linear-gradient(top, #777777, #111111);
+  background-image: -o-linear-gradient(top, #777777, #111111);
+  background-image: linear-gradient(top, #777777, #111111);
+  color: #eee;
+}
+.toggle .toggle_left {
+  border-right: 1px solid #111;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-topleft: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.toggle .toggle_right {
+  border-left: 1px solid #333;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-topright: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }

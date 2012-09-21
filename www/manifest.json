@@ -1,7 +1,8 @@
 {
   "name": "FlipClock",
   "description": "Flip away the time with FlipClock.",
-  "version": "4",
+  "version": "4.1",
+  "offline_enabled": true,
   "app": {
     "launch": {
       "local_path": "index.html"
@@ -12,3 +13,4 @@
     "128": "images/logos/FlipClock_128.png"
   }
 }
+

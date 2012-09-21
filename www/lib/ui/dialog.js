@@ -5,6 +5,7 @@ module.declare([
 function(require, exports, module) {
     var $ = require("../../vendor/jquery").jQuery,
         twig = require("../../vendor/twig").twig,
+        dialogs = {},
         count = 0,
         load_callback,
         config = {
@@ -16,8 +17,12 @@ function(require, exports, module) {
         href: "templates/dialog.twig"
     });
 
+    exports.get = function(id) {
+        return dialogs[id];
+    };
+
     exports.show = function(id) {
-        // Show about box
+        // Show dialog
         $('#' + id).addClass(config.active_dialog_class);
     };
     exports.hide = function(e) {
@@ -44,6 +49,8 @@ function(require, exports, module) {
                 });
 
                 content = $(content);
+                dialogs[id] = content;
+
                 container && container.append(content);
                 callback  && callback(content);
 
