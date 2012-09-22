@@ -1,5 +1,5 @@
 <!doctype html>
-<html manifest="cache.manifest">
+<html> <!-- manifest="cache.manifest"> -->
     <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -7,7 +7,7 @@
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <title>Flip Clock</title>
         <script type="text/javascript" src="vendor/nobleModules.js"></script>
-        <!-- <script type="text/javascript" src="package.js"></script> -->
+        <script type="text/javascript" src="package.js"></script>
         <script type="text/javascript" charset="utf-8">
             // Prevent scrolling on Android / iOS devices
             document.ontouchmove = function(e){e.preventDefault();}
