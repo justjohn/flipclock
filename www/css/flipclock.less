@@ -85,7 +85,8 @@
     height:100px;
 }
 
-@media screen and (max-width: 600px) {
+// Mobile landscape
+@media (max-width: 600px), (max-height: 300px) {
     .time_box, .countdown_box {
         max-height:150px;
         max-width:480px;
@@ -105,6 +106,39 @@
         height:50px;
     }
 }
+
+// mobile portrait
+@media (max-width: 400px) {
+    .time_box, .countdown_box {
+        max-height:100px;
+        max-width:320px;
+    }
+
+    .tile.time {
+        max-width:55px;
+
+        .card .before,
+        .card .after {
+            width: 40px;
+        }
+    }
+
+    .tile.ampm {
+        max-width:30px;
+        height:30px;
+
+        .card .before,
+        .card .after {
+            width: 20px;
+        }
+    }
+
+    .tile.time_right {
+        max-width:25px;
+        height:50px;
+    }
+}
+
 .tile {
     position:absolute;
     display:block;

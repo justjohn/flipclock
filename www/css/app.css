@@ -82,6 +82,42 @@
 .countdown .selector .controls .icon_down .inner {
   background: url(../images/icons/00-down.png) no-repeat center;
 }
+@media (max-height: 300px) {
+  .countdown .selector .controls {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .countdown .selector .controls .icon_up,
+  .countdown .selector .controls .icon_down,
+  .countdown .selector .controls .inner {
+    height: 30px;
+  }
+  .countdown .selector .controls .icon_up {
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-topleft: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .countdown .selector .controls .value {
+    padding: 3px 0;
+    line-height: 15px;
+    font-size: 15px;
+  }
+  .countdown .selector .controls .button {
+    height: 30px;
+  }
+  .countdown .selector .controls .icon_down {
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+}
 .flip {
   position: absolute;
   left: 300px;
@@ -158,7 +194,7 @@
   max-width: 200px;
   height: 100px;
 }
-@media screen and (max-width: 600px) {
+@media (max-width: 600px), (max-height: 300px) {
   .time_box,
   .countdown_box {
     max-height: 150px;
@@ -170,6 +206,32 @@
   .tile.ampm {
     max-width: 60px;
     height: 50px;
+  }
+  .tile.time_right {
+    max-width: 25px;
+    height: 50px;
+  }
+}
+@media (max-width: 400px) {
+  .time_box,
+  .countdown_box {
+    max-height: 100px;
+    max-width: 320px;
+  }
+  .tile.time {
+    max-width: 55px;
+  }
+  .tile.time .card .before,
+  .tile.time .card .after {
+    width: 40px;
+  }
+  .tile.ampm {
+    max-width: 30px;
+    height: 30px;
+  }
+  .tile.ampm .card .before,
+  .tile.ampm .card .after {
+    width: 20px;
   }
   .tile.time_right {
     max-width: 25px;
@@ -514,6 +576,125 @@
 .small .bottom .digit_pm .inner {
   background-image: url(../images/digits/small/pm_bottom.png);
 }
+.dialog_container {
+  display: block;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  -moz-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translatey(-100%);
+  -ms-transform: translate3d(0, -100%, 0);
+  -o-transform: translate3d(0, -100%, 0);
+}
+.dialog_container .dialog {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#999999));
+  background-image: -webkit-linear-gradient(top, #cccccc, #999999);
+  background-image: -moz-linear-gradient(top, #cccccc, #999999);
+  background-image: -ms-linear-gradient(top, #cccccc, #999999);
+  background-image: -o-linear-gradient(top, #cccccc, #999999);
+  background-image: linear-gradient(top, #cccccc, #999999);
+  -moz-box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  height: 250px;
+  margin-top: -130px;
+  margin-left: -255px;
+  border: 1px solid #333;
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+.dialog_container .dialog .close {
+  z-index: 11;
+  position: absolute;
+  right: 0.1em;
+  top: 0.1em;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+}
+.active_dialog {
+  display: block;
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translatey(0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+}
+@media (max-width: 600px) {
+  .dialog_container .dialog {
+    margin-left: 0;
+    margin-right: 0;
+    width: inherit;
+    left: 10%;
+    right: 10%;
+  }
+}
+@media (max-height: 370px) {
+  .dialog_container .dialog {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: inherit;
+    top: 13%;
+    bottom: 13%;
+  }
+}
+.about div {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+.about .name {
+  top: 0.1em;
+  font-size: 1.8em;
+}
+.about .version {
+  top: 2.1em;
+  font-size: 1.2em;
+}
+.about .icon {
+  top: 4.6em;
+  bottom: 1.8em;
+  background: url(/apple-touch-icon-precomposed.png) center no-repeat;
+  margin: auto;
+  max-width: 114px;
+  background-size: contain;
+}
+.about .copyright {
+  bottom: 0.3em;
+  font-size: 0.8em;
+}
+.about .copyright a {
+  color: black;
+}
+@media screen and (max-width: 600px) {
+  .about .icon {
+    background-size: contain;
+  }
+}
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+  tap-highlight-color: rgba(0, 0, 0, 0);
+}
 body {
   position: absolute;
   background: black;
@@ -674,6 +855,16 @@ body {
   background-image: -o-linear-gradient(top, #4c4c4c, #6c6c6c);
   background-image: linear-gradient(top, #4c4c4c, #6c6c6c);
 }
+@media (max-width: 480px) {
+  .bar .button,
+  .bar .button.countdown {
+    width: 40px;
+  }
+  .bar .button .label,
+  .bar .button.countdown .label {
+    display: none;
+  }
+}
 /*
 .button.cancel {
     .background-gradient(#A10028, #4A0012);
@@ -716,113 +907,6 @@ body {
 }
 .icon_options .button_inner {
   background-image: url(../images/icons/19-gear.png);
-}
-.dialog_container {
-  display: block;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 10;
-  -moz-transition: all 0.25s ease-out;
-  -o-transition: all 0.25s ease-out;
-  -ms-transition: all 0.25s ease-out;
-  -webkit-transition: all 0.25s ease-out;
-  transition: all 0.25s ease-out;
-  -webkit-transform: translate3d(0, -100%, 0);
-  -moz-transform: translatey(-100%);
-  -ms-transform: translate3d(0, -100%, 0);
-  -o-transform: translate3d(0, -100%, 0);
-}
-.dialog_container .dialog {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#999999));
-  background-image: -webkit-linear-gradient(top, #cccccc, #999999);
-  background-image: -moz-linear-gradient(top, #cccccc, #999999);
-  background-image: -ms-linear-gradient(top, #cccccc, #999999);
-  background-image: -o-linear-gradient(top, #cccccc, #999999);
-  background-image: linear-gradient(top, #cccccc, #999999);
-  -moz-box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
-  -webkit-box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 500px;
-  height: 250px;
-  margin-top: -130px;
-  margin-left: -255px;
-  border: 1px solid #333;
-  padding: 10px;
-  vertical-align: middle;
-  text-align: center;
-}
-.dialog_container .dialog .close {
-  z-index: 11;
-  position: absolute;
-  right: 0.1em;
-  top: 0.1em;
-  width: 50px;
-  height: 30px;
-  line-height: 30px;
-}
-@media screen and (max-width: 600px) {
-  .dialog_container .dialog {
-    width: inherit;
-    height: inherit;
-    margin: 0;
-    left: 10%;
-    right: 10%;
-    top: 13%;
-    bottom: 13%;
-  }
-}
-.active_dialog {
-  display: block;
-  opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translatey(0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-}
-.about div {
-  position: absolute;
-  text-align: center;
-  left: 0;
-  right: 0;
-}
-.about .name {
-  top: 0.1em;
-  font-size: 1.8em;
-}
-.about .version {
-  top: 2.1em;
-  font-size: 1.2em;
-}
-.about .icon {
-  top: 4.6em;
-  bottom: 1.8em;
-  background: url(/apple-touch-icon-precomposed.png) center no-repeat;
-  margin: auto;
-  max-width: 114px;
-  background-size: contain;
-}
-.about .copyright {
-  bottom: 0.3em;
-  font-size: 0.8em;
-}
-.about .copyright a {
-  color: black;
-}
-@media screen and (max-width: 600px) {
-  .about .icon {
-    background-size: contain;
-  }
 }
 .toggle {
   margin: 20px;

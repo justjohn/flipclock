@@ -1,5 +1,5 @@
 <!doctype html>
-<html manifest="cache.manifest">
+<html> <!-- manifest="cache.manifest"> -->
     <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -30,11 +30,11 @@
         <div id="toolbarContainer" class="bar_container"></div>
         <div id="container"></div>
         <div id="toolbar" class="bar">
-            <a href="#/" class="clock button icon icon_clock">Clock</a>
-            <a href="javascript:;" dialog="countdown" class="countdown button icon icon_countdown">Countdown</a>
+            <a href="#/" class="clock button icon icon_clock"><span class="label">Clock</span></a>
+            <a href="javascript:;" dialog="countdown" class="countdown button icon icon_countdown"><span class="label">Countdown</span></a>
 
-            <a href="javascript:;" dialog="about" class="button button_right icon icon_star">About</a>
-            <a href="javascript:;" dialog="options" class="button button_right icon icon_options">Options</a>
+            <a href="javascript:;" dialog="about" class="button button_right icon icon_star"><span class="label">About</span></a>
+            <a href="javascript:;" dialog="options" class="button button_right icon icon_options"><span class="label">Options</span></a>
         </div>
     </body>
 </html>
