@@ -1,7 +1,8 @@
 {
+  "manifest_version": 2,
   "name": "FlipClock",
   "description": "Flip away the time with FlipClock.",
-  "version": "4.1",
+  "version": "4.1.1",
   "offline_enabled": true,
   "app": {
     "launch": {
@@ -11,6 +12,7 @@
   "icons": {
     "16": "images/logos/FlipClock_16.png",
     "128": "images/logos/FlipClock_128.png"
-  }
+  },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }
 

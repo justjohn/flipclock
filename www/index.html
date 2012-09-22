@@ -7,22 +7,8 @@
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <title>Flip Clock</title>
         <script type="text/javascript" src="vendor/nobleModules.js"></script>
-        <script type="text/javascript" src="package.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            // Prevent scrolling on Android / iOS devices
-            document.ontouchmove = function(e){e.preventDefault();}
-            document.ontouchstart = function(e){e.preventDefault();}
-
-            // Kick everything off
-            module.declare(["vendor/jquery", "app"], function() {
-                var $ = require("vendor/jquery").jQuery
-                    , app = require("app");
-                app.analytics.register(window);
-                $(function() {
-                    app.boot();
-                });
-            });
-        </script>
+        <!-- <script type="text/javascript" src="package.js"></script> -->
+        <script type="text/javascript" charset="utf-8" src="init.js"></script>
 
         <link rel="stylesheet" type="text/css" href="css/app.css" />
     </head>
