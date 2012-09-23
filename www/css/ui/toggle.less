@@ -1,0 +1,50 @@
+
+.toggle {
+    padding: 5px;
+
+    clear: both;
+
+    &:after {
+        content: ' ';
+        clear: both;
+        line-height: 0;
+        height: 0;
+    }
+
+    .label {
+        float: left;
+    }
+
+    .options {
+        float: right;
+    }
+
+    .options button {
+        float: right;
+
+        padding: 3px 5px;
+        margin:0;
+
+        color: black;
+        text-decoration: none;
+
+        .background-gradient(#999, #bbb);
+
+        border: 1px solid black;
+        border-right: 1px solid #111;
+        border-left: 1px solid #333;
+
+        &.active {
+            .background-gradient(#777, #111);
+            color: #eee;
+        }
+        &:last-child {
+            border-left: 1px solid black;
+            .border-radius-left(5px);
+        }
+        &:first-child {
+            border-right: 1px solid black;
+            .border-radius-right(5px);
+        }
+    }
+}

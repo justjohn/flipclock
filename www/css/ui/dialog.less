@@ -30,6 +30,10 @@
         vertical-align: middle;
         text-align: center;
 
+        h2 {
+            margin: 0 0 10px;
+        }
+
         .close {
             z-index: 11;
             position: absolute;
@@ -38,6 +42,54 @@
             width: 50px;
             height: 30px;
             line-height: 30px;
+        }
+
+        .action_bar {
+            position: absolute;
+            bottom: 0;
+            left:0;
+            width: 100%;
+        }
+    }
+
+
+    .about {
+        div {
+            position:absolute;
+            text-align: center;
+            left:0;
+            right:0;
+        }
+        .name {
+            top:0.1em;
+            font-size: 1.8em;
+        }
+        .version {
+            top:2.1em;
+            font-size: 1.2em;
+        }
+        .icon {
+            top:4.6em;
+            bottom:1.8em;
+            background:url(/apple-touch-icon-precomposed.png) center no-repeat;
+            margin: auto;
+            max-width:114px;
+            background-size: contain;
+        }
+        .copyright {
+            bottom:0.3em;
+            font-size: 0.8em;
+
+            a {
+                color:black;
+            }
+        }
+    }
+
+    .options {
+        .toggle {
+            padding-left: 40px;
+            padding-right: 40px;
         }
     }
 }
@@ -69,41 +121,8 @@
     }
 }
 
-.about {
-    div {
-        position:absolute;
-        text-align: center;
-        left:0;
-        right:0;
-    }
-    .name {
-        top:0.1em;
-        font-size: 1.8em;
-    }
-    .version {
-        top:2.1em;
-        font-size: 1.2em;
-    }
-    .icon {
-        top:4.6em;
-        bottom:1.8em;
-        background:url(/apple-touch-icon-precomposed.png) center no-repeat;
-        margin: auto;
-        max-width:114px;
-		background-size: contain;
-    }
-    .copyright {
-        bottom:0.3em;
-        font-size: 0.8em;
-
-        a {
-            color:black;
-        }
-    }
-}
-
 @media screen and (max-width: 600px) {
-    .about .icon {
+    .dialog_container .about .icon {
         background-size: contain;
     }
 }

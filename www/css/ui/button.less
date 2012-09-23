@@ -1,0 +1,126 @@
+.button {
+    display:inline-block;
+    cursor: pointer;
+
+    text-decoration: none;
+    text-align:center;
+
+    color:#ccc;
+
+    font-weight: bold;
+    font-size: 11pt;
+    font-family: Helvetica,Arial,sans-serif;
+
+    text-shadow: 0 1px 1px #333;
+
+
+    line-height:40px;
+    height:40px;
+    width:100px;
+
+    margin:4px 0 4px 4px;
+    padding:0;
+
+    outline: 0;
+    border: 1px solid #333;
+
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+
+    .border-radius(7px);
+    .inset-box-shadow(0, 0, 3px, 3px, rgba(0,0,0,.3));
+    .background-gradient(#3C3C3C, #000);
+
+
+    &.down {
+        .background-gradient(#222, #3C3C3C);
+        .transform-y(1px);
+    }
+
+    &.active {
+        .background-gradient(#414141, #222);
+    }
+
+    &.confirm {
+        .background-gradient(#6C6C6C, #4C4C4C);
+
+        &.active {
+            .background-gradient(#8C8C8C, #6C6C6C);
+        }
+        &.down {
+            .background-gradient(#4C4C4C, #6C6C6C);
+        }
+    }
+
+    &.countdown {
+        width: 130px;
+    }
+}
+
+.button_right {
+    float:right;
+    margin-right:4px;
+    margin-left:0;
+}
+
+
+@media (max-width: 480px) {
+    .bar {
+        .button, .button.countdown {
+            width: 40px;
+
+            .label {
+                display: none;
+            }
+        }
+    }
+}
+
+/*
+Some, as of yet, unused custom colors for buttons
+.button.cancel {
+    .background-gradient(#A10028, #4A0012);
+}
+.button.cancel.active {
+    .background-gradient(#B5002D, #690019);
+}
+.button.cancel.down {
+    .background-gradient(#4A0012, #A10028);
+}
+
+.button.confirm {
+    .background-gradient(#008000, #003801);
+}
+.button.confirm.active {
+    .background-gradient(#00A100, #006900);
+}
+.button.confirm.down {
+    .background-gradient(#003801, #008000);
+}
+*/
+
+.icon .button_inner {
+    display:block;
+    margin:9px 0 0 10px;
+    height:20px;
+    width:20px;
+    float:left;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.icon_star .button_inner {
+    background-image: url(../images/icons/28-star.png);
+}
+.icon_countdown .button_inner {
+    background-image: url(../images/icons/78-stopwatch.png);
+}
+.icon_clock .button_inner {
+    background-image: url(../images/icons/11-clock.png);
+}
+.icon_options .button_inner {
+    background-image: url(../images/icons/19-gear.png);
+}

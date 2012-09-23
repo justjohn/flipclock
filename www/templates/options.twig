@@ -2,15 +2,21 @@
 
 <div class="toggle" data-binding="timeMode" data-value="{{ timeMode }}">
 	<div class="label">Select 12/24 Hour Mode</div>
-    <a href="javascript:" data-value="12hr" class="option toggle_left {{ timeMode=="12hr"?"active":"" }}">12 Hr</a><a href="javascript:" data-value="24hr" class="option toggle_right {{ timeMode=="12hr"?"":"active" }}">24 Hr</a>
+	<div class="options">
+	    <button data-value="12hr" class="option toggle_left {{ timeMode=="12hr"?"active":"" }}">12 Hr</button>
+	    <button data-value="24hr" class="option toggle_right {{ timeMode=="12hr"?"":"active" }}">24 Hr</button>
+	</div>
 </div>
 
 <div class="toggle" data-binding="showSeconds" data-value="{{ showSeconds }}">
 	<div class="label">Show Seconds</div>
-    <a href="javascript:" data-value="true" class="option toggle_left {{ showSeconds?"active":"" }}">Yes</a><a href="javascript:" data-value="false" class="option toggle_right {{ showSeconds?"":"active" }}">No</a>
+	<div class="options">
+	    <button data-value="true" class="option toggle_left {{ showSeconds?"active":"" }}">Yes</button>
+	    <button data-value="false" class="option toggle_right {{ showSeconds?"":"active" }}">No</button>
+	</div>
 </div>
 
 <div class="action_bar">
-    <a href="javascript:;" class="button confirm" action="save_settings">Save</a>
-    <a href="javascript:;" class="button cancel" action="hide_settings">Cancel</a>
+    <button class="button confirm" action="save_settings">Save</button>
+    <button class="button cancel" action="hide_settings">Cancel</button>
 </div>

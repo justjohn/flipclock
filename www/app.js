@@ -1,18 +1,30 @@
 module.declare([
     "vendor/jquery",
+    "lib/clock/countdown",
     "lib/ui/flipclock",
     "lib/ui/dialog",
+    "lib/ui/buttons",
+    "lib/ui/toggle",
     "lib/ui/blinker",
     "lib/utils",
     "lib/analytics"
 ], function(require, exports, module) {
     var $         = require("vendor/jquery").jQuery,
+
+        // Core functionality
         config    = require("lib/config"),
+        analytics = require("lib/analytics"),
+        utils     = require("lib/utils"),
+
+        // Clock types
+        countdown = require("lib/clock/countdown"),
+
+        // UI Elements
         flipclock = require("lib/ui/flipclock"),
         dialog    = require("lib/ui/dialog"),
-        utils     = require("lib/utils"),
-        blinker   = require("lib/ui/blinker"),
-        analytics = require("lib/analytics");
+        buttons   = require("lib/ui/buttons"),
+        toggle    = require("lib/ui/toggle"),
+        blinker   = require("lib/ui/blinker");
 
     var layout,
         countdown_blink,
@@ -29,42 +41,10 @@ module.declare([
     exports.analytics = analytics;
 
     exports.boot = function() {
-        $(document).bind({
-            "countdown_minute_up": function() {
-                var value = parseInt($("#countdown_min").html());
-                if (value < 99) $("#countdown_min").html(value + 1);
-            },
-            "countdown_minute_down": function() {
-                var value = parseInt($("#countdown_min").html());
-                if (value > 0) $("#countdown_min").html(value - 1);
-            },
-            "countdown_hour_up": function() {
-                var value = parseInt($("#countdown_hour").html());
-                if (value < 99) $("#countdown_hour").html(value + 1);
-            },
-            "countdown_hour_down": function() {
-                var value = parseInt($("#countdown_hour").html());
-                if (value > 0) $("#countdown_hour").html(value - 1);
-            },
-            "countdown_second_up": function() {
-                var value = parseInt($("#countdown_sec").html());
-                if (value < 99) $("#countdown_sec").html(value + 1);
-            },
-            "countdown_second_down": function() {
-                var value = parseInt($("#countdown_sec").html());
-                if (value > 0) $("#countdown_sec").html(value - 1);
-            },
-            "hide_dialog": dialog.hide,
-            "countdown_start": function() {
-                var sec = parseInt($("#countdown_sec").html()),
-                    min = parseInt($("#countdown_min").html()),
-                    hour = parseInt($("#countdown_hour").html()),
-                    string = hour + 'h' + min + 'm' + sec + 's',
-                    url = '#/c/' + string;
+        countdown.init();
 
-                dialog.hide();
-                document.location = url;
-            },
+        $(document).on({
+            "hide_dialog": dialog.hide,
             "save_settings": function() {
                 var options_dialog = dialog.get('options');
                 dialog.hide();
@@ -93,9 +73,7 @@ module.declare([
                 dialog.hide();
 
                 // reset settings
-                $(".toggle", options_dialog).each(function(i) {
-                    $(this).trigger('reset');
-                })
+                $(".toggle", options_dialog).trigger('reset');
             }
         });
 
@@ -127,7 +105,7 @@ module.declare([
                         active_page = App.page.countdown;
                         var params = utils.parseTimeOutOfParams(data)
 
-                        initCountdown(params);
+                        layout = countdown.load(params);
                         break;
 
                     // Default to clock mode
@@ -161,44 +139,7 @@ module.declare([
                 data: config.data()
 
             }, function(content) {
-                $(".toggle", content).each(function() {
-                    var toggle = $(this),
-                        links = $("a", this),
-                        active_class = 'active';
-
-                    var click_fn = function(e) {
-                        var target = $(this);
-
-                        // toggle styles
-                        links.removeClass(active_class);
-                        target.addClass(active_class);
-                    };
-
-                    toggle.on({
-                        'click': click_fn,
-                        'touchstart': click_fn
-                    }, 'a');
-
-                    toggle.on('confirm', function() {
-                        var active = $('.'+active_class, toggle),
-                            value = active.data('value');
-
-                        // set value
-                        toggle.data('value', value);
-                    });
-
-                    toggle.on('reset', function() {
-                        var value = toggle.data('value');
-
-                        links.each(function() {
-                            if ($(this).data('value') == value) {
-                                $(this).addClass(active_class);
-                            } else {
-                                $(this).removeClass(active_class);
-                            }
-                        });
-                    });
-                });
+                toggle.init($(".toggle", content));
 
             }).complete(function() {
                 // $(".dialog").bind("mouseup", function(e){return false;});
@@ -211,7 +152,7 @@ module.declare([
                 });
             });
 
-            $("#toolbar").bind('click', function(e){
+            $("#toolbar").on('click', function(e){
                 // prevent click action from bubbling up to the container
                 e.preventDefault();
                 return false;
@@ -230,102 +171,10 @@ module.declare([
             });
 
             // Prepare for BLINK
-            $("#container").addClass("blink_transition");
+            $("#container")
+                .addClass("blink_transition");
 
-            var button_interval,
-                button_interval_accel = 1.1,
-                button_interval_timeout,
-                button_incrementing = false,
-                button_trigger = function(element) {
-                    button_interval /= button_interval_accel;
-                    button_incrementing = true;
-                    $(element).trigger("action")
-
-                    button_interval_timeout = setTimeout(button_trigger, button_interval, element)
-                };
-
-            var button_down = function(e) {
-                $(this).removeClass("active");
-                $(this).addClass("down");
-
-                button_incrementing = false;
-                if ($(this).attr("interval")) {
-                    button_interval = parseInt($(this).attr("interval"));
-                    button_interval_timeout = setTimeout(button_trigger, button_interval, this)
-                }
-
-                e.preventDefault();
-            };
-            var button_up = function(e) {
-                var pressed = $(this).hasClass("down");
-                $(this).removeClass("down");
-
-                clearTimeout(button_interval_timeout);
-
-                if (pressed && !button_incrementing) {
-                    // Active Event
-                    $(this).trigger("action");
-                }
-                e.preventDefault();
-            };
-            var button_over = function(e) {
-                $(this).addClass("active");
-            };
-            var button_out = function(e) {
-                $(this).removeClass("active");
-                $(this).removeClass("down");
-
-                clearTimeout(button_interval_timeout);
-            };
-
-            $(".button").append($('<div class="button_inner" />'));
-
-            $(document).on({
-                "mousedown":   button_down,
-                "mouseup":     button_up,
-                "mouseover":   button_over,
-                "mouseout":    button_out,
-
-                "touchstart":  button_down,
-                "touchend":    button_up,
-                "touchcancel": button_up,
-
-                "touchmove":   function(event) {
-                    // for (item in event) console.log(item + " = " + event[item]);
-                    var x = event.originalEvent.targetTouches[0].pageX;
-                    var y = event.originalEvent.targetTouches[0].pageY;
-                    // alert(x + ", " + y);
-                    var offset = $(this).offset();
-                    var left = offset.left;
-                    var top = offset.top;
-                    var right = left + $(this).outerWidth();
-                    var bottom = top + $(this).outerHeight();
-
-                    // console.log("left: " + left + ", x: " + x + ", right: " + right + ", top: " + top +  ", y: " + y + ", bottom: " + bottom);
-                    if (x < left || x > right || y < top || y > bottom) {
-                        // Out of button
-                        $(this).removeClass("down");
-                        clearTimeout(button_interval_timeout);
-                        event.preventDefault();
-                        return false;
-                    }
-                },
-
-                "action": function(e) {
-                    if ($(this).attr("dialog")) {
-                        dialog.show($(this).attr("dialog"));
-                        e.preventDefault();
-
-                    } else if ($(this).attr("action")) {
-                        var action = $(this).attr("action");
-                        $(document).trigger(action);
-                        e.preventDefault();
-
-                    } else {
-                        document.location = $(this).attr("href");
-                    }
-                }
-            }, ".button");
+            buttons.init();
 
             // Wait a small amount of time for the page to render.
             //   This is almost certainly the wrong approach but it
@@ -377,17 +226,5 @@ module.declare([
                 flipclock.layouts.timeAMPM;
 
         layout = flipclock.load(format, params);
-    }
-
-    function initCountdown(params) {
-        params.done = function() {
-            countdown_blink = blinker.blink({
-                target: $("#container")
-            });
-        };
-        params.container = $("#container");
-        params.start = true;
-
-        layout = flipclock.load(flipclock.layouts.countdown, params);
     }
 });
