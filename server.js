@@ -1,3 +1,5 @@
+#!/bin/env node
+
 var express = require("express");
 
 // Mostly just a proxy for hosting the static files
@@ -10,7 +12,10 @@ app.configure(function(){
     app.use(express.bodyParser());
 });
 
-var port = process.env.C9_PORT || 9999;
-app.listen(port);
-console.log("FlipClock is now running on " + port);
+var host = process.env.HOST || "0.0.0.0",
+	port = process.env.PORT || 9999;
+
+app.listen(parseInt(port, 10), host);
+
+console.log("FlipClock is now running on " + host + ":" + port);
 
