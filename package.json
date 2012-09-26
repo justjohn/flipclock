@@ -4,7 +4,6 @@
     "description": "Flipclock.us web app and Chrome web store app.",
 	"version": "1.2.0",
 	"dependencies": {
-		"express": "2.5.x"
 	},
 	"engines": {
 		"node": "0.8.x",
