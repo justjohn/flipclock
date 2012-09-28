@@ -1,12 +1,12 @@
 CACHE MANIFEST
-# v22
+# v23
 
 CACHE:
 /index.html
 /favicon.ico
 /templates/about.twig
-/templates/dialog.twig
 /templates/countdown.twig
+/templates/dialog.twig
 /templates/options.twig
 /css/app.css
 /package.js
@@ -60,11 +60,12 @@ CACHE:
 /images/digits/small/9_bottom.png
 /images/digits/small/am_bottom.png
 /images/digits/small/pm_bottom.png
-/images/icons/28-star.png
-/images/icons/78-stopwatch.png
-/images/icons/11-clock.png
 /images/icons/00-up.png
 /images/icons/00-down.png
+/images/icons/11-clock.png
+/images/icons/19-gear.png
+/images/icons/28-star.png
+/images/icons/78-stopwatch.png
 
 NETWORK:
 *
