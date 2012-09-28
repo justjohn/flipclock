@@ -715,6 +715,7 @@
   width: 100px;
   margin: 4px 0 4px 4px;
   padding: 0;
+  -webkit-appearance: none;
   outline: 0;
   border: 1px solid #333;
   -webkit-box-sizing: content-box;
