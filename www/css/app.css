@@ -494,8 +494,8 @@
   top: 50%;
   width: 500px;
   height: 250px;
-  margin-top: -130px;
-  margin-left: -255px;
+  margin-top: -125px;
+  margin-left: -250px;
   border: 1px solid #333;
   padding: 10px;
   vertical-align: middle;
@@ -560,7 +560,7 @@
   -ms-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
 }
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .dialog_container .dialog {
     margin-left: 0;
     margin-right: 0;
@@ -583,18 +583,18 @@
     background-size: contain;
   }
 }
-.countdown .selector {
+.selector {
   display: inline-block;
   width: 100px;
   margin: 0 5px;
 }
-.countdown .selector .title {
+.selector .title {
   display: block;
   margin: 0;
   padding: 3px;
   color: black;
 }
-.countdown .selector .controls {
+.selector .controls {
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
@@ -606,12 +606,12 @@
   background: black;
   color: white;
 }
-.countdown .selector .controls .icon_up,
-.countdown .selector .controls .icon_down,
-.countdown .selector .controls .inner {
+.selector .controls .icon_up,
+.selector .controls .icon_down,
+.selector .controls .inner {
   height: 40px;
 }
-.countdown .selector .controls .icon_up {
+.selector .controls .icon_up {
   -webkit-border-top-right-radius: 7px;
   -webkit-border-top-left-radius: 7px;
   -moz-border-radius-topright: 7px;
@@ -625,10 +625,10 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.countdown .selector .controls .icon_up .inner {
+.selector .controls .icon_up .inner {
   background: url(../images/icons/00-up.png) no-repeat center;
 }
-.countdown .selector .controls .value {
+.selector .controls .value {
   padding: 5px 0;
   margin-top: 1px;
   display: block;
@@ -637,17 +637,17 @@
   background: #333;
   border: 1px solid black;
 }
-.countdown .selector .controls .button {
+.selector .controls .button {
   margin: 0;
   width: 100px;
   border: 0;
 }
-.countdown .selector .controls .button .inner {
+.selector .controls .button .inner {
   display: block;
   width: 25px;
   margin: auto;
 }
-.countdown .selector .controls .icon_down {
+.selector .controls .icon_down {
   -webkit-border-top-right-radius: 0;
   -webkit-border-top-left-radius: 0;
   -moz-border-radius-topright: 0;
@@ -661,21 +661,21 @@
   border-bottom-right-radius: 7px;
   border-bottom-left-radius: 7px;
 }
-.countdown .selector .controls .icon_down .inner {
+.selector .controls .icon_down .inner {
   background: url(../images/icons/00-down.png) no-repeat center;
 }
 @media (max-height: 300px) {
-  .countdown .selector .controls {
+  .selector .controls {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
   }
-  .countdown .selector .controls .icon_up,
-  .countdown .selector .controls .icon_down,
-  .countdown .selector .controls .inner {
+  .selector .controls .icon_up,
+  .selector .controls .icon_down,
+  .selector .controls .inner {
     height: 30px;
   }
-  .countdown .selector .controls .icon_up {
+  .selector .controls .icon_up {
     -webkit-border-top-right-radius: 5px;
     -webkit-border-top-left-radius: 5px;
     -moz-border-radius-topright: 5px;
@@ -683,15 +683,15 @@
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
   }
-  .countdown .selector .controls .value {
+  .selector .controls .value {
     padding: 3px 0;
     line-height: 15px;
     font-size: 15px;
   }
-  .countdown .selector .controls .button {
+  .selector .controls .button {
     height: 30px;
   }
-  .countdown .selector .controls .icon_down {
+  .selector .controls .icon_down {
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-bottomright: 5px;
