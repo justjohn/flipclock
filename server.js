@@ -19,19 +19,17 @@ var http = require("http"),
 http.createServer(function(request, response) {
   var hostname = request.headers.host;
 
-  if (hostname !== REDIRECT_HOST)
-  {
-    var target = REDIRECT_PROTOCOL + REDIRECT_HOST + request.url;
-    console.log("Redirecting to " + target);
+  if (hostname !== REDIRECT_HOST) {
     response.writeHead(301, {
-      'Location': target,
-      'Expires': (new Date).toGMTString()});
+      'Location': REDIRECT_PROTOCOL + REDIRECT_HOST + request.url,
+      'Expires':  (new Date).toGMTString()
+    });
     response.end();
     return;
   }
 
-  var uri = url.parse(request.url).pathname
-    , filename = path.join(__dirname, "www", uri);
+  var uri = url.parse(request.url).pathname,
+      filename = path.join(__dirname, "www", uri);
 
   path.exists(filename, function(exists) {
     if(!exists) {
