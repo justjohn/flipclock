@@ -7,7 +7,7 @@
 //   - Content-Type headers for js, css, and manifest files
 
 var REDIRECT_PROTOCOL = "http://",
-    REDIRECT_HOST = "www.flipclock.us";
+    REDIRECT_HOST = process.env.DOMAIN;
 
 var http = require("http"),
     url = require("url"),
