@@ -208,11 +208,10 @@ module.declare([
     function stopClock() {
         // Clear any existing clock/timer
         $("#container").empty();
-        if (layout) layout.stop(false);
-
-        if (countdown_blink) {
-            countdown_blink.stop();
-            countdown_blink = undefined;
+        if (layout)
+        {
+            layout.stop(false);
+            layout.unload();
         }
     }
 

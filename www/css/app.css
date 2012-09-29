@@ -536,7 +536,7 @@
 .dialog_container .about .icon {
   top: 4.6em;
   bottom: 1.8em;
-  background: url(/apple-touch-icon-precomposed.png) center no-repeat;
+  background: url("/apple-touch-icon-precomposed.png") center no-repeat;
   margin: auto;
   max-width: 114px;
   background-size: contain;
@@ -829,16 +829,16 @@ Some, as of yet, unused custom colors for buttons
   background-size: contain;
 }
 .icon_star .button_inner {
-  background-image: url(../images/icons/28-star.png);
+  background-image: url("../images/icons/28-star.png");
 }
 .icon_countdown .button_inner {
-  background-image: url(../images/icons/78-stopwatch.png);
+  background-image: url("../images/icons/78-stopwatch.png");
 }
 .icon_clock .button_inner {
-  background-image: url(../images/icons/11-clock.png);
+  background-image: url("../images/icons/11-clock.png");
 }
 .icon_options .button_inner {
-  background-image: url(../images/icons/19-gear.png);
+  background-image: url("../images/icons/19-gear.png");
 }
 .toggle {
   padding: 5px;
@@ -906,12 +906,12 @@ html {
 }
 body {
   position: absolute;
-  background: black;
   overflow: hidden;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+  background: #000000;
   font: 10pt sans-serif;
 }
 #container {
@@ -923,10 +923,10 @@ body {
   height: 100%;
 }
 #container.blink {
-  background: white;
+  background: #ffffff;
 }
 #container.passive_blink {
-  background: #666;
+  background: #666666;
 }
 .bar_container,
 .bar,

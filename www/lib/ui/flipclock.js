@@ -154,6 +154,9 @@ function(require, exports, module) {
                 this.done = true;
             }
         };
+        this.unload = function() {
+            params.unload && params.unload();
+        };
 
         this.update = function() {
             layout.update.apply(this);

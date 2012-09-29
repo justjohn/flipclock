@@ -3,7 +3,9 @@ module.declare([
 ],
 function(require, exports, module) {
     var $         = require("../../vendor/jquery").jQuery,
-        flipclock = require("../ui/flipclock");
+        blinker = require("../ui/blinker"),
+        flipclock = require("../ui/flipclock"),
+        countdown_blink;
 
     exports.init = function() {
         $(document).on({
@@ -50,6 +52,10 @@ function(require, exports, module) {
                 target: $("#container")
             });
         };
+        params.unload = function() {
+            countdown_blink && countdown_blink.stop();
+            countdown_blink = undefined;
+        }
         params.container = $("#container");
         params.start = true;
 

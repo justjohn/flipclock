@@ -122,10 +122,9 @@ function resize(e) {
 }
 function stopClock() {
     $("#container").empty();
-    if (layout) layout.stop(false);
-    if (countdown_blink) {
-        countdown_blink.stop();
-        countdown_blink = undefined;
+    if (layout) {
+        layout.stop(false);
+        layout.unload();
     }
 }
 function initClock() {
@@ -3254,7 +3253,7 @@ exports.jQuery = jQuery.noConflict();
 
 });require.memoize("lib/clock/countdown",[ "../../vendor/jquery" ],
 function(require, exports, module) {
-var $ = require("../../vendor/jquery").jQuery, flipclock = require("../ui/flipclock");
+var $ = require("../../vendor/jquery").jQuery, blinker = require("../ui/blinker"), flipclock = require("../ui/flipclock"), countdown_blink;
 exports.init = function() {
     $(document).on({
         countdown_minute_up: function() {
@@ -3293,6 +3292,10 @@ exports.load = function(params) {
         countdown_blink = blinker.blink({
             target: $("#container")
         });
+    };
+    params.unload = function() {
+        countdown_blink && countdown_blink.stop();
+        countdown_blink = undefined;
     };
     params.container = $("#container");
     params.start = true;
@@ -3369,6 +3372,9 @@ FlipClock.Layout = function(layout, params) {
         if (fireDoneEvent === true) {
             this.done = true;
         }
+    };
+    this.unload = function() {
+        params.unload && params.unload();
     };
     this.update = function() {
         layout.update.apply(this);
