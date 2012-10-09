@@ -3,9 +3,8 @@
   "name": "FlipClock",
   "description": "Flip away the time.",
   "icons": {
-    "16": "/images/logos/FlipClock-16.png",
-    "48": "/images/logos/FlipClock-48.png",
-    "128": "/images/logos/FlipClock-128.png"
+    "16": "/images/logos/FlipClock_16.png",
+    "128": "/images/logos/FlipClock_128.png"
   },
   "appcache_path": "/cache.manifest",
   "launch_path": "/index.html",
