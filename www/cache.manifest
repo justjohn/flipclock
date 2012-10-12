@@ -9,6 +9,7 @@ CACHE:
 /templates/dialog.twig
 /templates/options.twig
 /css/app.css
+/init.js
 /package.js
 /vendor/nobleModules.js
 /apple-touch-icon-precomposed.png
