@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v26
+# v27
 
 CACHE:
 /index.html
@@ -12,6 +12,9 @@ CACHE:
 /package.js
 /vendor/nobleModules.js
 /apple-touch-icon-precomposed.png
+/images/logos/FlipClock_32_full.png
+/images/logos/FlipClock_64_full.png
+/images/logos/FlipClock_128_full.png
 /images/digits/large/0_top.png
 /images/digits/large/1_top.png
 /images/digits/large/2_top.png

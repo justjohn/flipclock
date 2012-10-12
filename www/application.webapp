@@ -4,14 +4,16 @@
   "description": "Flip away the time.",
   "icons": {
     "16": "/images/logos/FlipClock_16.png",
-    "128": "/images/logos/FlipClock_128.png"
+    "32": "/images/logos/FlipClock_32_full.png",
+    "48": "/images/logos/FlipClock_48_full.png",
+    "64": "/images/logos/FlipClock_64_full.png",
+    "128": "/images/logos/FlipClock_128_full.png",
+    "256": "/images/logos/FlipClock_256_full.png"
   },
   "appcache_path": "/cache.manifest",
-  "launch_path": "/index.html",
   "developer": {
     "name": "John Roepke",
     "url": "http://john.sh"
   },
   "installs_allowed_from": [ "*" ]
 }
-
