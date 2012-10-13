@@ -53,26 +53,37 @@
 .layout_no_seconds .minute_2 {
   left: 73%;
 }
-/** 18 + 2 + 18 + 7 + 18 + 2 + 18 + 3 + 14 **/
-.tile.time {
-  height: 100%;
-  top: 0;
-  width: 18%;
-  max-width: 210px;
-  bottom: 0;
+.digit {
+  font-size: 250px;
+  line-height: 300px;
+  text-align: center;
+  font-family: 'Exo', sans-serif;
+  font-weight: 500;
 }
-.tile.time_right {
+.digit.time {
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 19%;
+  max-width: 180px;
+}
+.digit.time_right {
   bottom: 20px;
   width: 6%;
   max-width: 100px;
   height: 100px;
+  line-height: 100px;
+  font-size: 80px;
 }
-.tile.ampm {
+.digit.ampm {
   top: 20px;
   right: 0;
   width: 14%;
   max-width: 200px;
   height: 100px;
+  line-height: 105px;
+  font-size: 80px;
+  text-transform: uppercase;
 }
 @media (max-width: 600px), (max-height: 300px) {
   .time_box,
@@ -80,14 +91,14 @@
     max-height: 150px;
     max-width: 480px;
   }
-  .tile.time {
+  .digit.time {
     max-width: 80px;
   }
-  .tile.ampm {
+  .digit.ampm {
     max-width: 60px;
     height: 50px;
   }
-  .tile.time_right {
+  .digit.time_right {
     max-width: 25px;
     height: 50px;
   }
@@ -98,65 +109,44 @@
     max-height: 100px;
     max-width: 320px;
   }
-  .tile.time {
+  .digit.time {
     max-width: 55px;
   }
-  .tile.time .card .before,
-  .tile.time .card .after {
+  .digit.time .card .before,
+  .digit.time .card .after {
     width: 40px;
   }
-  .tile.ampm {
+  .digit.ampm {
     max-width: 30px;
     height: 30px;
   }
-  .tile.ampm .card .before,
-  .tile.ampm .card .after {
+  .digit.ampm .card .before,
+  .digit.ampm .card .after {
     width: 20px;
   }
-  .tile.time_right {
+  .digit.time_right {
     max-width: 25px;
     height: 50px;
   }
 }
-.tile {
+.digit {
   position: absolute;
   display: block;
+  width: 150px;
+  height: 300px;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
 }
-.tile .top,
-.tile .bottom {
+.digit .card {
   position: absolute;
   top: 0;
   left: 0;
-  height: 50%;
   width: 100%;
-}
-.tile .bottom {
-  top: 50%;
-}
-.card,
-.card .before,
-.card .after {
-  z-index: 9;
-}
-.card .inner {
-  position: absolute;
   height: 100%;
-  width: 100%;
-  background-position: 2px;
-  background-repeat: no-repeat;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
-  background-size: 100% 100%;
-  z-index: 10;
 }
-.flip .inner {
-  z-index: 12;
-}
-/** Display styles for the "cards" displayed for each number. **/
-.top .card .before,
-.top .card,
-.top .card .after {
+.digit .card .top,
+.digit .card .bottom {
+  overflow: hidden;
   background-color: #222;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#333333));
   background-image: -webkit-linear-gradient(top, #222222, #333333);
@@ -164,28 +154,36 @@
   background-image: -ms-linear-gradient(top, #222222, #333333);
   background-image: -o-linear-gradient(top, #222222, #333333);
   background-image: linear-gradient(top, #222222, #333333);
-  -webkit-border-top-right-radius: 10px;
-  -webkit-border-top-left-radius: 10px;
-  -moz-border-radius-topright: 10px;
-  -moz-border-radius-topleft: 10px;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
   /* prevent bg color from leaking outside the border: */
 
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.bottom .card .before,
-.bottom .card,
-.bottom .card .after {
-  background: #111;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#111111));
-  background-image: -webkit-linear-gradient(top, #222222, #111111);
-  background-image: -moz-linear-gradient(top, #222222, #111111);
-  background-image: -ms-linear-gradient(top, #222222, #111111);
-  background-image: -o-linear-gradient(top, #222222, #111111);
-  background-image: linear-gradient(top, #222222, #111111);
+.digit .card .inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.digit .card .top {
+  position: absolute;
+  top: 0;
+  height: 50%;
+  width: 100%;
+  margin-top: -1px;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.digit .card .bottom {
+  position: absolute;
+  top: 50%;
+  height: 50%;
+  width: 100%;
+  margin-top: 1px;
   -webkit-border-bottom-right-radius: 10px;
   -webkit-border-bottom-left-radius: 10px;
   -moz-border-radius-bottomright: 10px;
@@ -193,268 +191,39 @@
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.card .before,
-.card,
-.card .after {
-  top: 0;
-  position: absolute;
+.digit .card .bottom .inner {
+  top: -100%;
+}
+.digit .transform {
+  transition: transform 0.5s ease;
+  -webkit-transition: -webkit-transform 0.5s ease;
+}
+.digit .active {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+.digit .active.flipped {
+  transform: rotatex(-180deg);
+  -webkit-transform: rotatex(-180deg);
+}
+.digit .active .front,
+.digit .active .back {
+  margin: 0;
   display: block;
+  position: absolute;
   width: 100%;
-  bottom: 0;
-  line-height: 0;
-  font-size: 0;
-}
-.flip.animated .before,
-.flip.animated,
-.flip.animated .after {
-  -webkit-transition-property: bottom, top, left, right, -webkit-transform;
-  -webkit-transition-duration: 0.25s;
-  -moz-transition-property: bottom, top, left, right, transform, -moz-transform;
-  -moz-transition-duration: 0.25s;
-  -ms-transition-property: bottom, top, left, right, transform, -ms-transform;
-  -ms-transition-duration: 0.25s;
-  -o-transition-property: bottom, top, left, right, transform, -o-transform;
-  -o-transition-duration: 0.25s;
-}
-.top .flip.animated .before,
-.top .flip.animated,
-.top .flip.animated .after {
-  -moz-transition-timing-function: ease-in;
-  -webkit-transition-timing-function: ease-in;
-  -ms-transition-timing-function: ease-in;
-  -o-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
-}
-.bottom .flip.animated .before,
-.bottom .flip.animated,
-.bottom .flip.animated .after {
-  -moz-transition-timing-function: ease-out;
-  -webkit-transition-timing-function: ease-out;
-  -ms-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.not-animated,
-.not-animated * {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
-}
-.card {
-  left: 0;
-  right: 0;
-}
-.top .card.active {
-  top: 200px;
-}
-.bottom .card.active {
-  bottom: 200px;
-}
-.small .top .card.active {
-  top: 100px;
-}
-.small .bottom .card.active {
-  bottom: 100px;
-}
-.card .before,
-.card .after {
-  width: 60px;
-}
-.small .card .before,
-.small .card .after {
-  width: 30px;
-}
-/** Before Animation */
-.top .card .before,
-.bottom .card .before,
-.top .card .after,
-.bottom .card .after {
-  -moz-transform: matrix(1, 0, 0, 1, 0, 0);
-  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
-  -ms-transform: matrix(1, 0, 0, 1, 0, 0);
-  -o-transform: matrix(1, 0, 0, 1, 0, 0);
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-.top .card .before,
-.bottom .card .before {
-  left: -5px;
-}
-.top .card .after,
-.bottom .card .after {
-  right: -5px;
-}
-/** After Animation **/
-/** Left side. */
-.top .flip.active .before,
-.bottom .flip.active .before {
-  left: -20px;
-}
-/** Right side. */
-.top .flip.active .after,
-.bottom .flip.active .after {
-  right: -20px;
-}
-.top .flip.active .before,
-.bottom .flip.active .after {
-  -webkit-transform: matrix(1, 0, 0.5, 1, 0, 0);
-  -moz-transform: matrix(1, 0, 0.5, 1, 0, 0);
-  -ms-transform: matrix(1, 0, 0.5, 1, 0, 0);
-  -o-transform: matrix(1, 0, 0.5, 1, 0, 0);
-  transform: matrix(1, 0, 0.5, 1, 0, 0);
-}
-.bottom .flip.active .before,
-.top .flip.active .after {
-  -webkit-transform: matrix(1, 0, -0.5, 1, 0, 0);
-  -moz-transform: matrix(1, 0, -0.5, 1, 0, 0);
-  -ms-transform: matrix(1, 0, -0.5, 1, 0, 0);
-  -o-transform: matrix(1, 0, -0.5, 1, 0, 0);
-  transform: matrix(1, 0, -0.5, 1, 0, 0);
-}
-.top .digit_0 .inner {
-  background-image: url(../images/digits/large/0_top.png);
-}
-.top .digit_1 .inner {
-  background-image: url(../images/digits/large/1_top.png);
-}
-.top .digit_2 .inner {
-  background-image: url(../images/digits/large/2_top.png);
-}
-.top .digit_3 .inner {
-  background-image: url(../images/digits/large/3_top.png);
-}
-.top .digit_4 .inner {
-  background-image: url(../images/digits/large/4_top.png);
-}
-.top .digit_5 .inner {
-  background-image: url(../images/digits/large/5_top.png);
-}
-.top .digit_6 .inner {
-  background-image: url(../images/digits/large/6_top.png);
-}
-.top .digit_7 .inner {
-  background-image: url(../images/digits/large/7_top.png);
-}
-.top .digit_8 .inner {
-  background-image: url(../images/digits/large/8_top.png);
-}
-.top .digit_9 .inner {
-  background-image: url(../images/digits/large/9_top.png);
-}
-.top .digit_am .inner {
-  background-image: url(../images/digits/large/am_top.png);
-}
-.top .digit_pm .inner {
-  background-image: url(../images/digits/large/pm_top.png);
-}
-.bottom .digit_0 .inner {
-  background-image: url(../images/digits/large/0_bottom.png);
-}
-.bottom .digit_1 .inner {
-  background-image: url(../images/digits/large/1_bottom.png);
-}
-.bottom .digit_2 .inner {
-  background-image: url(../images/digits/large/2_bottom.png);
-}
-.bottom .digit_3 .inner {
-  background-image: url(../images/digits/large/3_bottom.png);
-}
-.bottom .digit_4 .inner {
-  background-image: url(../images/digits/large/4_bottom.png);
-}
-.bottom .digit_5 .inner {
-  background-image: url(../images/digits/large/5_bottom.png);
-}
-.bottom .digit_6 .inner {
-  background-image: url(../images/digits/large/6_bottom.png);
-}
-.bottom .digit_7 .inner {
-  background-image: url(../images/digits/large/7_bottom.png);
-}
-.bottom .digit_8 .inner {
-  background-image: url(../images/digits/large/8_bottom.png);
-}
-.bottom .digit_9 .inner {
-  background-image: url(../images/digits/large/9_bottom.png);
-}
-.bottom .digit_am .inner {
-  background-image: url(../images/digits/large/am_bottom.png);
-}
-.bottom .digit_pm .inner {
-  background-image: url(../images/digits/large/pm_bottom.png);
-}
-.small .top .digit_0 .inner {
-  background-image: url(../images/digits/small/0_top.png);
-}
-.small .top .digit_1 .inner {
-  background-image: url(../images/digits/small/1_top.png);
-}
-.small .top .digit_2 .inner {
-  background-image: url(../images/digits/small/2_top.png);
-}
-.small .top .digit_3 .inner {
-  background-image: url(../images/digits/small/3_top.png);
-}
-.small .top .digit_4 .inner {
-  background-image: url(../images/digits/small/4_top.png);
-}
-.small .top .digit_5 .inner {
-  background-image: url(../images/digits/small/5_top.png);
-}
-.small .top .digit_6 .inner {
-  background-image: url(../images/digits/small/6_top.png);
-}
-.small .top .digit_7 .inner {
-  background-image: url(../images/digits/small/7_top.png);
-}
-.small .top .digit_8 .inner {
-  background-image: url(../images/digits/small/8_top.png);
-}
-.small .top .digit_9 .inner {
-  background-image: url(../images/digits/small/9_top.png);
-}
-.small .top .digit_am .inner {
-  background-image: url(../images/digits/small/am_top.png);
-}
-.small .top .digit_pm .inner {
-  background-image: url(../images/digits/small/pm_top.png);
-}
-.small .bottom .digit_0 .inner {
-  background-image: url(../images/digits/small/0_bottom.png);
-}
-.small .bottom .digit_1 .inner {
-  background-image: url(../images/digits/small/1_bottom.png);
-}
-.small .bottom .digit_2 .inner {
-  background-image: url(../images/digits/small/2_bottom.png);
-}
-.small .bottom .digit_3 .inner {
-  background-image: url(../images/digits/small/3_bottom.png);
-}
-.small .bottom .digit_4 .inner {
-  background-image: url(../images/digits/small/4_bottom.png);
-}
-.small .bottom .digit_5 .inner {
-  background-image: url(../images/digits/small/5_bottom.png);
-}
-.small .bottom .digit_6 .inner {
-  background-image: url(../images/digits/small/6_bottom.png);
-}
-.small .bottom .digit_7 .inner {
-  background-image: url(../images/digits/small/7_bottom.png);
-}
-.small .bottom .digit_8 .inner {
-  background-image: url(../images/digits/small/8_bottom.png);
-}
-.small .bottom .digit_9 .inner {
-  background-image: url(../images/digits/small/9_bottom.png);
-}
-.small .bottom .digit_am .inner {
-  background-image: url(../images/digits/small/am_bottom.png);
-}
-.small .bottom .digit_pm .inner {
-  background-image: url(../images/digits/small/pm_bottom.png);
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.digit .active .front div,
+.digit .active .back div {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.digit .active .back {
+  transform: rotatex(180deg);
+  -webkit-transform: rotatex(180deg);
 }
 .dialog_container {
   display: block;

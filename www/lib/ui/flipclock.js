@@ -4,9 +4,7 @@ module.declare([
 ],
 function(require, exports, module) {
     var $ = require("../../vendor/jquery").jQuery,
-        config = require("../config"),
-        // Should match the duration defined in the CSS
-        transition_duration = 250;
+        config = require("../config");
 
     // Container
     var FlipClock = {};
@@ -21,113 +19,65 @@ function(require, exports, module) {
         this.init();
     };
 
-    FlipClock.Digit.init = function() {
-        var top = $('<div class="top" />')
-            .append('<div class="card static" />')
-            .append('<div class="card flip animated" />');
+    FlipClock.Digit.prototype.init = function() {
+        this.$active_top    = $('<div class="top" />');
+        this.$active_bottom = $('<div class="bottom" />').append('<div class="inner" />');
+        this.$back_top      = $('<div class="top" />');
+        this.$back_bottom   = $('<div class="bottom" />').append('<div class="inner" />');
 
-        var bottom = $('<div class="bottom" />')
-            .append('<div class="card static" />')
-            .append('<div class="card flip animated active" />');
+        var top = $('<div class="card back" />')
+                .append(this.$back_top)
+                .append(this.$back_bottom);
 
-        var tile = $('<div class="tile" />')
+        var bottom = $('<div class="card active transform" />')
+                .append($('<div class="front" />')
+                    .append(this.$active_top))
+                .append($('<div class="back" />')
+                    .append(this.$active_bottom));
+
+        var tile = $('<div class="digit" />')
             .append(top)
             .append(bottom);
 
         if (this.params.cls) tile.addClass(this.params.cls);
 
-        // NOTE: The before and after classes are required as CSS
-        //       transitions don't work on pseudo elements.
-        $(".card", tile)
-            .append('<div class="before" />')
-            .append('<div class="inner" />')
-            .append('<div class="after" />');
-
         this.tile = tile;
     };
 
-    FlipClock.Digit.flip = function(number) {
-        var context = this.tile,
-            from = context.attr("number"),
-            transition_duration = this.params.transition_duration || 250,
-            transition_overlap = this.params.transition_overlap || 20;
+    FlipClock.Digit.prototype.flip = function(number) {
+        var digit = this,
+            tile = this.tile,
+            from = tile.attr("number"),
+            // Should match the duration defined in the CSS
+            transition_duration = this.params.transition_duration || 750;
 
         // Check to see if the new number is already set
         if (number == from) return;
 
         // Store the old/new number on the element
-        context.attr("from", from);
-        context.attr("number", number);
+        tile.attr("from", from);
+        tile.attr("number", number);
 
         // Set the static (to-be-revealed) tile on the top to the target number
-        $(".top .static", context)
-            .removeClass("digit_" + from)
-            .addClass("digit_" + number);
+        digit.$back_top.html(number);
 
         // Set the down-sliding tile on the bottom to the target number
-        $(".bottom .flip", context)
-            .removeClass("digit_" + from)
-            .addClass("digit_" + number);
+        $(".inner", digit.$active_bottom).html(number);
 
-        $(".top .flip", context).toggleClass('active');
+        $(".active", tile).addClass("transform");
+        $(".active", tile).addClass("flipped");
 
         // Start flipping the bottom digit when the top one is almost complete.
         setTimeout(function() {
-            var old_class = "digit_" + context.attr("from");
-            var new_class = "digit_" + context.attr("number");
-
-            $(".bottom .flip", context).toggleClass("active");
-
-            // Reset the top tile
-            setTimeout(function() {
-                // Hide and disable animation
-                $(".top .flip", context)
-                    .css('display', 'none');
-
-                // Reset active tile flag.
-                $(".top .flip", context)
-                    .toggleClass("active");
-
-                // Reset the flip tiles to the new number in prep for next flip
-                $(".top .flip", context)
-                    .removeClass(old_class)
-                    .addClass(new_class);
-
-                // It seems to take some time for the not-animated CSS styles
-                // to be reflected. So we wait for some time before adding the
-                // animation classes back.
-                setTimeout(function() {
-                    // Show the tile again
-                    $(".top .flip", context)
-                        .css("display", "block");
-                }, transition_duration + transition_overlap);
-
-            }, transition_overlap);
-
-            // Wait for the bottom tile to finish flipping then reset it
-            setTimeout(function() {
-                $(".bottom .flip", context)
-                    .css('display', 'none');
-
-                $(".bottom .flip", context)
-                    .toggleClass("active");
-
-                // Reset the flip tiles to the new number in prep for next flip
-                $(".bottom .static", context)
-                    .removeClass(old_class)
-                    .addClass(new_class);
-
-                // Reset the bottom tile
-                setTimeout(function() {
-                    $(".bottom .flip", context)
-                        .css("display", "block");
-                }, transition_duration);
-
-            }, transition_duration);
-        }, transition_duration - transition_overlap);
+            // update hidden to new number
+            digit.$active_top.html(number);
+            $(".inner", digit.$back_bottom).html(number);
+            
+            // reset
+            $(".active", tile).removeClass("transform");
+            $(".active", tile).removeClass("flipped");
+        }, transition_duration);
     };
-
-    FlipClock.Digit.prototype = FlipClock.Digit;
 
     FlipClock.Layout = function(layout, params) {
         this.cls = layout.cls;
@@ -181,28 +131,24 @@ function(require, exports, module) {
             this.mode = config.getTimeMode();
 
             this.hour1 = new FlipClock.Digit({
-                cls: 'time hour_1',
-                transition_duration: 250
+                cls: 'time hour_1'
             });
             this.hour2 = new FlipClock.Digit({
-                cls: 'time hour_2',
-                transition_duration: 250
+                cls: 'time hour_2'
             });
             this.minute1 = new FlipClock.Digit({
-                cls: 'time minute_1',
-                transition_duration: 250
+                cls: 'time minute_1'
             });
             this.minute2 = new FlipClock.Digit({
-                cls: 'time minute_2',
-                transition_duration: 250
+                cls: 'time minute_2'
             });
             this.second1 = new FlipClock.Digit({
                 cls: 'time_right small second_1',
-                transition_duration: 200
+                transition_duration: 500
             });
             this.second2 = new FlipClock.Digit({
                 cls: 'time_right small second_2',
-                transition_duration: 200
+                transition_duration: 500
             });
 
             this.items = [
@@ -214,7 +160,7 @@ function(require, exports, module) {
             if (this.mode == config.modes.twelveHour) {
                 this.ampm = new FlipClock.Digit({
                     cls: 'ampm',
-                    transition_duration: 250
+                    transition_duration: 500
                 });
 
                 this.items.push(this.ampm);
