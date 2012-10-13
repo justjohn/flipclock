@@ -59,6 +59,7 @@
   text-align: center;
   font-family: 'Exo', sans-serif;
   font-weight: 500;
+  font-smooth: always;
 }
 .digit.time {
   top: 0;
@@ -177,6 +178,7 @@
   -moz-border-radius-topleft: 10px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  color: #ffffff;
 }
 .digit .card .bottom {
   position: absolute;
@@ -190,13 +192,14 @@
   -moz-border-radius-bottomleft: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  color: #dddddd;
 }
 .digit .card .bottom .inner {
   top: -100%;
 }
 .digit .transform {
-  transition: transform 0.5s ease;
-  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: transform 0.75s ease;
+  -webkit-transition: -webkit-transform 0.75s ease;
 }
 .digit .active {
   transform-style: preserve-3d;

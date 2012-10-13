@@ -66,6 +66,7 @@
     text-align: center;
     font-family: 'Exo', sans-serif;
     font-weight: 500;
+    font-smooth: always;
 }
 
 .digit.time {
@@ -194,6 +195,8 @@
             width: 100%;
             margin-top: -1px;
             .border-radius-top(10px);
+            
+            color: #ffffff;
         }
         .bottom {
             position: absolute;
@@ -203,6 +206,8 @@
             margin-top: 1px;
             .border-radius-bottom(10px);
 
+            color: #dddddd;
+
             .inner {
                 top: -100%;
             }
@@ -210,8 +215,8 @@
     }
 
     .transform {
-        transition: transform 0.5s ease;
-        -webkit-transition: -webkit-transform 0.5s ease;
+        transition: transform 0.75s ease;
+        -webkit-transition: -webkit-transform 0.75s ease;
     }
     
     .active {

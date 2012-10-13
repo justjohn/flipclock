@@ -49,7 +49,7 @@ function(require, exports, module) {
             tile = this.tile,
             from = tile.attr("number"),
             // Should match the duration defined in the CSS
-            transition_duration = this.params.transition_duration || 750;
+            transition_duration = this.params.transition_duration || 1000;
 
         // Check to see if the new number is already set
         if (number == from) return;
@@ -144,11 +144,11 @@ function(require, exports, module) {
             });
             this.second1 = new FlipClock.Digit({
                 cls: 'time_right small second_1',
-                transition_duration: 500
+                transition_duration: 850
             });
             this.second2 = new FlipClock.Digit({
                 cls: 'time_right small second_2',
-                transition_duration: 500
+                transition_duration: 850
             });
 
             this.items = [
@@ -160,7 +160,7 @@ function(require, exports, module) {
             if (this.mode == config.modes.twelveHour) {
                 this.ampm = new FlipClock.Digit({
                     cls: 'ampm',
-                    transition_duration: 500
+                    transition_duration: 850
                 });
 
                 this.items.push(this.ampm);
