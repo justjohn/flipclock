@@ -147,15 +147,9 @@
 .digit .card .top,
 .digit .card .bottom {
   overflow: hidden;
-  background-color: #222;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#333333));
-  background-image: -webkit-linear-gradient(top, #222222, #333333);
-  background-image: -moz-linear-gradient(top, #222222, #333333);
-  background-image: -ms-linear-gradient(top, #222222, #333333);
-  background-image: -o-linear-gradient(top, #222222, #333333);
-  background-image: linear-gradient(top, #222222, #333333);
-  /* prevent bg color from leaking outside the border: */
-
+  position: absolute;
+  height: 50%;
+  width: 100%;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -166,10 +160,7 @@
   height: 100%;
 }
 .digit .card .top {
-  position: absolute;
   top: 0;
-  height: 50%;
-  width: 100%;
   margin-top: -1px;
   -webkit-border-top-right-radius: 10px;
   -webkit-border-top-left-radius: 10px;
@@ -177,13 +168,17 @@
   -moz-border-radius-topleft: 10px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  background-color: #222;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#333333));
+  background-image: -webkit-linear-gradient(top, #222222, #333333);
+  background-image: -moz-linear-gradient(top, #222222, #333333);
+  background-image: -ms-linear-gradient(top, #222222, #333333);
+  background-image: -o-linear-gradient(top, #222222, #333333);
+  background-image: linear-gradient(top, #222222, #333333);
   color: #ffffff;
 }
 .digit .card .bottom {
-  position: absolute;
   top: 50%;
-  height: 50%;
-  width: 100%;
   margin-top: 1px;
   -webkit-border-bottom-right-radius: 10px;
   -webkit-border-bottom-left-radius: 10px;
@@ -191,6 +186,13 @@
   -moz-border-radius-bottomleft: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  background-color: #111;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#111111));
+  background-image: -webkit-linear-gradient(top, #222222, #111111);
+  background-image: -moz-linear-gradient(top, #222222, #111111);
+  background-image: -ms-linear-gradient(top, #222222, #111111);
+  background-image: -o-linear-gradient(top, #222222, #111111);
+  background-image: linear-gradient(top, #222222, #111111);
   color: #dddddd;
 }
 .digit .card .bottom .inner {

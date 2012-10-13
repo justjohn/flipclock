@@ -173,11 +173,10 @@
     
         .top, .bottom {
             overflow: hidden;
+            position: absolute;
+            height: 50%;
+            width: 100%;
 
-            background-color: #222;
-            .background-gradient(#222, #333);
-
-            /* prevent bg color from leaking outside the border: */
             .padding-clip()
         }    
 
@@ -188,23 +187,21 @@
         }
     
         .top {
-            position: absolute;
             top: 0;
-            height: 50%;
-            width: 100%;
             margin-top: -1px;
+
             .border-radius-top(10px);
-            
+            background-color: #222;
+            .background-gradient(#222, #333);
             color: #ffffff;
         }
         .bottom {
-            position: absolute;
             top: 50%;
-            height: 50%;    
-            width: 100%;
             margin-top: 1px;
-            .border-radius-bottom(10px);
 
+            .border-radius-bottom(10px);
+            background-color: #111;
+            .background-gradient(#222, #111);
             color: #dddddd;
 
             .inner {
