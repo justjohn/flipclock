@@ -1,8 +1,3 @@
-.flip {
-    position:absolute;
-    left:300px;
-}
-
 .time_box, .countdown_box {
     position:absolute;
     width:94%;
@@ -74,27 +69,29 @@
         font-family: 'sahararegular';
         text-indent: 10px;
 
-        &.time_right {
+        &.time_right, &.ampm {
             line-height: 96px;
             font-size: 90px;
             text-indent: 5px;
         }
 
         &.ampm {
-            line-height: 96px;
-            font-size: 90px;
             text-transform: uppercase;
-            text-indent: 5px;
         }
     }
 }
 
+
+/////////////////////////////////////////////////////
+// Digit styles
+
 .digit {
+    font-family: 'franchiseregular';
     font-size: 320px;
     line-height: 300px;
     text-align: center;
-    font-family: 'franchiseregular';
 
+    // font
     &.time_right {
         line-height: 100px;
         font-size: 90px;
@@ -105,85 +102,29 @@
         font-size: 90px;
         text-transform: uppercase;
     }
-}
 
-/////////////////////////////////////////////////////
-// Digit styles
-
-.digit.time {
-    top:0;
-    bottom:0;
-    height:100%;
-    width:19%;
-    max-width:180px;
-}
-
-.digit.time_right {
-    bottom: 20px;
-    width: 6%;
-    max-width:100px;
-    height:100px;
-}
-
-.digit.ampm {
-    top:20px;
-    right:0;
-    width:13%;
-    max-width:200px;
-    height:100px;
-}
-
-// Mobile landscape
-@media (max-width: 600px), (max-height: 300px) {
-    .time_box, .countdown_box {
-        max-height:150px;
-        max-width:480px;
+    // layout
+    &.time {
+        top:0;
+        bottom:0;
+        height:100%;
+        width:19%;
+        max-width:180px;
     }
 
-    .digit.time {
-        max-width:80px;
+    &.time_right {
+        bottom: 20px;
+        width: 6%;
+        max-width:100px;
+        height:100px;
     }
 
-    .digit.ampm {
-        max-width:60px;
-        height:50px;
-    }
-
-    .digit.time_right {
-        max-width:25px;
-        height:50px;
-    }
-}
-
-// mobile portrait
-@media (max-width: 400px) {
-    .time_box, .countdown_box {
-        max-height:100px;
-        max-width:320px;
-    }
-
-    .digit.time {
-        max-width:55px;
-
-        .card .before,
-        .card .after {
-            width: 40px;
-        }
-    }
-
-    .digit.ampm {
-        max-width:30px;
-        height:30px;
-
-        .card .before,
-        .card .after {
-            width: 20px;
-        }
-    }
-
-    .digit.time_right {
-        max-width:25px;
-        height:50px;
+    &.ampm {
+        top:20px;
+        right:0;
+        width:13%;
+        max-width:200px;
+        height:100px;
     }
 }
 
@@ -280,3 +221,6 @@
         }
     }
 }
+
+@import "mobile_landscape.less";
+@import "mobile_portrait.less";

@@ -1,0 +1,60 @@
+
+// Mobile landscape
+@media (max-width: 600px), (max-height: 300px) {
+    .time_box, .countdown_box {
+        max-height: 150px;
+        max-width: 480px;
+    }
+
+    .digit {
+        &.time {
+            max-width: 95px;
+
+            line-height: 150px;
+            font-size: 150px;
+        }
+
+        &.ampm {
+            max-width: 60px;
+            height: 50px;
+            bottom: 70px;
+            top: auto;
+
+            line-height: 50px;
+            font-size: 40px;
+        }
+
+        &.time_right {
+            max-width: 25px;
+            height: 50px;
+            bottom: 10px;
+
+            line-height: 50px;
+            font-size: 40px;
+        }
+
+        .card {
+            .top {
+                .border-radius-top(5px);
+            }
+            .bottom {
+                .border-radius-bottom(5px);
+            }
+        }
+    }
+
+
+    .font_sahara {
+        .digit {
+            font-size: 130px;
+            line-height: 140px;
+            text-indent: 5px;
+
+            &.time_right, &.ampm {
+                line-height: 50px;
+                font-size: 40px;
+                text-indent: 2px;
+            }
+        }
+    }
+}

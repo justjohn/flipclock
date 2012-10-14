@@ -1,8 +1,4 @@
 @import "font/font.css";
-.flip {
-  position: absolute;
-  left: 300px;
-}
 .time_box,
 .countdown_box {
   position: absolute;
@@ -61,22 +57,20 @@
   font-family: 'sahararegular';
   text-indent: 10px;
 }
-.font_sahara .digit.time_right {
+.font_sahara .digit.time_right,
+.font_sahara .digit.ampm {
   line-height: 96px;
   font-size: 90px;
   text-indent: 5px;
 }
 .font_sahara .digit.ampm {
-  line-height: 96px;
-  font-size: 90px;
   text-transform: uppercase;
-  text-indent: 5px;
 }
 .digit {
+  font-family: 'franchiseregular';
   font-size: 320px;
   line-height: 300px;
   text-align: center;
-  font-family: 'franchiseregular';
 }
 .digit.time_right {
   line-height: 100px;
@@ -106,50 +100,6 @@
   width: 13%;
   max-width: 200px;
   height: 100px;
-}
-@media (max-width: 600px), (max-height: 300px) {
-  .time_box,
-  .countdown_box {
-    max-height: 150px;
-    max-width: 480px;
-  }
-  .digit.time {
-    max-width: 80px;
-  }
-  .digit.ampm {
-    max-width: 60px;
-    height: 50px;
-  }
-  .digit.time_right {
-    max-width: 25px;
-    height: 50px;
-  }
-}
-@media (max-width: 400px) {
-  .time_box,
-  .countdown_box {
-    max-height: 100px;
-    max-width: 320px;
-  }
-  .digit.time {
-    max-width: 55px;
-  }
-  .digit.time .card .before,
-  .digit.time .card .after {
-    width: 40px;
-  }
-  .digit.ampm {
-    max-width: 30px;
-    height: 30px;
-  }
-  .digit.ampm .card .before,
-  .digit.ampm .card .after {
-    width: 20px;
-  }
-  .digit.time_right {
-    max-width: 25px;
-    height: 50px;
-  }
 }
 .digit {
   position: absolute;
@@ -251,6 +201,105 @@
 .digit .active .back {
   transform: rotatex(180deg);
   -webkit-transform: rotatex(180deg);
+}
+@media (max-width: 600px), (max-height: 300px) {
+  .time_box,
+  .countdown_box {
+    max-height: 150px;
+    max-width: 480px;
+  }
+  .digit.time {
+    max-width: 95px;
+    line-height: 150px;
+    font-size: 150px;
+  }
+  .digit.ampm {
+    max-width: 60px;
+    height: 50px;
+    bottom: 70px;
+    top: auto;
+    line-height: 50px;
+    font-size: 40px;
+  }
+  .digit.time_right {
+    max-width: 25px;
+    height: 50px;
+    bottom: 10px;
+    line-height: 50px;
+    font-size: 40px;
+  }
+  .digit .card .top {
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-topleft: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .digit .card .bottom {
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .font_sahara .digit {
+    font-size: 130px;
+    line-height: 140px;
+    text-indent: 5px;
+  }
+  .font_sahara .digit.time_right,
+  .font_sahara .digit.ampm {
+    line-height: 50px;
+    font-size: 40px;
+    text-indent: 2px;
+  }
+}
+@media (max-width: 400px) {
+  .time_box,
+  .countdown_box {
+    max-height: 300px;
+    max-width: 300px;
+  }
+  .digit.time {
+    height: 50%;
+    width: 28%;
+    max-width: 250px;
+  }
+  .digit.hour_1 {
+    top: -2%;
+    left: 15%;
+  }
+  .digit.hour_2 {
+    top: -2%;
+    left: 46%;
+  }
+  .digit.minute_1 {
+    top: 52%;
+    left: 15%;
+  }
+  .digit.minute_2 {
+    top: 52%;
+    left: 46%;
+  }
+  .digit.second_1 {
+    right: 15%;
+  }
+  .digit.second_2 {
+    right: 7%;
+  }
+  .digit.ampm {
+    width: 15%;
+    max-width: 70px;
+    height: 50px;
+    right: 7%;
+  }
+  .digit.time_right {
+    width: 7%;
+    max-width: 35px;
+    height: 50px;
+  }
 }
 .dialog_container {
   display: block;
