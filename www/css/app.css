@@ -184,6 +184,7 @@
 .digit .card .top {
   top: 0;
   margin-top: -1px;
+  border-bottom: 1px solid black;
   -webkit-border-top-right-radius: 10px;
   -webkit-border-top-left-radius: 10px;
   -moz-border-radius-topright: 10px;
@@ -201,7 +202,7 @@
 }
 .digit .card .bottom {
   top: 50%;
-  margin-top: 1px;
+  border-top: 1px solid black;
   -webkit-border-bottom-right-radius: 10px;
   -webkit-border-bottom-left-radius: 10px;
   -moz-border-radius-bottomright: 10px;
@@ -215,7 +216,7 @@
   background-image: -ms-linear-gradient(top, #222222, #111111);
   background-image: -o-linear-gradient(top, #222222, #111111);
   background-image: linear-gradient(top, #222222, #111111);
-  color: #dddddd;
+  color: #cccccc;
 }
 .digit .card .bottom .inner {
   top: -100%;

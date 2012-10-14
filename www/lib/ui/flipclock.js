@@ -72,7 +72,7 @@ function(require, exports, module) {
             // update hidden to new number
             digit.$active_top.html(number);
             $(".inner", digit.$back_bottom).html(number);
-            
+
             // reset
             $(".active", tile).removeClass("transform");
             $(".active", tile).removeClass("flipped");
@@ -295,16 +295,20 @@ function(require, exports, module) {
             }
 
             this.left1 = new FlipClock.Digit({
-                cls: 'time left_1'
+                cls: 'time left_1',
+                transition_duration: 850
             });
             this.left2 = new FlipClock.Digit({
-                cls: 'time left_2'
+                cls: 'time left_2',
+                transition_duration: 850
             });
             this.right1 = new FlipClock.Digit({
-                cls: 'time right_1'
+                cls: 'time right_1',
+                transition_duration: 850
             });
             this.right2 = new FlipClock.Digit({
-                cls: 'time right_2'
+                cls: 'time right_2',
+                transition_duration: 850
             });
 
             this.items = [
