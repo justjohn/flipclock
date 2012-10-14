@@ -300,6 +300,21 @@
     max-width: 35px;
     height: 50px;
   }
+  .layout_no_seconds .digit.time {
+    width: 32%;
+  }
+  .layout_no_seconds .digit.hour_1 {
+    left: 15%;
+  }
+  .layout_no_seconds .digit.hour_2 {
+    left: 50%;
+  }
+  .layout_no_seconds .digit.minute_1 {
+    left: 15%;
+  }
+  .layout_no_seconds .digit.minute_2 {
+    left: 50%;
+  }
 }
 .dialog_container {
   display: block;
