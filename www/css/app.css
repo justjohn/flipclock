@@ -1,3 +1,4 @@
+@import "font/font.css";
 .flip {
   position: absolute;
   left: 300px;
@@ -36,7 +37,7 @@
   left: 65%;
 }
 .second_1 {
-  right: 8%;
+  right: 7%;
 }
 .second_2 {
   right: 0;
@@ -53,11 +54,38 @@
 .layout_no_seconds .minute_2 {
   left: 73%;
 }
+.font_sahara .digit {
+  font-size: 279px;
+  line-height: 280px;
+  text-align: center;
+  font-family: 'sahararegular';
+  text-indent: 10px;
+}
+.font_sahara .digit.time_right {
+  line-height: 96px;
+  font-size: 90px;
+  text-indent: 5px;
+}
+.font_sahara .digit.ampm {
+  line-height: 96px;
+  font-size: 90px;
+  text-transform: uppercase;
+  text-indent: 5px;
+}
 .digit {
   font-size: 320px;
   line-height: 300px;
   text-align: center;
   font-family: 'franchiseregular';
+}
+.digit.time_right {
+  line-height: 100px;
+  font-size: 90px;
+}
+.digit.ampm {
+  line-height: 105px;
+  font-size: 90px;
+  text-transform: uppercase;
 }
 .digit.time {
   top: 0;
@@ -71,18 +99,13 @@
   width: 6%;
   max-width: 100px;
   height: 100px;
-  line-height: 100px;
-  font-size: 90px;
 }
 .digit.ampm {
   top: 20px;
   right: 0;
-  width: 14%;
+  width: 13%;
   max-width: 200px;
   height: 100px;
-  line-height: 105px;
-  font-size: 90px;
-  text-transform: uppercase;
 }
 @media (max-width: 600px), (max-height: 300px) {
   .time_box,
@@ -398,7 +421,7 @@
   border-bottom-left-radius: 0;
 }
 .selector .controls .icon_up .inner {
-  background: url(../images/icons/00-up.png) no-repeat center;
+  background: url("/images/icons/00-up.png") no-repeat center;
 }
 .selector .controls .value {
   padding: 5px 0;
@@ -434,7 +457,7 @@
   border-bottom-left-radius: 7px;
 }
 .selector .controls .icon_down .inner {
-  background: url(../images/icons/00-down.png) no-repeat center;
+  background: url("/images/icons/00-down.png") no-repeat center;
 }
 @media (max-height: 300px) {
   .selector .controls {
@@ -601,16 +624,16 @@ Some, as of yet, unused custom colors for buttons
   background-size: contain;
 }
 .icon_star .button_inner {
-  background-image: url("../images/icons/28-star.png");
+  background-image: url("/images/icons/28-star.png");
 }
 .icon_countdown .button_inner {
-  background-image: url("../images/icons/78-stopwatch.png");
+  background-image: url("/images/icons/78-stopwatch.png");
 }
 .icon_clock .button_inner {
-  background-image: url("../images/icons/11-clock.png");
+  background-image: url("/images/icons/11-clock.png");
 }
 .icon_options .button_inner {
-  background-image: url("../images/icons/19-gear.png");
+  background-image: url("/images/icons/19-gear.png");
 }
 .toggle {
   padding: 8px 5px;

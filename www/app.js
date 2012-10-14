@@ -29,6 +29,7 @@ module.declare([
     var layout,
         countdown_blink,
         active_page = '',
+        active_font = config.getFont(),
         // App configuration
         App = {
             page: {
@@ -67,6 +68,8 @@ module.declare([
                     initClock();
                     resize();
                 }
+
+                updateFont();
             },
             "hide_settings": function() {
                 var options_dialog = dialog.get('options');
@@ -121,6 +124,8 @@ module.declare([
         }());
 
         $(function documentReady() {
+            updateFont();
+            
             // Setup dialogs
             dialog.create({
                 id: "about",
@@ -225,5 +230,11 @@ module.declare([
                 flipclock.layouts.timeAMPM;
 
         layout = flipclock.load(format, params);
+    }
+
+    function updateFont() {
+        $(body).removeClass("font_" + active_font);
+        active_font = config.getFont();
+        $(body).addClass("font_" + active_font);
     }
 });

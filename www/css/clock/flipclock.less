@@ -38,7 +38,7 @@
 }
 
 .second_1 {
-    right:8%;
+    right:7%;
 }
 .second_2 {
     right:0;
@@ -60,12 +60,52 @@
     }
 }
 
+////////////////////////////////////////////////////////////////
+// Font profiles
+
+.font_sahara {
+    .digit {
+        font-size: 279px;
+        line-height: 280px;
+        text-align: center;
+        font-family: 'sahararegular';
+        text-indent: 10px;
+
+        &.time_right {
+            line-height: 96px;
+            font-size: 90px;
+            text-indent: 5px;
+        }
+
+        &.ampm {
+            line-height: 96px;
+            font-size: 90px;
+            text-transform: uppercase;
+            text-indent: 5px;
+        }
+    }
+}
+
 .digit {
     font-size: 320px;
     line-height: 300px;
     text-align: center;
     font-family: 'franchiseregular';
+
+    &.time_right {
+        line-height: 100px;
+        font-size: 90px;
+    }
+
+    &.ampm {
+        line-height: 105px;
+        font-size: 90px;
+        text-transform: uppercase;
+    }
 }
+
+/////////////////////////////////////////////////////
+// Digit styles
 
 .digit.time {
     top:0;
@@ -80,21 +120,14 @@
     width: 6%;
     max-width:100px;
     height:100px;
-
-    line-height: 100px;
-    font-size: 90px;
 }
 
 .digit.ampm {
     top:20px;
     right:0;
-    width:14%;
+    width:13%;
     max-width:200px;
     height:100px;
-
-    line-height: 105px;
-    font-size: 90px;
-    text-transform: uppercase;
 }
 
 // Mobile landscape

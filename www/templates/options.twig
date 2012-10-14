@@ -16,6 +16,14 @@
 	</div>
 </div>
 
+<div class="toggle" data-binding="font" data-value="{{ font }}">
+	<div class="label">Font</div>
+	<div class="options">
+	    <button data-value="default" class="option toggle_left {{ font=="default"?"active":"" }}">1</button>
+	    <button data-value="sahara" class="option toggle_right {{ font=="sahara"?"active":"" }}">2</button>
+	</div>
+</div>
+
 <div class="action_bar">
     <button class="button confirm" action="save_settings">Save</button>
     <button class="button cancel" action="hide_settings">Cancel</button>
