@@ -1,7 +1,10 @@
 module.declare([
     "vendor/jquery",
     "lib/clock/countdown",
-    "lib/ui/flipclock",
+    "lib/clock/flipclock",
+    "lib/clock/layout/flipclock",
+    "lib/clock/layout/flipclockSeconds",
+    "lib/clock/layout/countdown",
     "lib/ui/dialog",
     "lib/ui/buttons",
     "lib/ui/toggle",
@@ -17,10 +20,16 @@ module.declare([
         utils     = require("lib/utils"),
 
         // Clock types
+        flipclock = require("lib/clock/flipclock"),
         countdown = require("lib/clock/countdown"),
 
+        layouts = {
+            timeAMPM:    require("lib/clock/layout/flipclock").layout,
+            timeAMPMsec: require("lib/clock/layout/flipclockSeconds").layout,
+            countdown:   require("lib/clock/layout/countdown").layout,
+        },
+
         // UI Elements
-        flipclock = require("lib/ui/flipclock"),
         dialog    = require("lib/ui/dialog"),
         buttons   = require("lib/ui/buttons"),
         toggle    = require("lib/ui/toggle"),
@@ -226,8 +235,8 @@ module.declare([
                 start: true
             },
             format = config.getShowSeconds() ?
-                flipclock.layouts.timeAMPMsec :
-                flipclock.layouts.timeAMPM;
+                layouts.timeAMPMsec :
+                layouts.timeAMPM;
 
         layout = flipclock.load(format, params);
     }
