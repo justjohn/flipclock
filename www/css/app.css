@@ -108,6 +108,7 @@
   height: 300px;
   -webkit-perspective: 1000px;
   perspective: 1000px;
+  cursor: default;
 }
 .digit .card {
   position: absolute;
@@ -797,6 +798,8 @@ html {
   -moz-tap-highlight-color: rgba(0, 0, 0, 0);
   tap-highlight-color: rgba(0, 0, 0, 0);
   height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 * {
   -webkit-touch-callout: none;

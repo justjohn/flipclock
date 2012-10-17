@@ -1,5 +1,6 @@
 module.declare([
     "vendor/jquery",
+    "vendor/spin",
     "lib/clock/countdown",
     "lib/clock/flipclock",
     "lib/clock/layout/flipclock",
@@ -13,6 +14,7 @@ module.declare([
     "lib/analytics"
 ], function(require, exports, module) {
     var $         = require("vendor/jquery").jQuery,
+        Spinner   = require("vendor/spin").Spinner,
 
         // Core functionality
         config    = require("lib/config"),
@@ -39,6 +41,7 @@ module.declare([
         countdown_blink,
         active_page = '',
         active_font = config.getFont(),
+        appCache = window.applicationCache,
         // App configuration
         App = {
             page: {
@@ -92,8 +95,8 @@ module.declare([
         $(window).resize(resize);
 
         // Routing
-        $(window).hashchange(function() {
-            return function() {
+        $(window).hashchange(function hashchangeOuter() {
+            return function hashchange() {
                 var splitHash = [],
                     section = '',
                     data = '';
@@ -128,13 +131,20 @@ module.declare([
                         initClock();
                 }
 
-                resize();
+                // hide and reposition the clock.
+                resize(false);
+
+                // resize again, and show after some delay for the UI
+                // to update...
+                setTimeout(function resizeFix() {
+                    resize(true);
+                }, 50);
             }
         }());
 
-        $(function documentReady() {
+        var documentReady = function documentReady() {
             updateFont();
-            
+
             // Setup dialogs
             dialog.create({
                 id: "about",
@@ -190,13 +200,54 @@ module.declare([
 
             buttons.init();
 
-            // Wait a small amount of time for the page to render.
-            //   This is almost certainly the wrong approach but it
-            //   works for now.
-            setTimeout(function() {
-                $(window).hashchange();
-            }, 10);
-        });
+            $(window).hashchange();
+        };
+
+        var spinner;
+
+        if (appCache) {
+            $(appCache).bind({
+                "downloading": function(e) {
+                    // show loader
+                    var opts = {
+                        lines: 15, // The number of lines to draw
+                        length: 13, // The length of each line
+                        width: 2, // The line thickness
+                        radius: 15, // The radius of the inner circle
+                        corners: 0.6, // Corner roundness (0..1)
+                        rotate: 0, // The rotation offset
+                        color: '#eee', // #rgb or #rrggbb
+                        speed: 0.7, // Rounds per second
+                        trail: 60, // Afterglow percentage
+                        shadow: false, // Whether to render a shadow
+                        hwaccel: false, // Whether to use hardware acceleration
+                        className: 'spinner', // The CSS class to assign to the spinner
+                        zIndex: 2e9, // The z-index (defaults to 2000000000)
+                        top: 'auto', // Top position relative to parent in px
+                        left: 'auto' // Left position relative to parent in px
+                    };
+
+                    $(function() {
+                        var el = $('body').get(0);
+                        spinner = new Spinner(opts).spin(el);
+                    });
+                },
+                "updateready": function(e) {
+                    // reload for newest version of site
+                    appCache.swapCache();
+                    window.location.reload();
+                },
+                "error noupdate cached": function(e) {
+                    $(function() {
+                        // hide loader
+                        spinner && spinner.stop();
+                        documentReady();
+                    });
+                },
+            });
+        } else {
+            $(documentReady);
+        }
     };
 
     function center(element) {
@@ -214,9 +265,14 @@ module.declare([
     }
 
     function resize(e) {
-        // Center Timebox
-        center($(".time_box"));
-        center($(".countdown_box"));
+        if (e === false) {
+            $(".time_box, .countdown_box").hide();
+        } else {
+            $(".time_box, .countdown_box").show();
+
+            $(".time_box").get(0) && center($(".time_box"));
+            $(".countdown_box").get(0) && center($(".countdown_box"));
+        }
     }
 
     function stopClock() {

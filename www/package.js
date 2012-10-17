@@ -1,11 +1,11 @@
-require.memoize("app",[ "vendor/jquery", "lib/clock/countdown", "lib/clock/flipclock", "lib/clock/layout/flipclock", "lib/clock/layout/flipclockSeconds", "lib/clock/layout/countdown", "lib/ui/dialog", "lib/ui/buttons", "lib/ui/toggle", "lib/ui/blinker", "lib/utils", "lib/analytics" ],
+require.memoize("app",[ "vendor/jquery", "vendor/spin", "lib/clock/countdown", "lib/clock/flipclock", "lib/clock/layout/flipclock", "lib/clock/layout/flipclockSeconds", "lib/clock/layout/countdown", "lib/ui/dialog", "lib/ui/buttons", "lib/ui/toggle", "lib/ui/blinker", "lib/utils", "lib/analytics" ],
 function(require, exports, module) {
-var $ = require("vendor/jquery").jQuery, config = require("lib/config"), analytics = require("lib/analytics"), utils = require("lib/utils"), flipclock = require("lib/clock/flipclock"), countdown = require("lib/clock/countdown"), layouts = {
+var $ = require("vendor/jquery").jQuery, Spinner = require("vendor/spin").Spinner, config = require("lib/config"), analytics = require("lib/analytics"), utils = require("lib/utils"), flipclock = require("lib/clock/flipclock"), countdown = require("lib/clock/countdown"), layouts = {
     timeAMPM: require("lib/clock/layout/flipclock").layout,
     timeAMPMsec: require("lib/clock/layout/flipclockSeconds").layout,
     countdown: require("lib/clock/layout/countdown").layout
 }, dialog = require("lib/ui/dialog"), buttons = require("lib/ui/buttons"), toggle = require("lib/ui/toggle"), blinker = require("lib/ui/blinker");
-var layout, countdown_blink, active_page = "", App = {
+var layout, countdown_blink, active_page = "", active_font = config.getFont(), appCache = window.applicationCache, App = {
     page: {
         clock: "clock",
         countdown: "countdown"
@@ -30,6 +30,7 @@ exports.boot = function() {
                 initClock();
                 resize();
             }
+            updateFont();
         },
         hide_settings: function() {
             var options_dialog = dialog.get("options");
@@ -38,8 +39,8 @@ exports.boot = function() {
         }
     });
     $(window).resize(resize);
-    $(window).hashchange(function() {
-        return function() {
+    $(window).hashchange(function hashchangeOuter() {
+        return function hashchange() {
             var splitHash = [], section = "", data = "";
             var hash = location.hash;
             analytics._gaq && analytics._gaq.push([ "_trackPageview", hash ]);
@@ -64,10 +65,14 @@ exports.boot = function() {
                 active_page = App.page.clock;
                 initClock();
             }
-            resize();
+            resize(false);
+            setTimeout(function resizeFix() {
+                resize(true);
+            }, 50);
         };
     }());
-    $(function documentReady() {
+    var documentReady = function documentReady() {
+        updateFont();
         dialog.create({
             id: "about",
             template: "templates/about.twig",
@@ -106,10 +111,48 @@ exports.boot = function() {
         });
         $("#container").addClass("blink_transition");
         buttons.init();
-        setTimeout(function() {
-            $(window).hashchange();
-        }, 10);
-    });
+        $(window).hashchange();
+    };
+    var spinner;
+    if (appCache) {
+        $(appCache).bind({
+            downloading: function(e) {
+                var opts = {
+                    lines: 15,
+                    length: 13,
+                    width: 2,
+                    radius: 15,
+                    corners: .6,
+                    rotate: 0,
+                    color: "#eee",
+                    speed: .7,
+                    trail: 60,
+                    shadow: false,
+                    hwaccel: false,
+                    className: "spinner",
+                    zIndex: 2e9,
+                    top: "auto",
+                    left: "auto"
+                };
+                $(function() {
+                    var el = $("body").get(0);
+                    spinner = (new Spinner(opts)).spin(el);
+                });
+            },
+            updateready: function(e) {
+                appCache.swapCache();
+                window.location.reload();
+            },
+            "error noupdate cached": function(e) {
+                $(function() {
+                    spinner && spinner.stop();
+                    documentReady();
+                });
+            }
+        });
+    } else {
+        $(documentReady);
+    }
 };
 function center(element) {
     var element_width = element.outerWidth(), element_height = element.outerHeight(), window_width = $("body").width(), window_height = $("body").height();
@@ -121,8 +164,13 @@ function center(element) {
     }
 }
 function resize(e) {
-    center($(".time_box"));
-    center($(".countdown_box"));
+    if (e === false) {
+        $(".time_box, .countdown_box").hide();
+    } else {
+        $(".time_box, .countdown_box").show();
+        $(".time_box").get(0) && center($(".time_box"));
+        $(".countdown_box").get(0) && center($(".countdown_box"));
+    }
 }
 function stopClock() {
     $("#container").empty();
@@ -137,6 +185,11 @@ function initClock() {
         start: true
     }, format = config.getShowSeconds() ? layouts.timeAMPMsec : layouts.timeAMPM;
     layout = flipclock.load(format, params);
+}
+function updateFont() {
+    $(body).removeClass("font_" + active_font);
+    active_font = config.getFont();
+    $(body).addClass("font_" + active_font);
 }
 
 });require.memoize("vendor/jquery",[],
@@ -3255,9 +3308,229 @@ function(require, exports, module) {
 })(jQuery, this);
 exports.jQuery = jQuery.noConflict();
 
+});require.memoize("vendor/spin",[],
+function(require, exports, module) {
+!function(window, document, undefined) {
+    var prefixes = [ "webkit", "Moz", "ms", "O" ], animations = {}, useCssAnimations;
+    function createEl(tag, prop) {
+        var el = document.createElement(tag || "div"), n;
+        for (n in prop) el[n] = prop[n];
+        return el;
+    }
+    function ins(parent) {
+        for (var i = 1, n = arguments.length; i < n; i++) parent.appendChild(arguments[i]);
+        return parent;
+    }
+    var sheet = function() {
+        var el = createEl("style", {
+            type: "text/css"
+        });
+        ins(document.getElementsByTagName("head")[0], el);
+        return el.sheet || el.styleSheet;
+    }();
+    function addAnimation(alpha, trail, i, lines) {
+        var name = [ "opacity", trail, ~~(alpha * 100), i, lines ].join("-"), start = .01 + i / lines * 100, z = Math.max(1 - (1 - alpha) / trail * (100 - start), alpha), prefix = useCssAnimations.substring(0, useCssAnimations.indexOf("Animation")).toLowerCase(), pre = prefix && "-" + prefix + "-" || "";
+        if (!animations[name]) {
+            sheet.insertRule("@" + pre + "keyframes " + name + "{" + "0%{opacity:" + z + "}" + start + "%{opacity:" + alpha + "}" + (start + .01) + "%{opacity:1}" + (start + trail) % 100 + "%{opacity:" + alpha + "}" + "100%{opacity:" + z + "}" + "}", sheet.cssRules.length);
+            animations[name] = 1;
+        }
+        return name;
+    }
+    function vendor(el, prop) {
+        var s = el.style, pp, i;
+        if (s[prop] !== undefined) return prop;
+        prop = prop.charAt(0).toUpperCase() + prop.slice(1);
+        for (i = 0; i < prefixes.length; i++) {
+            pp = prefixes[i] + prop;
+            if (s[pp] !== undefined) return pp;
+        }
+    }
+    function css(el, prop) {
+        for (var n in prop) el.style[vendor(el, n) || n] = prop[n];
+        return el;
+    }
+    function merge(obj) {
+        for (var i = 1; i < arguments.length; i++) {
+            var def = arguments[i];
+            for (var n in def) if (obj[n] === undefined) obj[n] = def[n];
+        }
+        return obj;
+    }
+    function pos(el) {
+        var o = {
+            x: el.offsetLeft,
+            y: el.offsetTop
+        };
+        while (el = el.offsetParent) o.x += el.offsetLeft, o.y += el.offsetTop;
+        return o;
+    }
+    var defaults = {
+        lines: 12,
+        length: 7,
+        width: 5,
+        radius: 10,
+        rotate: 0,
+        corners: 1,
+        color: "#000",
+        speed: 1,
+        trail: 100,
+        opacity: 1 / 4,
+        fps: 20,
+        zIndex: 2e9,
+        className: "spinner",
+        top: "auto",
+        left: "auto",
+        position: "relative"
+    };
+    var Spinner = function Spinner(o) {
+        if (!this.spin) return new Spinner(o);
+        this.opts = merge(o || {}, Spinner.defaults, defaults);
+    };
+    Spinner.defaults = {};
+    merge(Spinner.prototype, {
+        spin: function(target) {
+            this.stop();
+            var self = this, o = self.opts, el = self.el = css(createEl(0, {
+                className: o.className
+            }), {
+                position: o.position,
+                width: 0,
+                zIndex: o.zIndex
+            }), mid = o.radius + o.length + o.width, ep, tp;
+            if (target) {
+                target.insertBefore(el, target.firstChild || null);
+                tp = pos(target);
+                ep = pos(el);
+                css(el, {
+                    left: (o.left == "auto" ? tp.x - ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + "px",
+                    top: (o.top == "auto" ? tp.y - ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid) + "px"
+                });
+            }
+            el.setAttribute("aria-role", "progressbar");
+            self.lines(el, self.opts);
+            if (!useCssAnimations) {
+                var i = 0, fps = o.fps, f = fps / o.speed, ostep = (1 - o.opacity) / (f * o.trail / 100), astep = f / o.lines;
+                (function anim() {
+                    i++;
+                    for (var s = o.lines; s; s--) {
+                        var alpha = Math.max(1 - (i + s * astep) % f * ostep, o.opacity);
+                        self.opacity(el, o.lines - s, alpha, o);
+                    }
+                    self.timeout = self.el && setTimeout(anim, ~~(1e3 / fps));
+                })();
+            }
+            return self;
+        },
+        stop: function() {
+            var el = this.el;
+            if (el) {
+                clearTimeout(this.timeout);
+                if (el.parentNode) el.parentNode.removeChild(el);
+                this.el = undefined;
+            }
+            return this;
+        },
+        lines: function(el, o) {
+            var i = 0, seg;
+            function fill(color, shadow) {
+                return css(createEl(), {
+                    position: "absolute",
+                    width: o.length + o.width + "px",
+                    height: o.width + "px",
+                    background: color,
+                    boxShadow: shadow,
+                    transformOrigin: "left",
+                    transform: "rotate(" + ~~(360 / o.lines * i + o.rotate) + "deg) translate(" + o.radius + "px" + ",0)",
+                    borderRadius: (o.corners * o.width >> 1) + "px"
+                });
+            }
+            for (; i < o.lines; i++) {
+                seg = css(createEl(), {
+                    position: "absolute",
+                    top: 1 + ~(o.width / 2) + "px",
+                    transform: o.hwaccel ? "translate3d(0,0,0)" : "",
+                    opacity: o.opacity,
+                    animation: useCssAnimations && addAnimation(o.opacity, o.trail, i, o.lines) + " " + 1 / o.speed + "s linear infinite"
+                });
+                if (o.shadow) ins(seg, css(fill("#000", "0 0 4px " + "#000"), {
+                    top: 2 + "px"
+                }));
+                ins(el, ins(seg, fill(o.color, "0 0 1px rgba(0,0,0,.1)")));
+            }
+            return el;
+        },
+        opacity: function(el, i, val) {
+            if (i < el.childNodes.length) el.childNodes[i].style.opacity = val;
+        }
+    });
+    (function() {
+        function vml(tag, attr) {
+            return createEl("<" + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr);
+        }
+        var s = css(createEl("group"), {
+            behavior: "url(#default#VML)"
+        });
+        if (!vendor(s, "transform") && s.adj) {
+            sheet.addRule(".spin-vml", "behavior:url(#default#VML)");
+            Spinner.prototype.lines = function(el, o) {
+                var r = o.length + o.width, s = 2 * r;
+                function grp() {
+                    return css(vml("group", {
+                        coordsize: s + " " + s,
+                        coordorigin: -r + " " + -r
+                    }), {
+                        width: s,
+                        height: s
+                    });
+                }
+                var margin = -(o.width + o.length) * 2 + "px", g = css(grp(), {
+                    position: "absolute",
+                    top: margin,
+                    left: margin
+                }), i;
+                function seg(i, dx, filter) {
+                    ins(g, ins(css(grp(), {
+                        rotation: 360 / o.lines * i + "deg",
+                        left: ~~dx
+                    }), ins(css(vml("roundrect", {
+                        arcsize: o.corners
+                    }), {
+                        width: r,
+                        height: o.width,
+                        left: o.radius,
+                        top: -o.width >> 1,
+                        filter: filter
+                    }), vml("fill", {
+                        color: o.color,
+                        opacity: o.opacity
+                    }), vml("stroke", {
+                        opacity: 0
+                    }))));
+                }
+                if (o.shadow) for (i = 1; i <= o.lines; i++) seg(i, -2, "progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");
+                for (i = 1; i <= o.lines; i++) seg(i);
+                return ins(el, g);
+            };
+            Spinner.prototype.opacity = function(el, i, val, o) {
+                var c = el.firstChild;
+                o = o.shadow && o.lines || 0;
+                if (c && i + o < c.childNodes.length) {
+                    c = c.childNodes[i + o];
+                    c = c && c.firstChild;
+                    c = c && c.firstChild;
+                    if (c) c.opacity = val;
+                }
+            };
+        } else useCssAnimations = vendor(s, "animation");
+    })();
+    if (typeof define == "function" && define.amd) define(function() {
+        return Spinner;
+    }); else window.Spinner = Spinner;
+}(exports, document);
+
 });require.memoize("lib/clock/countdown",[ "../../vendor/jquery", "../ui/blinker", "./flipclock", "./layout/countdown" ],
 function(require, exports, module) {
-var $ = require("../../vendor/jquery").jQuery, blinker = require("../ui/blinker"), flipclock = require("./flipclock"), layout = require("./layout/countdown"), countdown_blink;
+var $ = require("../../vendor/jquery").jQuery, blinker = require("../ui/blinker"), flipclock = require("./flipclock"), layout = require("./layout/countdown").layout, countdown_blink;
 exports.init = function() {
     $(document).on({
         countdown_minute_up: function() {
@@ -3308,7 +3581,7 @@ exports.load = function(params) {
 
 });require.memoize("lib/clock/flipclock",[ "../../vendor/jquery", "../config" ],
 function(require, exports, module) {
-var $ = require("../../vendor/jquery").jQuery, config = require("../config"), transition_duration = 250;
+var $ = require("../../vendor/jquery").jQuery, config = require("../config");
 var FlipClock = {};
 FlipClock.MS_TO_S = 1e3;
 FlipClock.MS_TO_M = 1e3 * 60;
@@ -3317,45 +3590,33 @@ FlipClock.Digit = function(params) {
     this.params = params || {};
     this.init();
 };
-FlipClock.Digit.init = function() {
-    var top = $('<div class="top" />').append('<div class="card static" />').append('<div class="card flip animated" />');
-    var bottom = $('<div class="bottom" />').append('<div class="card static" />').append('<div class="card flip animated active" />');
-    var tile = $('<div class="tile" />').append(top).append(bottom);
+FlipClock.Digit.prototype.init = function() {
+    this.$active_top = $('<div class="top" />');
+    this.$active_bottom = $('<div class="bottom" />').append('<div class="inner" />');
+    this.$back_top = $('<div class="top" />');
+    this.$back_bottom = $('<div class="bottom" />').append('<div class="inner" />');
+    var top = $('<div class="card back" />').append(this.$back_top).append(this.$back_bottom);
+    var bottom = $('<div class="card active transform" />').append($('<div class="front" />').append(this.$active_top)).append($('<div class="back" />').append(this.$active_bottom));
+    var tile = $('<div class="digit" />').append(top).append(bottom);
     if (this.params.cls) tile.addClass(this.params.cls);
-    $(".card", tile).append('<div class="before" />').append('<div class="inner" />').append('<div class="after" />');
     this.tile = tile;
 };
-FlipClock.Digit.flip = function(number) {
-    var context = this.tile, from = context.attr("number"), transition_duration = this.params.transition_duration || 250, transition_overlap = this.params.transition_overlap || 20;
+FlipClock.Digit.prototype.flip = function(number) {
+    var digit = this, tile = this.tile, from = tile.attr("number"), transition_duration = this.params.transition_duration || 1e3;
     if (number == from) return;
-    context.attr("from", from);
-    context.attr("number", number);
-    $(".top .static", context).removeClass("digit_" + from).addClass("digit_" + number);
-    $(".bottom .flip", context).removeClass("digit_" + from).addClass("digit_" + number);
-    $(".top .flip", context).toggleClass("active");
+    tile.attr("from", from);
+    tile.attr("number", number);
+    digit.$back_top.html(number);
+    $(".inner", digit.$active_bottom).html(number);
+    $(".active", tile).addClass("transform");
+    $(".active", tile).addClass("flipped");
     setTimeout(function() {
-        var old_class = "digit_" + context.attr("from");
-        var new_class = "digit_" + context.attr("number");
-        $(".bottom .flip", context).toggleClass("active");
-        setTimeout(function() {
-            $(".top .flip", context).css("display", "none");
-            $(".top .flip", context).toggleClass("active");
-            $(".top .flip", context).removeClass(old_class).addClass(new_class);
-            setTimeout(function() {
-                $(".top .flip", context).css("display", "block");
-            }, transition_duration + transition_overlap);
-        }, transition_overlap);
-        setTimeout(function() {
-            $(".bottom .flip", context).css("display", "none");
-            $(".bottom .flip", context).toggleClass("active");
-            $(".bottom .static", context).removeClass(old_class).addClass(new_class);
-            setTimeout(function() {
-                $(".bottom .flip", context).css("display", "block");
-            }, transition_duration);
-        }, transition_duration);
-    }, transition_duration - transition_overlap);
+        digit.$active_top.html(number);
+        $(".inner", digit.$back_bottom).html(number);
+        $(".active", tile).removeClass("transform");
+        $(".active", tile).removeClass("flipped");
+    }, transition_duration);
 };
-FlipClock.Digit.prototype = FlipClock.Digit;
 FlipClock.Layout = function(layout, params) {
     this.cls = layout.cls;
     layout.init.apply(this, [ params ]);
@@ -3463,7 +3724,7 @@ exports.layout = {
 function(require, exports, module) {
 var $ = require("../../../vendor/jquery").jQuery, config = require("../../config"), FlipClock = require("../flipclock").FlipClock;
 exports.layout = {
-    cls: "time_box layout_time_ampm",
+    cls: "time_box layout_time_ampm_sec",
     refreshTime: 1e3,
     init: function() {
         this.mode = config.getTimeMode();
@@ -3479,14 +3740,21 @@ exports.layout = {
         this.minute2 = new FlipClock.Digit({
             cls: "time minute_2"
         });
-        this.items = [ this.hour1, this.hour2, this.minute1, this.minute2 ];
+        this.second1 = new FlipClock.Digit({
+            cls: "time_right small second_1",
+            transition_duration: 850
+        });
+        this.second2 = new FlipClock.Digit({
+            cls: "time_right small second_2",
+            transition_duration: 850
+        });
+        this.items = [ this.hour1, this.hour2, this.minute1, this.minute2, this.second1, this.second2 ];
         if (this.mode == config.modes.twelveHour) {
             this.ampm = new FlipClock.Digit({
-                cls: "ampm"
+                cls: "ampm",
+                transition_duration: 850
             });
             this.items.push(this.ampm);
-        } else {
-            this.cls += " layout_no_seconds";
         }
     },
     update: function() {
@@ -3494,6 +3762,8 @@ exports.layout = {
         var seconds = d.getSeconds();
         var s_tens = Math.floor(seconds / 10);
         var s_ones = seconds % 10;
+        this.second1.flip(s_tens);
+        this.second2.flip(s_ones);
         var minutes = d.getMinutes();
         var m_tens = Math.floor(minutes / 10);
         var m_ones = minutes % 10;
@@ -3537,16 +3807,20 @@ exports.layout = {
             this.date = new Date(ms_time);
         }
         this.left1 = new FlipClock.Digit({
-            cls: "time left_1"
+            cls: "time left_1",
+            transition_duration: 850
         });
         this.left2 = new FlipClock.Digit({
-            cls: "time left_2"
+            cls: "time left_2",
+            transition_duration: 850
         });
         this.right1 = new FlipClock.Digit({
-            cls: "time right_1"
+            cls: "time right_1",
+            transition_duration: 850
         });
         this.right2 = new FlipClock.Digit({
-            cls: "time right_2"
+            cls: "time right_2",
+            transition_duration: 850
         });
         this.items = [ this.left1, this.left2, this.right1, this.right2 ];
     },
@@ -3828,12 +4102,18 @@ function(require, exports, module) {
 var storage = window.localStorage, key = "config", modes = {
     twelveHour: "12hr",
     twentyFourHour: "24hr"
-}, timeModeDefault = modes.twelveHour;
+}, timeModeDefault = modes.twelveHour, fontDefault = "default";
 exports.get = function(key) {
     return storage[key];
 };
 exports.set = function(key, value) {
     storage[key] = value;
+};
+exports.setFont = function(font) {
+    exports.set("font", font);
+};
+exports.getFont = function() {
+    return storage.font || fontDefault;
 };
 exports.setTimeMode = function(mode) {
     exports.set("timeMode", mode);
@@ -3850,7 +4130,8 @@ exports.getShowSeconds = function() {
 exports.data = function() {
     return {
         timeMode: exports.getTimeMode(),
-        showSeconds: exports.getShowSeconds()
+        showSeconds: exports.getShowSeconds(),
+        font: exports.getFont()
     };
 };
 exports.modes = modes;
