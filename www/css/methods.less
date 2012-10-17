@@ -67,6 +67,17 @@
            border-top-right-radius:   @radius;
 }
 
+// a special mixin for prefixed properties.
+// it's limited to one at the moment.
+.transition-prefix (@property, @duration, @timing) {
+    -webkit-transition: ~"-webkit-@{property}" @duration @timing;
+    -moz-transition: ~"-moz-@{property}" @duration @timing;
+    -ms-transition: ~"-ms-@{property}" @duration @timing;
+    -o-transition: ~"-o-@{property}" @duration @timing;
+    transition: @property @duration @timing;
+}
+
+
 .transition (@property, @duration, @timing) {
     -moz-transition: @arguments;
     -o-transition: @arguments;
@@ -75,12 +86,29 @@
     transition: @arguments;
 }
 
+.transform-style (@style) {
+    -webkit-transform-style: @style;
+    -moz-transform-style: @style;
+    -ms-transform-style: @style;
+    -o-transform-style: @style;
+    transform-style: @style;
+}
+
 .transform-y (@distance) {
     -webkit-transform: translate3D(0, @distance, 0);
     -moz-transform: translateY(@distance);
     -ms-transform: translate3D(0, @distance, 0);
     -o-transform: translate3D(0, @distance, 0);
 }
+
+.transform-flip (@deg) {
+    -webkit-transform: rotateX(@deg);
+    -moz-transform: rotateX(@deg);
+    -ms-transform: rotateX(@deg);
+    -o-transform: rotateX(@deg);
+    transform: rotateX(@deg);
+}
+
 .transition-timing-function (@function) {
     -moz-transition-timing-function: @function;
     -webkit-transition-timing-function: @function;
@@ -88,3 +116,11 @@
     -o-transition-timing-function: @function;
     transition-timing-function: @function;
 }
+
+.backface-visibility (@visibility) {
+  -webkit-backface-visibility: @visibility;
+  -moz-backface-visibility: @visibility;
+  -ms-backface-visibility: @visibility;
+  backface-visibility: @visibility;
+}
+
