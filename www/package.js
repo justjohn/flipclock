@@ -1,6 +1,10 @@
-require.memoize("app",[ "vendor/jquery", "lib/clock/countdown", "lib/ui/flipclock", "lib/ui/dialog", "lib/ui/buttons", "lib/ui/toggle", "lib/ui/blinker", "lib/utils", "lib/analytics" ],
+require.memoize("app",[ "vendor/jquery", "lib/clock/countdown", "lib/clock/flipclock", "lib/clock/layout/flipclock", "lib/clock/layout/flipclockSeconds", "lib/clock/layout/countdown", "lib/ui/dialog", "lib/ui/buttons", "lib/ui/toggle", "lib/ui/blinker", "lib/utils", "lib/analytics" ],
 function(require, exports, module) {
-var $ = require("vendor/jquery").jQuery, config = require("lib/config"), analytics = require("lib/analytics"), utils = require("lib/utils"), countdown = require("lib/clock/countdown"), flipclock = require("lib/ui/flipclock"), dialog = require("lib/ui/dialog"), buttons = require("lib/ui/buttons"), toggle = require("lib/ui/toggle"), blinker = require("lib/ui/blinker");
+var $ = require("vendor/jquery").jQuery, config = require("lib/config"), analytics = require("lib/analytics"), utils = require("lib/utils"), flipclock = require("lib/clock/flipclock"), countdown = require("lib/clock/countdown"), layouts = {
+    timeAMPM: require("lib/clock/layout/flipclock").layout,
+    timeAMPMsec: require("lib/clock/layout/flipclockSeconds").layout,
+    countdown: require("lib/clock/layout/countdown").layout
+}, dialog = require("lib/ui/dialog"), buttons = require("lib/ui/buttons"), toggle = require("lib/ui/toggle"), blinker = require("lib/ui/blinker");
 var layout, countdown_blink, active_page = "", App = {
     page: {
         clock: "clock",
@@ -131,7 +135,7 @@ function initClock() {
     var params = {
         container: $("#container"),
         start: true
-    }, format = config.getShowSeconds() ? flipclock.layouts.timeAMPMsec : flipclock.layouts.timeAMPM;
+    }, format = config.getShowSeconds() ? layouts.timeAMPMsec : layouts.timeAMPM;
     layout = flipclock.load(format, params);
 }
 
@@ -3251,9 +3255,9 @@ function(require, exports, module) {
 })(jQuery, this);
 exports.jQuery = jQuery.noConflict();
 
-});require.memoize("lib/clock/countdown",[ "../../vendor/jquery" ],
+});require.memoize("lib/clock/countdown",[ "../../vendor/jquery", "../ui/blinker", "./flipclock", "./layout/countdown" ],
 function(require, exports, module) {
-var $ = require("../../vendor/jquery").jQuery, blinker = require("../ui/blinker"), flipclock = require("../ui/flipclock"), countdown_blink;
+var $ = require("../../vendor/jquery").jQuery, blinker = require("../ui/blinker"), flipclock = require("./flipclock"), layout = require("./layout/countdown"), countdown_blink;
 exports.init = function() {
     $(document).on({
         countdown_minute_up: function() {
@@ -3299,10 +3303,10 @@ exports.load = function(params) {
     };
     params.container = $("#container");
     params.start = true;
-    return flipclock.load(flipclock.layouts.countdown, params);
+    return flipclock.load(layout, params);
 };
 
-});require.memoize("lib/ui/flipclock",[ "../../vendor/jquery", "../config" ],
+});require.memoize("lib/clock/flipclock",[ "../../vendor/jquery", "../config" ],
 function(require, exports, module) {
 var $ = require("../../vendor/jquery").jQuery, config = require("../config"), transition_duration = 250;
 var FlipClock = {};
@@ -3388,72 +3392,22 @@ FlipClock.Layout = function(layout, params) {
         }
     };
 };
-exports.layouts = {};
-exports.layouts.timeAMPMsec = {
-    cls: "time_box layout_time_ampm_sec",
-    refreshTime: 1e3,
-    init: function() {
-        this.mode = config.getTimeMode();
-        this.hour1 = new FlipClock.Digit({
-            cls: "time hour_1",
-            transition_duration: 250
-        });
-        this.hour2 = new FlipClock.Digit({
-            cls: "time hour_2",
-            transition_duration: 250
-        });
-        this.minute1 = new FlipClock.Digit({
-            cls: "time minute_1",
-            transition_duration: 250
-        });
-        this.minute2 = new FlipClock.Digit({
-            cls: "time minute_2",
-            transition_duration: 250
-        });
-        this.second1 = new FlipClock.Digit({
-            cls: "time_right small second_1",
-            transition_duration: 200
-        });
-        this.second2 = new FlipClock.Digit({
-            cls: "time_right small second_2",
-            transition_duration: 200
-        });
-        this.items = [ this.hour1, this.hour2, this.minute1, this.minute2, this.second1, this.second2 ];
-        if (this.mode == config.modes.twelveHour) {
-            this.ampm = new FlipClock.Digit({
-                cls: "ampm",
-                transition_duration: 250
-            });
-            this.items.push(this.ampm);
-        }
-    },
-    update: function() {
-        var d = new Date;
-        var seconds = d.getSeconds();
-        var s_tens = Math.floor(seconds / 10);
-        var s_ones = seconds % 10;
-        this.second1.flip(s_tens);
-        this.second2.flip(s_ones);
-        var minutes = d.getMinutes();
-        var m_tens = Math.floor(minutes / 10);
-        var m_ones = minutes % 10;
-        this.minute1.flip(m_tens);
-        this.minute2.flip(m_ones);
-        var hours = d.getHours();
-        if (this.mode == config.modes.twelveHour) {
-            if (hours > 12) hours -= 12;
-            if (hours == 0) hours = 12;
-            var ampm_val = "am";
-            if (d.getHours() >= 12) ampm_val = "pm";
-            this.ampm.flip(ampm_val);
-        }
-        var h_tens = Math.floor(hours / 10);
-        var h_ones = hours % 10;
-        this.hour1.flip(h_tens == 0 ? "" : h_tens);
-        this.hour2.flip(h_ones);
+exports.FlipClock = FlipClock;
+exports.load = function(layout, params) {
+    var clock = new FlipClock.Layout(layout, params), container = params.container, start = params.start;
+    if (container) {
+        $(container).append(clock.element);
     }
+    if (start) {
+        clock.start();
+    }
+    return clock;
 };
-exports.layouts.timeAMPM = {
+
+});require.memoize("lib/clock/layout/flipclock",[ "../../../vendor/jquery", "../../config", "../flipclock" ],
+function(require, exports, module) {
+var $ = require("../../../vendor/jquery").jQuery, config = require("../../config"), FlipClock = require("../flipclock").FlipClock;
+exports.layout = {
     cls: "time_box layout_time_ampm",
     refreshTime: 1e3,
     init: function() {
@@ -3504,7 +3458,66 @@ exports.layouts.timeAMPM = {
         this.hour2.flip(h_ones);
     }
 };
-exports.layouts.countdown = {
+
+});require.memoize("lib/clock/layout/flipclockSeconds",[ "../../../vendor/jquery", "../../config", "../flipclock" ],
+function(require, exports, module) {
+var $ = require("../../../vendor/jquery").jQuery, config = require("../../config"), FlipClock = require("../flipclock").FlipClock;
+exports.layout = {
+    cls: "time_box layout_time_ampm",
+    refreshTime: 1e3,
+    init: function() {
+        this.mode = config.getTimeMode();
+        this.hour1 = new FlipClock.Digit({
+            cls: "time hour_1"
+        });
+        this.hour2 = new FlipClock.Digit({
+            cls: "time hour_2"
+        });
+        this.minute1 = new FlipClock.Digit({
+            cls: "time minute_1"
+        });
+        this.minute2 = new FlipClock.Digit({
+            cls: "time minute_2"
+        });
+        this.items = [ this.hour1, this.hour2, this.minute1, this.minute2 ];
+        if (this.mode == config.modes.twelveHour) {
+            this.ampm = new FlipClock.Digit({
+                cls: "ampm"
+            });
+            this.items.push(this.ampm);
+        } else {
+            this.cls += " layout_no_seconds";
+        }
+    },
+    update: function() {
+        var d = new Date;
+        var seconds = d.getSeconds();
+        var s_tens = Math.floor(seconds / 10);
+        var s_ones = seconds % 10;
+        var minutes = d.getMinutes();
+        var m_tens = Math.floor(minutes / 10);
+        var m_ones = minutes % 10;
+        this.minute1.flip(m_tens);
+        this.minute2.flip(m_ones);
+        var hours = d.getHours();
+        if (this.mode == config.modes.twelveHour) {
+            if (hours > 12) hours -= 12;
+            if (hours == 0) hours = 12;
+            var ampm_val = "am";
+            if (d.getHours() >= 12) ampm_val = "pm";
+            this.ampm.flip(ampm_val);
+        }
+        var h_tens = Math.floor(hours / 10);
+        var h_ones = hours % 10;
+        this.hour1.flip(h_tens == 0 ? "" : h_tens);
+        this.hour2.flip(h_ones);
+    }
+};
+
+});require.memoize("lib/clock/layout/countdown",[ "../../../vendor/jquery", "../../config", "../flipclock" ],
+function(require, exports, module) {
+var $ = require("../../../vendor/jquery").jQuery, config = require("../../config"), FlipClock = require("../flipclock").FlipClock;
+exports.layout = {
     cls: "countdown_box layout_countdown",
     refreshTime: 1e3,
     init: function(params) {
@@ -3567,16 +3580,6 @@ exports.layouts.countdown = {
             this.right2.flip(s_ones);
         }
     }
-};
-exports.load = function(layout, params) {
-    var clock = new FlipClock.Layout(layout, params), container = params.container, start = params.start;
-    if (container) {
-        $(container).append(clock.element);
-    }
-    if (start) {
-        clock.start();
-    }
-    return clock;
 };
 
 });require.memoize("lib/ui/dialog",[ "../../vendor/jquery", "../../vendor/twig" ],
