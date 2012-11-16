@@ -137,8 +137,10 @@
     width: 150px;
     height: 300px;
 
-    perspective: 1000px;
     -webkit-perspective: 1000px;
+    perspective: 1000px;
+
+    cursor: default;
 
     .card {
         position: absolute;
@@ -153,7 +155,7 @@
             height: 50%;
             width: 100%;
 
-            .padding-clip()
+            .padding-clip();
         }
 
         .inner {
@@ -175,8 +177,8 @@
         .bottom {
             top: 50%;
             border-top: 1px solid black;
-
             .border-radius-bottom(10px);
+
             background-color: #111;
             .background-gradient(#222, #111);
             color: #cccccc;
@@ -188,17 +190,27 @@
     }
 
     .transform {
-        transition: transform 0.75s ease;
-        -webkit-transition: -webkit-transform 0.75s ease;
+        .transition-prefix(transform, 0.75s, ease);
+
+        // Hello Chrome, nice to meet you
+        // see http://stackoverflow.com/questions/10355564/backface-visibility-broken-in-chrome-certain-platforms-versions
+        /* .back {
+            -webkit-transition-property: opacity;
+            -webkit-transition-duration: 0;
+            -webkit-transition-timing-function: linear;
+            -webkit-transition-delay: 0.25s;
+        } */
     }
 
     .active {
-        transform-style: preserve-3d;
-        -webkit-transform-style: preserve-3d;
+        .transform-style(preserve-3d);
 
         &.flipped {
-            transform: rotateX( -180deg );
-            -webkit-transform: rotateX( -180deg );
+            .transform-flip(-180deg);
+
+            /* .back {
+                opacity: 1;
+            } */
         }
 
         .front, .back {
@@ -207,17 +219,17 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
+
+            .backface-visibility(hidden);
 
             div {
-                backface-visibility: hidden;
-                -webkit-backface-visibility: hidden;
+                -webkit-transform: translate3d(0,0,0);
+                .backface-visibility(hidden);
             }
         }
         .back {
-            transform: rotateX( 180deg );
-            -webkit-transform: rotateX( 180deg );
+            .transform-flip(180deg);
+            /* opacity: 0; */
         }
     }
 }
