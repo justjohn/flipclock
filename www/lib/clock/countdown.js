@@ -1,10 +1,14 @@
 module.declare([
-    "../../vendor/jquery"
+    "../../vendor/jquery",
+    "../ui/blinker",
+    "./flipclock",
+    "./layout/countdown"
 ],
 function(require, exports, module) {
     var $         = require("../../vendor/jquery").jQuery,
         blinker = require("../ui/blinker"),
-        flipclock = require("../ui/flipclock"),
+        flipclock = require("./flipclock"),
+        layout =  require("./layout/countdown").layout,
         countdown_blink;
 
     exports.init = function() {
@@ -59,6 +63,6 @@ function(require, exports, module) {
         params.container = $("#container");
         params.start = true;
 
-        return flipclock.load(flipclock.layouts.countdown, params);
+        return flipclock.load(layout, params);
     };
 });

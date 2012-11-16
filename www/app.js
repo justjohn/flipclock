@@ -1,7 +1,11 @@
 module.declare([
     "vendor/jquery",
+    "vendor/spin",
     "lib/clock/countdown",
-    "lib/ui/flipclock",
+    "lib/clock/flipclock",
+    "lib/clock/layout/flipclock",
+    "lib/clock/layout/flipclockSeconds",
+    "lib/clock/layout/countdown",
     "lib/ui/dialog",
     "lib/ui/buttons",
     "lib/ui/toggle",
@@ -10,6 +14,7 @@ module.declare([
     "lib/analytics"
 ], function(require, exports, module) {
     var $         = require("vendor/jquery").jQuery,
+        Spinner   = require("vendor/spin").Spinner,
 
         // Core functionality
         config    = require("lib/config"),
@@ -17,10 +22,16 @@ module.declare([
         utils     = require("lib/utils"),
 
         // Clock types
+        flipclock = require("lib/clock/flipclock"),
         countdown = require("lib/clock/countdown"),
 
+        layouts = {
+            timeAMPM:    require("lib/clock/layout/flipclock").layout,
+            timeAMPMsec: require("lib/clock/layout/flipclockSeconds").layout,
+            countdown:   require("lib/clock/layout/countdown").layout,
+        },
+
         // UI Elements
-        flipclock = require("lib/ui/flipclock"),
         dialog    = require("lib/ui/dialog"),
         buttons   = require("lib/ui/buttons"),
         toggle    = require("lib/ui/toggle"),
@@ -30,6 +41,7 @@ module.declare([
         countdown_blink,
         active_page = '',
         active_font = config.getFont(),
+        appCache = window.applicationCache,
         // App configuration
         App = {
             page: {
@@ -83,8 +95,8 @@ module.declare([
         $(window).resize(resize);
 
         // Routing
-        $(window).hashchange(function() {
-            return function() {
+        $(window).hashchange(function hashchangeOuter() {
+            return function hashchange() {
                 var splitHash = [],
                     section = '',
                     data = '';
@@ -123,71 +135,88 @@ module.declare([
             }
         }());
 
-        $(function documentReady() {
+        var documentReady = function documentReady() {
             updateFont();
-            
-            // Setup dialogs
             dialog.create({
                 id: "about",
                 template: "templates/about.twig",
                 container: $("#body")
-
             }).create({
                 id: "countdown",
                 template: "templates/countdown.twig",
                 container: $("#body")
-
             }).create({
                 id: "options",
                 template: "templates/options.twig",
                 container: $("#body"),
                 data: config.data()
-
             }, function(content) {
                 toggle.init($(".toggle", content));
-
             }).complete(function() {
-                // $(".dialog").bind("mouseup", function(e){return false;});
-                // $(".dialog").bind("touchend", function(e){return false;});
                 var container = $(".dialog_container");
                 container.bind("touchend mouseup", function(e) {
-                    if(e.srcElement.className.indexOf("dialog_container") > -1) {
+                    if (e.srcElement.className.indexOf("dialog_container") > -1) {
                         dialog.hide();
                     }
                 });
             });
-
-            $("#toolbar").on('click', function(e){
-                // prevent click action from bubbling up to the container
+            $("#toolbar").on("click", function(e) {
                 e.preventDefault();
                 return false;
             });
-
             var toggle_toolbar = function(e) {
                 if (e.returnValue === false) return false;
                 $("body").toggleClass("toolbar_active");
                 e.preventDefault();
             };
-
-            // Prevent dragging
             $("#container, #toolbarContainer").bind({
-                'click': toggle_toolbar,
-                'touchstart': toggle_toolbar
+                click: toggle_toolbar,
+                touchstart: toggle_toolbar
             });
-
-            // Prepare for BLINK
-            $("#container")
-                .addClass("blink_transition");
-
+            $("#container").addClass("blink_transition");
             buttons.init();
-
-            // Wait a small amount of time for the page to render.
-            //   This is almost certainly the wrong approach but it
-            //   works for now.
-            setTimeout(function() {
-                $(window).hashchange();
-            }, 10);
-        });
+            $(window).hashchange();
+        };
+        var spinner;
+        if (appCache) {
+            $(appCache).bind({
+                downloading: function(e) {
+                    var opts = {
+                        lines: 15,
+                        length: 13,
+                        width: 2,
+                        radius: 15,
+                        corners: .6,
+                        rotate: 0,
+                        color: "#eee",
+                        speed: .7,
+                        trail: 60,
+                        shadow: false,
+                        hwaccel: false,
+                        className: "spinner",
+                        zIndex: 2e9,
+                        top: "auto",
+                        left: "auto"
+                    };
+                    $(function() {
+                        var el = $("body").get(0);
+                        spinner = (new Spinner(opts)).spin(el);
+                    });
+                },
+                updateready: function(e) {
+                    appCache.swapCache();
+                    window.location.reload();
+                },
+                "error noupdate cached": function(e) {
+                    $(function() {
+                        spinner && spinner.stop();
+                        documentReady();
+                    });
+                }
+            });
+        } else {
+            $(documentReady);
+        }
     };
 
     function center(element) {
@@ -226,8 +255,8 @@ module.declare([
                 start: true
             },
             format = config.getShowSeconds() ?
-                flipclock.layouts.timeAMPMsec :
-                flipclock.layouts.timeAMPM;
+                layouts.timeAMPMsec :
+                layouts.timeAMPM;
 
         layout = flipclock.load(format, params);
     }
