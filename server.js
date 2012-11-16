@@ -6,8 +6,6 @@
 //   - 301 Redirects
 //   - Content-Type headers for js, css, and manifest files
 
-var REDIRECT_PROTOCOL = "http://",
-    REDIRECT_HOST = process.env.DOMAIN;
 
 var http = require("http"),
     url = require("url"),
@@ -15,6 +13,9 @@ var http = require("http"),
     fs = require("fs"),
     port = process.env.PORT || process.env.OPENSHIFT_INTERNAL_PORT || process.env.VCAP_APP_PORT || 8888,
     host  = process.env.OPENSHIFT_INTERNAL_IP || "0.0.0.0";
+
+var REDIRECT_PROTOCOL = "http://"
+    REDIRECT_HOST = process.env.DOMAIN || (host + ":" + port);
 
 http.createServer(function(request, response) {
   var hostname = request.headers.host;
@@ -72,5 +73,5 @@ http.createServer(function(request, response) {
   });
 }).listen(parseInt(port, 10), host);
 
-console.log("FlipClock running at\n => http://" + host + ":" + parseInt(port, 10) + "/\nCTRL + C to shutdown");
+console.log("FlipClock running at\n => http://" + REDIRECT_HOST + "/\nCTRL + C to shutdown");
 
