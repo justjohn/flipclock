@@ -142,80 +142,95 @@ module.declare([
             }
         }());
 
-        var documentReady = function documentReady() {
-            updateFont();
+        var spinner,
+            startSpinner = function() {
+                // show loader
+                var opts = {
+                    lines: 15, // The number of lines to draw
+                    length: 13, // The length of each line
+                    width: 2, // The line thickness
+                    radius: 15, // The radius of the inner circle
+                    corners: 0.6, // Corner roundness (0..1)
+                    rotate: 0, // The rotation offset
+                    color: '#eee', // #rgb or #rrggbb
+                    speed: 0.7, // Rounds per second
+                    trail: 60, // Afterglow percentage
+                    shadow: false, // Whether to render a shadow
+                    hwaccel: false, // Whether to use hardware acceleration
+                    className: 'spinner', // The CSS class to assign to the spinner
+                    zIndex: 2e9, // The z-index (defaults to 2000000000)
+                    top: 'auto', // Top position relative to parent in px
+                    left: 'auto' // Left position relative to parent in px
+                };
 
-            // Setup dialogs
-            dialog.create({
-                id: "about",
-                template: "templates/about.twig",
-                container: $("#body")
-            }).create({
-                id: "countdown",
-                template: "templates/countdown.twig",
-                container: $("#body")
-            }).create({
-                id: "options",
-                template: "templates/options.twig",
-                container: $("#body"),
-                data: config.data()
-            }, function(content) {
-                toggle.init($(".toggle", content));
-            }).complete(function() {
-                var container = $(".dialog_container");
-                container.bind("touchend mouseup", function(e) {
-                    if (e.srcElement.className.indexOf("dialog_container") > -1) {
-                        dialog.hide();
-                    }
+                $(function() {
+                    var el = $('body').get(0);
+                    spinner = new Spinner(opts).spin(el);
                 });
-            });
-            $("#toolbar").on("click", function(e) {
-                e.preventDefault();
-                return false;
-            });
-            var toggle_toolbar = function(e) {
-                if (e.returnValue === false) return false;
-                $("body").toggleClass("toolbar_active");
-                e.preventDefault();
+            },
+            stopSpinner = function() {
+                spinner && spinner.stop();
+            },
+            // page initialization
+            init = false,
+            updating = false,
+            documentReady = function documentReady() {
+                // only run once
+                if (init) return;
+                init = true;
+
+                stopSpinner();
+                updateFont();
+
+                // Setup dialogs
+                dialog.create({
+                    id: "about",
+                    template: "templates/about.twig",
+                    container: $("#body")
+                }).create({
+                    id: "countdown",
+                    template: "templates/countdown.twig",
+                    container: $("#body")
+                }).create({
+                    id: "options",
+                    template: "templates/options.twig",
+                    container: $("#body"),
+                    data: config.data()
+                }, function(content) {
+                    toggle.init($(".toggle", content));
+                }).complete(function() {
+                    var container = $(".dialog_container");
+                    container.bind("touchend mouseup", function(e) {
+                        if (e.srcElement.className.indexOf("dialog_container") > -1) {
+                            dialog.hide();
+                        }
+                    });
+                });
+                $("#toolbar").on("click", function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+                var toggle_toolbar = function(e) {
+                    if (e.returnValue === false) return false;
+                    $("body").toggleClass("toolbar_active");
+                    e.preventDefault();
+                };
+                $("#container, #toolbarContainer").bind({
+                    click: toggle_toolbar,
+                    touchstart: toggle_toolbar
+                });
+                $("#container").addClass("blink_transition");
+                buttons.init();
+
+                $(window).hashchange();
             };
-            $("#container, #toolbarContainer").bind({
-                click: toggle_toolbar,
-                touchstart: toggle_toolbar
-            });
-            $("#container").addClass("blink_transition");
-            buttons.init();
-
-            $(window).hashchange();
-        };
-
-        var spinner;
 
         if (appCache) {
+            $(startSpinner);
+
             $(appCache).bind({
                 "downloading": function(e) {
-                    // show loader
-                    var opts = {
-                        lines: 15, // The number of lines to draw
-                        length: 13, // The length of each line
-                        width: 2, // The line thickness
-                        radius: 15, // The radius of the inner circle
-                        corners: 0.6, // Corner roundness (0..1)
-                        rotate: 0, // The rotation offset
-                        color: '#eee', // #rgb or #rrggbb
-                        speed: 0.7, // Rounds per second
-                        trail: 60, // Afterglow percentage
-                        shadow: false, // Whether to render a shadow
-                        hwaccel: false, // Whether to use hardware acceleration
-                        className: 'spinner', // The CSS class to assign to the spinner
-                        zIndex: 2e9, // The z-index (defaults to 2000000000)
-                        top: 'auto', // Top position relative to parent in px
-                        left: 'auto' // Left position relative to parent in px
-                    };
-
-                    $(function() {
-                        var el = $('body').get(0);
-                        spinner = new Spinner(opts).spin(el);
-                    });
+                    updating = true;
                 },
                 "updateready": function(e) {
                     // reload for newest version of site
@@ -223,13 +238,16 @@ module.declare([
                     window.location.reload();
                 },
                 "error noupdate cached": function(e) {
-                    $(function() {
-                        // hide loader
-                        spinner && spinner.stop();
-                        documentReady();
-                    });
+                    $(documentReady);
                 },
             });
+
+            // In order to hande the user disallowing use of the appCache in FF,
+            //
+            setTimeout(function lateInit() {
+                if (!updating)
+                    $(documentReady);
+            }, 500);
         } else {
             $(documentReady);
         }
