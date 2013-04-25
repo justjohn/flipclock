@@ -192,11 +192,11 @@
   transform-style: preserve-3d;
 }
 .digit .active.flipped {
-  -webkit-transform: rotatex(-180deg);
-  -moz-transform: rotatex(-180deg);
-  -ms-transform: rotatex(-180deg);
-  -o-transform: rotatex(-180deg);
-  transform: rotatex(-180deg);
+  -webkit-transform: rotateX(-180deg);
+  -moz-transform: rotateX(-180deg);
+  -ms-transform: rotateX(-180deg);
+  -o-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
   /* .back {
                 opacity: 1;
             } */
@@ -223,15 +223,15 @@
   backface-visibility: hidden;
 }
 .digit .active .back {
-  -webkit-transform: rotatex(180deg);
-  -moz-transform: rotatex(180deg);
-  -ms-transform: rotatex(180deg);
-  -o-transform: rotatex(180deg);
-  transform: rotatex(180deg);
+  -webkit-transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  -o-transform: rotateX(180deg);
+  transform: rotateX(180deg);
   /* opacity: 0; */
 
 }
-@media (max-width: 600px), (max-height: 300px) {
+@media (max-width: 800px), (max-height: 300px) {
   .time_box,
   .countdown_box {
     max-height: 150px;
@@ -358,10 +358,10 @@
   -ms-transition: all 0.25s ease-out;
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
-  -webkit-transform: translate3d(0, -100%, 0);
-  -moz-transform: translatey(-100%);
-  -ms-transform: translate3d(0, -100%, 0);
-  -o-transform: translate3d(0, -100%, 0);
+  -webkit-transform: translate3D(0, -100%, 0);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translate3D(0, -100%, 0);
+  -o-transform: translate3D(0, -100%, 0);
 }
 .dialog_container .dialog {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#999999));
@@ -442,10 +442,10 @@
 .active_dialog {
   display: block;
   opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translatey(0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3D(0, 0, 0);
+  -moz-transform: translateY(0);
+  -ms-transform: translate3D(0, 0, 0);
+  -o-transform: translate3D(0, 0, 0);
 }
 @media (max-width: 650px) {
   .dialog_container .dialog {
@@ -628,10 +628,10 @@
   background-image: -ms-linear-gradient(top, #222222, #3c3c3c);
   background-image: -o-linear-gradient(top, #222222, #3c3c3c);
   background-image: linear-gradient(top, #222222, #3c3c3c);
-  -webkit-transform: translate3d(0, 1px, 0);
-  -moz-transform: translatey(1px);
-  -ms-transform: translate3d(0, 1px, 0);
-  -o-transform: translate3d(0, 1px, 0);
+  -webkit-transform: translate3D(0, 1px, 0);
+  -moz-transform: translateY(1px);
+  -ms-transform: translate3D(0, 1px, 0);
+  -o-transform: translate3D(0, 1px, 0);
 }
 .button.active {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#414141), to(#222222));
@@ -811,9 +811,11 @@ body {
   background: #000000;
   font: 10pt sans-serif;
 }
+#wrapper,
 #container {
   color: white;
   position: absolute;
+  overflow: hidden;
   left: 0px;
   top: 0px;
   width: 100%;
@@ -856,19 +858,19 @@ body {
   background-color: #000;
 }
 .toolbar_active .bar_container {
-  background-color: #444;
+  background-color: #222;
 }
 .toolbar_active #container {
-  -webkit-transform: translate3d(0, -25px, 0);
-  -moz-transform: translatey(-25px);
-  -ms-transform: translate3d(0, -25px, 0);
-  -o-transform: translate3d(0, -25px, 0);
+  -webkit-transform: translate3D(0, -25px, 0);
+  -moz-transform: translateY(-25px);
+  -ms-transform: translate3D(0, -25px, 0);
+  -o-transform: translate3D(0, -25px, 0);
 }
 .toolbar_active .bar {
-  -webkit-transform: translate3d(0, -50px, 0);
-  -moz-transform: translatey(-50px);
-  -ms-transform: translate3d(0, -50px, 0);
-  -o-transform: translate3d(0, -50px, 0);
+  -webkit-transform: translate3D(0, -50px, 0);
+  -moz-transform: translateY(-50px);
+  -ms-transform: translate3D(0, -50px, 0);
+  -o-transform: translate3D(0, -50px, 0);
 }
 .bar {
   position: absolute;
