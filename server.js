@@ -60,7 +60,12 @@ http.createServer(function(request, response) {
           opts = {"Content-Type": "text/css"};
 
       } else if (filename.indexOf(".manifest") > 0) {
-          opts = {"Content-Type": "text/cache-manifest"};
+          opts = {
+            // never cache a manifest file
+            "Cache-Control": "no-cache, must-revalidate",
+            "Expires": "Sat, 26 Jul 1997 05:00:00 GMT",
+            "Content-Type": "text/cache-manifest"
+          };
 
       } else if (filename.indexOf(".webapp") > 0) {
           opts = {"Content-Type": "application/x-web-app-manifest+json"};
