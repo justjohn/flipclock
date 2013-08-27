@@ -1,0 +1,24 @@
+.countdown.dialog {
+}
+
+#countdown_hour:after {
+	content: ' hr';
+}
+#countdown_min:after {
+	content: ' min';
+}
+#countdown_sec:after {
+	content: ' sec';
+}
+
+@media (max-width: 470px) {
+	#countdown_hour:after {
+		content: ' h';
+	}
+	#countdown_min:after {
+		content: ' m';
+	}
+	#countdown_sec:after {
+		content: ' s';
+	}
+}

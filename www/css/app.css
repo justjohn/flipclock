@@ -327,6 +327,22 @@
     max-width: 35px;
     height: 50px;
   }
+  .digit.left_1 {
+    top: -2%;
+    left: 21%;
+  }
+  .digit.left_2 {
+    top: -2%;
+    left: 52%;
+  }
+  .digit.right_1 {
+    top: 52%;
+    left: 21%;
+  }
+  .digit.right_2 {
+    top: 52%;
+    left: 52%;
+  }
   .layout_no_seconds .digit.time {
     width: 32%;
   }
@@ -470,10 +486,35 @@
     background-size: contain;
   }
 }
+#countdown_hour:after {
+  content: ' hr';
+}
+#countdown_min:after {
+  content: ' min';
+}
+#countdown_sec:after {
+  content: ' sec';
+}
+@media (max-width: 470px) {
+  #countdown_hour:after {
+    content: ' h';
+  }
+  #countdown_min:after {
+    content: ' m';
+  }
+  #countdown_sec:after {
+    content: ' s';
+  }
+}
 .selector {
   display: inline-block;
   width: 100px;
-  margin: 0 5px;
+  margin: 0 1px 0 0;
+  -moz-transition: width 0.1s linear;
+  -o-transition: width 0.1s linear;
+  -ms-transition: width 0.1s linear;
+  -webkit-transition: width 0.1s linear;
+  transition: width 0.1s linear;
 }
 .selector .title {
   display: block;
@@ -482,9 +523,6 @@
   color: black;
 }
 .selector .controls {
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
   margin: 0;
   padding: 0;
   display: block;
@@ -497,20 +535,6 @@
 .selector .controls .icon_down,
 .selector .controls .inner {
   height: 40px;
-}
-.selector .controls .icon_up {
-  -webkit-border-top-right-radius: 7px;
-  -webkit-border-top-left-radius: 7px;
-  -moz-border-radius-topright: 7px;
-  -moz-border-radius-topleft: 7px;
-  border-top-right-radius: 7px;
-  border-top-left-radius: 7px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
 }
 .selector .controls .icon_up .inner {
   background: url("/images/icons/00-up.png") no-repeat center;
@@ -526,7 +550,7 @@
 }
 .selector .controls .button {
   margin: 0;
-  width: 100px;
+  width: 100%;
   border: 0;
 }
 .selector .controls .button .inner {
@@ -534,28 +558,41 @@
   width: 25px;
   margin: auto;
 }
-.selector .controls .icon_down {
-  -webkit-border-top-right-radius: 0;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topright: 0;
-  -moz-border-radius-topleft: 0;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  -webkit-border-bottom-right-radius: 7px;
-  -webkit-border-bottom-left-radius: 7px;
-  -moz-border-radius-bottomright: 7px;
-  -moz-border-radius-bottomleft: 7px;
-  border-bottom-right-radius: 7px;
-  border-bottom-left-radius: 7px;
-}
 .selector .controls .icon_down .inner {
   background: url("/images/icons/00-down.png") no-repeat center;
 }
+.selectors .selector:first-child .controls,
+.selectors .selector:first-child .icon_up {
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  border-top-left-radius: 5px;
+}
+.selectors .selector:first-child .controls,
+.selectors .selector:first-child .icon_down {
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+}
+.selectors .selector:last-child {
+  margin-right: 0;
+}
+.selectors .selector:last-child .controls,
+.selectors .selector:last-child .icon_up {
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+}
+.selectors .selector:last-child .controls,
+.selectors .selector:last-child .icon_down {
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+}
 @media (max-height: 300px) {
   .selector .controls {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
   }
   .selector .controls .icon_up,
   .selector .controls .icon_down,
@@ -563,12 +600,12 @@
     height: 30px;
   }
   .selector .controls .icon_up {
-    -webkit-border-top-right-radius: 5px;
-    -webkit-border-top-left-radius: 5px;
-    -moz-border-radius-topright: 5px;
-    -moz-border-radius-topleft: 5px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-topleft: 3px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
   }
   .selector .controls .value {
     padding: 3px 0;
@@ -579,12 +616,17 @@
     height: 30px;
   }
   .selector .controls .icon_down {
-    -webkit-border-bottom-right-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+}
+@media (max-width: 470px) {
+  .selector {
+    width: 60px;
   }
 }
 .button {
@@ -608,9 +650,9 @@
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   -moz-box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, 0.3);
@@ -773,21 +815,21 @@ Some, as of yet, unused custom colors for buttons
 }
 .toggle .options button:last-child {
   border-left: 1px solid black;
-  -webkit-border-bottom-left-radius: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -moz-border-radius-topleft: 5px;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -moz-border-radius-topleft: 3px;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
 }
 .toggle .options button:first-child {
   border-right: 1px solid black;
-  -webkit-border-bottom-right-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -moz-border-radius-topright: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-topright: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
 }
 html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

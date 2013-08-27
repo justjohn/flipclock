@@ -1,7 +1,9 @@
 .selector {
     display: inline-block;
     width: 100px;
-    margin: 0 5px;
+    margin: 0 1px 0 0;
+
+    .transition(width, 0.1s, linear);
 
     .title {
         display:block;
@@ -10,7 +12,6 @@
         color: black;
     }
     .controls {
-        .border-radius(7px);
         margin:0;
         padding:0;
         display: block;
@@ -23,9 +24,6 @@
             height: 40px;
         }
         .icon_up {
-            .border-radius-top(7px);
-            .border-radius-bottom(0);
-
             .inner {
                 background: url("/images/icons/00-up.png") no-repeat center;
             }
@@ -41,7 +39,7 @@
         }
         .button {
             margin:0;
-            width: 100px;
+            width: 100%;
             border:0;
 
             .inner {
@@ -51,9 +49,6 @@
             }
         }
         .icon_down {
-            .border-radius-top(0);
-            .border-radius-bottom(7px);
-
             .inner {
                 background: url("/images/icons/00-down.png") no-repeat center;
             }
@@ -61,16 +56,37 @@
     }
 }
 
+.selectors {
+    .selector:first-child {
+        .controls, .icon_up {
+            .border-radius-top-left(5px);
+        }
+        .controls, .icon_down {
+            .border-radius-bottom-left(5px);
+        }
+    }
+    .selector:last-child {
+        margin-right: 0;
+
+        .controls, .icon_up {
+            .border-radius-top-right(5px);
+        }
+        .controls, .icon_down {
+            .border-radius-bottom-right(5px);
+        }
+    }
+}
+
 @media (max-height: 300px) {
     .selector {
         .controls {
-            .border-radius(5px);
+            .border-radius(3px);
 
             .icon_up, .icon_down, .inner {
                 height: 30px;
             }
             .icon_up {
-                .border-radius-top(5px);
+                .border-radius-top(3px);
             }
             .value {
                 padding: 3px 0;
@@ -81,8 +97,14 @@
                 height: 30px;
             }
             .icon_down {
-                .border-radius-bottom(5px);
+                .border-radius-bottom(3px);
             }
         }
+    }
+}
+
+@media (max-width: 470px) {
+    .selector {
+        width: 60px;
     }
 }
