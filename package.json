@@ -1,12 +1,16 @@
 {
-    "author": "John Roepke <john@justjohn.us> (http://john.sh/)",
-	"name": "flipclock-us",
-    "description": "Flipclock.us web app and Chrome web store app.",
-	"version": "1.2.0",
-	"dependencies": {
-	},
-	"engines": {
-		"node": "0.8.x",
-		"npm": "1.1.x"
-	}
+  "author": "John Roepke <john@justjohn.us> (http://john.sh/)",
+  "name": "flipclock-us",
+  "description": "Flipclock.us web app and Chrome web store app.",
+  "version": "1.2.0",
+  "dependencies": {},
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-less": "~0.7.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
 }
