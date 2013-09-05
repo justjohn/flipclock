@@ -3,7 +3,9 @@
   "name": "flipclock-us",
   "description": "Flipclock.us web app and Chrome web store app.",
   "version": "1.2.0",
-  "dependencies": {},
+  "dependencies": {
+    "commander": "~2.0.0"
+  },
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"

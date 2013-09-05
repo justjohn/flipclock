@@ -11,11 +11,19 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs"),
-    port = process.env.PORT || process.env.OPENSHIFT_INTERNAL_PORT || process.env.VCAP_APP_PORT || 8888,
-    host  = process.env.OPENSHIFT_INTERNAL_IP || "0.0.0.0";
+    program = require('commander');
+
+program
+    .option('-p, --port <n>', 'Port to run server on.')
+    .option('-h, --host [value]', 'Bind address or host.')
+    .option('-d, --domain', 'Cannonical host. All requests are rewritten to this URL')
+    .parse(process.argv);
+
+var port = program.port || process.env.PORT || process.env.OPENSHIFT_INTERNAL_PORT || process.env.VCAP_APP_PORT || 8888,
+    host  = program.host || process.env.OPENSHIFT_INTERNAL_IP || "0.0.0.0";
 
 var REDIRECT_PROTOCOL = "http://"
-    REDIRECT_HOST = process.env.DOMAIN || (host + ":" + port);
+    REDIRECT_HOST = program.domain || process.env.DOMAIN || (host + ":" + port);
 
 http.createServer(function(request, response) {
   var hostname = request.headers.host;
