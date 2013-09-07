@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     		development : {
 				options: {
 					report: 'min',
-					yuicompress: true,
+					yuicompress: false,
 					paths: ["www/css"]
 				},
 				files: {
