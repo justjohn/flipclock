@@ -1,5 +1,5 @@
 module.declare(function(require, exports, module) {
-	var storage = require('./core/storage').storage,
+	var storage = require('./core/storage'),
 		Q = require('vendor/q'),
 		key = "config",
 		modes = {
@@ -19,11 +19,13 @@ module.declare(function(require, exports, module) {
 	], function(font, timeMode, showSeconds) {
 		cache = {
 			timeMode: timeMode,
-			showSeconds: showSeconds,
+			showSeconds: showSeconds === "true" || showSeconds === true,
 			font: font
 		};
 
-		ready.resolve();
+		console.log("Loaded settings", cache);
+
+		ready.resolve(cache);
 	});
 
 	exports.ready = function() {
@@ -58,7 +60,7 @@ module.declare(function(require, exports, module) {
 		this.set('showSeconds', showSeconds?"true":"false");
 	};
 	exports.getShowSeconds = function() {
-		return this.get('showSeconds') == "true";
+		return this.get('showSeconds');
 	};
 
 	exports.data = function() {

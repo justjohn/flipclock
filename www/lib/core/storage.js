@@ -2,12 +2,12 @@ module.declare(function(require, exports, module) {
 	var Q = require('vendor/q'),
 		environment = require('./environment');
 
-	exports.storage = {};
-	exports.storage.get = function(key) {
+	exports.get = function(key) {
 		var defer = Q.defer();
 
 		if (environment.chrome) {
-			chrome.storage.sync.get(key, function(objs) {
+			chrome.storage.sync.get(null, function(objs) {
+				console.log("Got storage for ", objs);
 				defer.resolve(objs[key]);
 			});
 		} else {
@@ -17,14 +17,14 @@ module.declare(function(require, exports, module) {
 		return defer.promise;
 	};
 
-	exports.storage.set = function(key, value) {
+	exports.set = function(key, value) {
 		var defer = Q.defer();
+		console.log("Set", key, value);
 
 		if (environment.chrome) {
-			chrome.storage.sync.set({
-				key: value
-
-			}, defer.resolve);
+			var obj = {};
+			obj[key] = value;
+			chrome.storage.sync.set(obj, defer.resolve);
 		} else {
 			localStorage[key] = value;
 			defer.resolve();

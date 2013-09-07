@@ -17,9 +17,10 @@ module.declare([
         Spinner   = require("vendor/spin").Spinner,
 
         // Core functionality
-        config    = require("lib/config"),
-        analytics = require("lib/analytics"),
-        utils     = require("lib/utils"),
+        environment = require("lib/core/environment"),
+        config      = require("lib/config"),
+        analytics   = require("lib/analytics"),
+        utils       = require("lib/utils"),
 
         // Clock types
         flipclock = require("lib/clock/flipclock"),
@@ -93,6 +94,13 @@ module.declare([
 
                 // reset settings
                 $(".toggle", options_dialog).trigger('reset');
+            },
+            "fullscreen": function() {
+                if (environment.isFullscreen()) {
+                    environment.restore();
+                } else {
+                    environment.fullscreen();
+                }
             }
         });
 
