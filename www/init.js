@@ -6,8 +6,12 @@ document.ontouchstart = function(e){e.preventDefault();}
 // Kick everything off
 module.declare(["vendor/jquery", "app"], function() {
     var $ = require("vendor/jquery").jQuery,
+    	config = require("lib/config"),
         app = require("app");
 
     app.analytics.register(window);
-    app.boot();
+
+    config.ready().done(function() {
+    	app.boot();
+    });
 });

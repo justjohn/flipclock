@@ -40,7 +40,7 @@ module.declare([
     var layout,
         countdown_blink,
         active_page = '',
-        active_font = config.getFont(),
+        active_font,
         appCache = window.applicationCache,
         // App configuration
         App = {
@@ -49,6 +49,10 @@ module.declare([
                 countdown: "countdown"
             }
         };
+
+    config.ready().done(function() {
+        active_font = config.getFont();
+    });
 
     // expose analytics
     exports.analytics = analytics;

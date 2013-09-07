@@ -5,14 +5,14 @@
   "version": "4.2.0",
   "offline_enabled": true,
   "app": {
-    "launch": {
-      "local_path": "index.html"
+    "background": {
+      "scripts": ["background.js"]
     }
   },
   "icons": {
     "16": "images/logos/FlipClock_16.png",
     "128": "images/logos/FlipClock_128.png"
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+  "permissions": ["storage", "notifications"]
 }
 
