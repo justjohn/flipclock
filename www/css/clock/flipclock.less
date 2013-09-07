@@ -190,15 +190,6 @@
 
     .transform {
         .transition-prefix(transform, 0.75s, ease);
-
-        // Hello Chrome, nice to meet you
-        // see http://stackoverflow.com/questions/10355564/backface-visibility-broken-in-chrome-certain-platforms-versions
-        /* .back {
-            -webkit-transition-property: opacity;
-            -webkit-transition-duration: 0;
-            -webkit-transition-timing-function: linear;
-            -webkit-transition-delay: 0.25s;
-        } */
     }
 
     .active {
@@ -207,9 +198,9 @@
         &.flipped {
             .transform-flip(-180deg);
 
-            /* .back {
+            .back {
                 opacity: 1;
-            } */
+            }
         }
 
         .front, .back {
@@ -228,7 +219,34 @@
         }
         .back {
             .transform-flip(180deg);
-            /* opacity: 0; */
+        }
+    }
+}
+
+// fix backface issues in Chrome
+.chrome-browser {
+    .digit {
+        .transform {
+            // Hello Chrome, nice to meet you
+            // see http://stackoverflow.com/questions/10355564/backface-visibility-broken-in-chrome-certain-platforms-versions
+            .back {
+                -webkit-transition-property: opacity;
+                -webkit-transition-duration: 0;
+                -webkit-transition-timing-function: linear;
+                -webkit-transition-delay: 0.25s;
+            }
+        }
+
+        .active {
+            &.flipped {
+                .back {
+                    opacity: 1;
+                }
+            }
+
+            .back {
+                opacity: 0;
+            }
         }
     }
 }

@@ -169,13 +169,6 @@
   -ms-transition: -ms-transform 0.75s ease;
   -o-transition: -o-transform 0.75s ease;
   transition: transform 0.75s ease;
-  /* .back {
-            -webkit-transition-property: opacity;
-            -webkit-transition-duration: 0;
-            -webkit-transition-timing-function: linear;
-            -webkit-transition-delay: 0.25s;
-        } */
-
 }
 .digit .active {
   -webkit-transform-style: preserve-3d;
@@ -190,10 +183,9 @@
   -ms-transform: rotateX(-180deg);
   -o-transform: rotateX(-180deg);
   transform: rotateX(-180deg);
-  /* .back {
-                opacity: 1;
-            } */
-
+}
+.digit .active.flipped .back {
+  opacity: 1;
 }
 .digit .active .front,
 .digit .active .back {
@@ -221,8 +213,18 @@
   -ms-transform: rotateX(180deg);
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
-  /* opacity: 0; */
-
+}
+.chrome-browser .digit .transform .back {
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0;
+  -webkit-transition-timing-function: linear;
+  -webkit-transition-delay: 0.25s;
+}
+.chrome-browser .digit .active.flipped .back {
+  opacity: 1;
+}
+.chrome-browser .digit .active .back {
+  opacity: 0;
 }
 @media (max-width: 800px), (max-height: 300px) {
   .time_box,
