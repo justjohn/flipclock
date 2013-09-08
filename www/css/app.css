@@ -214,16 +214,16 @@
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
 }
-.chrome-browser .digit .transform .back {
+.chrome-backface-fix .digit .transform .back {
   -webkit-transition-property: opacity;
   -webkit-transition-duration: 0;
   -webkit-transition-timing-function: linear;
   -webkit-transition-delay: 0.25s;
 }
-.chrome-browser .digit .active.flipped .back {
+.chrome-backface-fix .digit .active.flipped .back {
   opacity: 1;
 }
-.chrome-browser .digit .active .back {
+.chrome-backface-fix .digit .active .back {
   opacity: 0;
 }
 @media (max-width: 800px), (max-height: 300px) {
@@ -880,9 +880,9 @@ body {
   background-image: -moz-linear-gradient(#383838, #2a2a2a 50%, #222222 51%, #1b1b1b);
   background-image: linear-gradient(#383838, #2a2a2a 50%, #222222 51%, #1b1b1b);
 }
-.bar .fullscreen {
+.bar .button_fullscreen {
   display: none;
 }
-.bar .fullscreen-capable .fullscreen {
+.bar .fullscreen-capable .button_fullscreen {
   display: block;
 }

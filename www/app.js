@@ -59,6 +59,7 @@ module.declare([
     exports.analytics = analytics;
 
     exports.boot = function() {
+        environment.init();
         countdown.init();
 
         $(document).on({

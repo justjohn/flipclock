@@ -1,32 +1,51 @@
 module.declare(function(require, exports, module) {
 	var $ = require('vendor/jquery').jQuery;
 
+	exports.ieBrowser = window.navigator.userAgent.indexOf("MSIE") >= 0;
 	exports.chromeBrowser = typeof chrome !== "undefined";
 
 	// chrome store app
 	exports.chrome = typeof chrome !== "undefined" && typeof chrome.storage !== "undefined";
+	exports.animate = true;
 
-	exports.canFullscreen = (function() {
-		var elem = document.body;
+	exports.init = function() {
 
-		if (this.chrome ||
-				elem.requestFullscreen ||
-				elem.mozRequestFullScreen ||
-				elem.webkitRequestFullscreen) {
-			return true;
+		exports.canFullscreen = (function() {
+			var elem = document.body;
+
+			if (this.chrome ||
+					elem.requestFullscreen ||
+					elem.mozRequestFullScreen ||
+					elem.webkitRequestFullscreen) {
+				return true;
+			}
+
+			return false;
+		})();
+
+
+		if (exports.chromeBrowser) {
+			$("html").addClass("chrome-backface-fix");
 		}
 
-		return false;
-	})();
+		if (exports.ieBrowser) {
+			$("html").addClass("disable-animation");
+			exports.animate = false;
+		}
 
+		if (exports.canFullscreen) {
+			$("html").addClass("fullscreen-capable");
+		}
 
-	if (exports.chromeBrowser) {
-		$("html").addClass("chrome-browser");
-	}
-
-	if (exports.canFullscreen) {
-		$("html").addClass("fullscreen-capable");
-	}
+		// keep the current state updated
+		setInterval(function environmentUpdate() {
+			if (exports.isFullscreen()) {
+				$("html").addClass("fullscreen-enabled");
+			} else {
+				$("html").removeClass("fullscreen-enabled");
+			}
+		}, 100);
+	};
 
 	exports.isFullscreen = function() {
 		if (this.chrome) {
@@ -76,13 +95,4 @@ module.declare(function(require, exports, module) {
 
 		$("html").removeClass("fullscreen-enabled");
 	};
-
-	// keep the current state updated
-	setInterval(function environmentUpdate() {
-		if (exports.isFullscreen()) {
-			$("html").addClass("fullscreen-enabled");
-		} else {
-			$("html").removeClass("fullscreen-enabled");
-		}
-	}, 100);
 });
